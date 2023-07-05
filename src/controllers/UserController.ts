@@ -1,0 +1,78 @@
+import { Controller, Get, Middleware, Post, Put, Patch } from '@overnightjs/core'
+import { Request, Response } from 'express'
+import { UserHelper } from '../helpers/UserHelper'
+import { ResponseSuccess } from '../models/responses/ResponseSuccess'
+import {
+  validateAdminAction,
+  validateCreateUser,
+  validateDataLogIn,
+  validateDataUpdate,
+  validateFilterQuery,
+  validateFilterUserQuery,
+  validateId,
+} from './middlewares/UserMiddleware'
+import { validateToken } from './middlewares/Authentications'
+
+const helper = new UserHelper()
+
+@Controller('user')
+export class UserController {
+  @Get('all')
+  @Middleware([validateToken, validateFilterQuery])
+  async getUsers(req: Request, res: Response) {
+    const { filter } = res.locals
+
+    const users = await helper.getAllUsers(filter)
+    return res.status(200).send(new ResponseSuccess(users))
+  }
+
+  @Get(':id')
+  @Middleware([validateId, validateFilterUserQuery])
+  async getUserById(req: Request, res: Response) {
+    const { id, filter } = res.locals
+
+    const user = await helper.getUserById(id, filter)
+
+    res.status(200).send(new ResponseSuccess({ user }))
+  }
+
+  @Post('create')
+  @Middleware([validateCreateUser])
+  async createUser(req: Request, res: Response) {
+    const { data } = res.locals
+
+    const newUser = await helper.createUser(data)
+
+    res.status(200).send(new ResponseSuccess({ newUser }))
+  }
+
+  @Post('login')
+  @Middleware([validateDataLogIn])
+  async logIn(req: Request, res: Response) {
+    const { email } = res.locals
+
+    const JWT = await helper.getJWTUserLogIn(email)
+
+    res.status(200).send({ JWT })
+  }
+
+  @Put('update/:id')
+  @Middleware([validateId, validateDataUpdate])
+  async updateUser(req: Request, res: Response) {
+    const { data, id } = res.locals
+
+    const userUpdated = await helper.updateUser(id, data)
+
+    res.status(200).send(new ResponseSuccess({ userUpdated }))
+  }
+
+  @Patch('admin/:id/action')
+  @Middleware([validateId, validateAdminAction])
+  async adminActions(req: Request, res: Response) {
+    const { action, id } = res.locals
+
+    const userMod = await helper.adminAction(id, action)
+
+    res.status(200).send(new ResponseSuccess({ userMod }))
+  }
+}
