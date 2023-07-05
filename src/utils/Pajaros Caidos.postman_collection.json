@@ -1,0 +1,507 @@
+{
+	"info": {
+		"_postman_id": "e6320859-06fd-44c4-8301-0ef8050c8588",
+		"name": "Pajaros Caidos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27505523"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "getUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/user/all?filter=complete",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"all"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "complete"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUserById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/user/ed69bddd-adb9-455c-a2ef-13883d5c3b06?filter=all",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"ed69bddd-adb9-455c-a2ef-13883d5c3b06"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "all"
+								},
+								{
+									"key": "filter",
+									"value": "publications",
+									"disabled": true
+								},
+								{
+									"key": "filter",
+									"value": "comments",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "logIn",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"nuevoUser@live.com.ar\",\r\n    \"password\":\"1234qwerty\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/user/login",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"newUser@live.com.ar\",\r\n    \"password\":\"1234qwerty\",\r\n    \"first_name\":\"John\",\r\n    \"last_name\":\"Vo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/user/create",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"max\",\r\n    \"country\":\"Argentina\",\r\n    \"birth_date\":\"1994-04-29\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/user/update/ed69bddd-adb9-455c-a2ef-13883d5c3b06",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"update",
+								"ed69bddd-adb9-455c-a2ef-13883d5c3b06"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "adminActions",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isVoluntary\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/user/admin/ed69bddd-adb9-455c-a2ef-13883d5c3b06/action",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"admin",
+								"ed69bddd-adb9-455c-a2ef-13883d5c3b06",
+								"action"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "publication",
+			"item": [
+				{
+					"name": "getAllPublications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/publication/all",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"publication",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getPublicationById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "createPublication",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Encontre un pajarito6\",\r\n    \"description\":\"Aparecio en mi patio un pichon de gorrion, Que alimento deberia darle?\",\r\n    \"image\":[\"img01.jpg\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/publication/create/ed69bddd-adb9-455c-a2ef-13883d5c3b06",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"publication",
+								"create",
+								"ed69bddd-adb9-455c-a2ef-13883d5c3b06"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePublication",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"nuevo titulo\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/publication/update/0c6cd424-b182-446a-9d8d-847a3fadedbf",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"publication",
+								"update",
+								"0c6cd424-b182-446a-9d8d-847a3fadedbf"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "getCommentById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/comment/157203b3-2e70-4219-b65f-cfe5b5fd6efb",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"comment",
+								"157203b3-2e70-4219-b65f-cfe5b5fd6efb"
+							],
+							"query": [
+								{
+									"key": "",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createComment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\":\"comentarioo... \",\r\n    \"idUser\": \"a5f308ba-3d7f-4e2b-a68e-8adfcffd188b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/comment/create/47458460-c347-4625-a157-d9133d4f8765",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"comment",
+								"create",
+								"47458460-c347-4625-a157-d9133d4f8765"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateComment",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"comment\": \"nuevo comentario xD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/comment/update/157203b3-2e70-4219-b65f-cfe5b5fd6efb",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"comment",
+								"update",
+								"157203b3-2e70-4219-b65f-cfe5b5fd6efb"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reaction",
+			"item": [
+				{
+					"name": "createReaction",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reaction\": \"like\",\r\n    \"idUser\":\"df01476e-e05a-43b9-ae7e-63dcbbf376c3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/reaction/create/e52d6f98-a6d6-4dfe-993f-0ec88df08b90",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"reaction",
+								"create",
+								"e52d6f98-a6d6-4dfe-993f-0ec88df08b90"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteReaction",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/reaction/delete/e1f53068-d662-4843-83ec-27b241a5966f",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"reaction",
+								"delete",
+								"e1f53068-d662-4843-83ec-27b241a5966f"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Bird",
+			"item": [
+				{
+					"name": "getAllBirds",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/bird/all?limit=2&location=españa",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"bird",
+								"all"
+							],
+							"query": [
+								{
+									"key": "filter",
+									"value": "complete",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "location",
+									"value": "españa"
+								},
+								{
+									"key": "color",
+									"value": "brown",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CreateBird",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"gorrion\",\r\n    \"scientificName\":\"gg\",\r\n    \"image\":[\"img.jpg\"],\r\n    \"location\":[\"argentina\", \"JAPON\"],\r\n    \"size\":\"small\",\r\n    \"color\":\"brown\",\r\n    \"description\":\"Little funny bird\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/bird/create",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"bird",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBird",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/bird/update/",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"bird",
+								"update",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
