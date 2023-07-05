@@ -47,9 +47,10 @@ En la carpeta "utils" hay un archivo 'Pajaros Caidos.postman_collection.json' im
 
 Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
-Crea una rama: git checkout -b mi-nueva-rama.
-Realiza tus cambios y commitea las modificaciones: git commit -m 'cambios'.
-Realiza un push a tu rama: git push origin mi-nueva-rama.
-Abre una pull request en este repositorio.
+      Crea una rama: git checkout -b mi-nueva-rama.
+      Realiza tus cambios y agregalos: git add nombreDelArchivo
+      Commitea las modificaciones: git commit -m 'cambios'.
+      Realiza un push desde tu rama: git push.
+      Abre una pull request en este repositorio.
 
 ## Cualquier duda al grupo de wp :D
