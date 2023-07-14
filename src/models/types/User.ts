@@ -9,11 +9,13 @@ export type User = {
   country: string
   city: string
   phone_number: number
+  emailValidateCode?: string
   birth_date: Date
   isVoluntary: boolean
   isAdmin: boolean
   isPrincipalAdmin: boolean
   isBanned: boolean
+  userEmailValidate: boolean
   form_complete: boolean
   createdAt?: Date
   updatedAt?: Date
