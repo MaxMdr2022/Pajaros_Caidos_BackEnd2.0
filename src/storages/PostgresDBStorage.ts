@@ -81,8 +81,6 @@ export class PostgresDBStorage {
     const userFounded = await UserListModel.findOne({ where: { email } })
     if (!userFounded) return null
     return userFounded
-
-    //al front mandar data del usuario tomado por el email(de ahi obtengo el id del user)
   }
   async findNickName(nick: string): Promise<boolean> {
     const nickFounded = await UserListModel.findOne({ where: { nick_name: nick } })
@@ -115,15 +113,58 @@ export class PostgresDBStorage {
     return newPublication
   }
 
-  async findAllPublications(): Promise<Publication[]> {
-    const publications = await PublicationsListModel.findAll()
+  async findAllPublications(limit?: number): Promise<Publication[]> {
+    const publications = await PublicationsListModel.findAll({
+      limit,
+      order: [['createdAt', 'DESC']],
+      include: [
+        {
+          model: UserListModel,
+          attributes: ['id', 'avatar', 'nick_name'],
+        },
+        {
+          model: CommentsListModel,
+          order: [['createdAt', 'DESC']],
+          limit: 2,
+          include: [
+            {
+              model: UserListModel,
+              attributes: ['nick_name'],
+            },
+          ],
+        },
+        {
+          model: ReactionsListModel,
+        },
+      ],
+    })
 
     if (!publications || !publications[0]) return null
     return publications
   }
 
   async findPublicationById(id: string): Promise<Publication> {
-    const publication = await PublicationsListModel.findByPk(id)
+    const publication = await PublicationsListModel.findByPk(id, {
+      include: [
+        {
+          model: UserListModel,
+          attributes: ['id', 'avatar', 'nick_name'],
+        },
+        {
+          model: CommentsListModel,
+          order: [['createdAt', 'ASC']],
+          include: [
+            {
+              model: UserListModel,
+              attributes: ['nick_name'],
+            },
+          ],
+        },
+        {
+          model: ReactionsListModel,
+        },
+      ],
+    })
     if (!publication) return null
     return publication
   }
@@ -134,6 +175,16 @@ export class PostgresDBStorage {
       return await PublicationsListModel.findByPk(id)
     }
     return null
+  }
+  async deletePublication(id: string): Promise<Publication> {
+    await CommentsListModel.destroy({ where: { publicationId: id } })
+    await ReactionsListModel.destroy({ where: { publicationId: id } })
+
+    const quantityPublicationDeleted = await PublicationsListModel.destroy({
+      where: { id },
+    })
+
+    return quantityPublicationDeleted
   }
 
   //----------------COMMENTS--------------------------------------------------------
@@ -164,6 +215,15 @@ export class PostgresDBStorage {
 
     const commentUpdated = await CommentsListModel.findByPk(id)
     return commentUpdated
+  }
+
+  async deleteComment(id: string): Promise<Comment> {
+    const comment = await CommentsListModel.findByPk(id)
+
+    const quantityCommentDeleted = await CommentsListModel.destroy({
+      where: { id, userId: comment.userId, publicationId: comment.publicationId },
+    })
+    return quantityCommentDeleted
   }
   //------------------REACTIONS----------------------------------------------------
 
