@@ -32,6 +32,7 @@ const bulkCreateAdmin = async () => {
         avatar: objectJSON[i].avatar,
         isAdmin: objectJSON[i].isAdmin,
         isPrincipalAdmin: objectJSON[i].isPrincipalAdmin,
+        userEmailValidate: objectJSON[i].userEmailValidate,
       },
     })
   }
