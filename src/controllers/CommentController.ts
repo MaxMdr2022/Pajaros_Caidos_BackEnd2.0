@@ -1,4 +1,4 @@
-import { Controller, Get, Middleware, Post, Put } from '@overnightjs/core'
+import { Controller, Get, Middleware, Post, Put, Delete } from '@overnightjs/core'
 import { CommentHelper } from '../helpers/CommentHelper'
 import { Request, Response } from 'express'
 import { ResponseSuccess } from '../models/responses/ResponseSuccess'
@@ -35,5 +35,15 @@ export class CommentController {
     const { id, comment } = res.locals
     const newComment = await helper.updateComment(id, comment)
     res.status(200).send(new ResponseSuccess({ newComment }))
+  }
+
+  @Delete('delete/:id')
+  @Middleware([validateCommentId])
+  async deleteComment(req: Request, res: Response) {
+    const { id } = res.locals
+
+    const quantityCommentDeleted = await helper.deleteComment(id)
+
+    res.status(200).send(new ResponseSuccess({ quantityCommentDeleted }))
   }
 }

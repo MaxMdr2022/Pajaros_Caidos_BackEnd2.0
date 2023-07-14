@@ -15,4 +15,8 @@ export class CommentHelper {
   async updateComment(id: string, comment: string): Promise<Comment> {
     return await facade.updateComment(id, comment)
   }
+
+  async deleteComment(id: string): Promise<Comment> {
+    return await facade.deleteComment(id)
+  }
 }

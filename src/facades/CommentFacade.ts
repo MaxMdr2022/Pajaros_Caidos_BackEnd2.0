@@ -15,4 +15,8 @@ export class CommentFacade {
   async updateComment(id: string, comment: string): Promise<Comment> {
     return await storage.updateComment(id, comment)
   }
+
+  async deleteComment(id: string): Promise<Comment> {
+    return await storage.deleteComment(id)
+  }
 }
