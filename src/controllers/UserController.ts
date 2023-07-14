@@ -12,13 +12,14 @@ import {
   validateId,
 } from './middlewares/UserMiddleware'
 import { validateToken } from './middlewares/Authentications'
+import { validateUserEmail } from './middlewares/ValidateUserEmail'
 
 const helper = new UserHelper()
 
 @Controller('user')
 export class UserController {
   @Get('all')
-  @Middleware([validateToken, validateFilterQuery])
+  @Middleware([validateFilterQuery]) //[validateToken, validateFilterQuery]
   async getUsers(req: Request, res: Response) {
     const { filter } = res.locals
 
@@ -44,6 +45,29 @@ export class UserController {
     const newUser = await helper.createUser(data)
 
     res.status(200).send(new ResponseSuccess({ newUser }))
+  }
+
+  @Post(':id/validate')
+  @Middleware([validateId, validateUserEmail])
+  async validateUserEmail(req: Request, res: Response) {
+    const { user, code } = res.locals
+
+    await helper.userEmailValidated(user, code)
+
+    res
+      .status(200)
+      .send(new ResponseSuccess({ userEmailValidate: 'Email validated successfully.' }))
+  }
+
+  @Patch(':id/code')
+  @Middleware([validateId])
+  async createNewCodeValidateUserEmail(req: Request, res: Response) {
+    const { user } = res.locals
+
+    await helper.createNewCode(user)
+    res
+      .status(200)
+      .send(new ResponseSuccess({ userEmailValidate: 'Verification code sent successfully.' }))
   }
 
   @Post('login')

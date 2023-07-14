@@ -127,6 +127,7 @@ export async function validateId(req: Request, res: Response, next: NextFunction
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
   }
   res.locals.id = id
+  res.locals.user = user
   return next()
 }
 

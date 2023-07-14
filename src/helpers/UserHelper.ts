@@ -1,6 +1,12 @@
 import bcrypt from 'bcrypt'
 import { UserFacade } from '../facades/UserFacade'
 import { User } from '../models/types/User'
+import {
+  codeUserVerification,
+  mailOption,
+  sendEmail,
+  transporter,
+} from '../utils/nodeMailer/Functions'
 import { QueryResponse } from '../models/responses/UserResponse'
 import jwt from 'jsonwebtoken'
 
@@ -39,18 +45,28 @@ export class UserHelper {
   }
 
   async createUser(data: any): Promise<User> {
-    const email = data.email
+    const { email, first_name } = data
 
     const nickName = email.split('@')[0]
+
+    const code = codeUserVerification()
 
     const passHashed = await bcrypt.hash(data.password, 10)
     data.password = passHashed
     const userData = {
       ...data,
       nick_name: nickName,
+      emailValidateCode: code,
     }
 
-    return await facade.createUser(userData)
+    const newUser = await facade.createUser(userData)
+    if (!newUser) return null
+
+    const emailMessage = mailOption(email, first_name, code)
+
+    sendEmail(emailMessage)
+
+    return newUser
   }
 
   async getJWTUserLogIn(email: string): Promise<string> {
@@ -65,5 +81,28 @@ export class UserHelper {
 
   async adminAction(id: string, action: any): Promise<User> {
     return await facade.updateUser(id, action)
+  }
+
+  async userEmailValidated(user: User, code: string): Promise<User> {
+    const data = {
+      emailValidateCode: code,
+      userEmailValidate: true,
+    }
+    const userUpdated = await facade.updateUser(user.id, data)
+    if (!userUpdated) return null
+    return userUpdated
+  }
+
+  async createNewCode(user: User): Promise<User> {
+    const newCode = codeUserVerification()
+    const userUpdated = await facade.updateUser(user.id, { emailValidateCode: newCode })
+
+    if (!userUpdated) return null
+
+    const emailMessage = mailOption(user.email, user.first_name, newCode)
+
+    sendEmail(emailMessage)
+
+    return userUpdated
   }
 }
