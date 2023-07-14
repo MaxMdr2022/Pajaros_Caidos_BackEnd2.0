@@ -58,6 +58,9 @@ const user = (sequelize) => {
         defaultValue: '9999-12-31',
         // allowNull: false,
       },
+      emailValidateCode: {
+        type: DataTypes.STRING,
+      },
       isVoluntary: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
@@ -79,6 +82,11 @@ const user = (sequelize) => {
         defaultValue: false,
       },
       formComplete: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      userEmailValidate: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
