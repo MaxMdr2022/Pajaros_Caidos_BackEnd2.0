@@ -8,8 +8,8 @@ export class PublicationHelper {
     return await facade.createPublication(userId, data)
   }
 
-  async getAllPublications(): Promise<Publication[]> {
-    return await facade.getAllPublications()
+  async getAllPublications(limit: number): Promise<Publication[]> {
+    return await facade.getAllPublications(limit)
   }
 
   async getPublicationById(id: string): Promise<Publication> {
@@ -18,5 +18,9 @@ export class PublicationHelper {
 
   async updatePublication(id: string, data: any): Promise<Publication> {
     return await facade.updatePublication(id, data)
+  }
+
+  async deletePublication(id: string): Promise<Publication> {
+    return await facade.deletePublication(id)
   }
 }

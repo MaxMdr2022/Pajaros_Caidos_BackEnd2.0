@@ -8,8 +8,8 @@ export class PublicationFacade {
     return await storage.createPublication(userId, data)
   }
 
-  async getAllPublications(): Promise<Publication[]> {
-    return await storage.findAllPublications()
+  async getAllPublications(limit: number): Promise<Publication[]> {
+    return await storage.findAllPublications(limit)
   }
 
   async getPublicationById(id: string): Promise<Publication> {
@@ -18,5 +18,9 @@ export class PublicationFacade {
 
   async updatePublication(id: string, data: any): Promise<Publication> {
     return await storage.updatePublication(id, data)
+  }
+
+  async deletePublication(id: string): Promise<Publication> {
+    return await storage.deletePublication(id)
   }
 }

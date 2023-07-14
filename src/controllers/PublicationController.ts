@@ -1,9 +1,10 @@
-import { Controller, Get, Middleware, Post, Put } from '@overnightjs/core'
+import { Controller, Get, Middleware, Post, Put, Delete } from '@overnightjs/core'
 import { Request, Response } from 'express'
 import { PublicationHelper } from '../helpers/PublicationHelper'
 import {
   validateDataCreate,
   validateDataUpdate,
+  validateLimitQuery,
   validatePublicationId,
   validateUserId,
 } from './middlewares/PublicationMiddleware'
@@ -13,12 +14,10 @@ const helper = new PublicationHelper()
 @Controller('publication')
 export class PublicationController {
   @Get('all')
-  @Middleware([])
+  @Middleware([validateLimitQuery])
   async getAllPublications(req: Request, res: Response) {
-    //agregar limit
-    //y en el storage traer incluido el modelo de user asi en el front tomo el nickname y avatar.
-
-    const publications = await helper.getAllPublications()
+    const { limit } = res.locals
+    const publications = await helper.getAllPublications(limit)
     res.status(200).send(new ResponseSuccess({ publications }))
   }
 
@@ -46,5 +45,13 @@ export class PublicationController {
     const { id, data } = res.locals
     const publicationUpdated = await helper.updatePublication(id, data)
     res.status(200).send(new ResponseSuccess({ publicationUpdated }))
+  }
+
+  @Delete('delete/:id')
+  @Middleware([validatePublicationId])
+  async deletePublication(req: Request, res: Response) {
+    const { id } = res.locals
+    const publicationDeleted = await helper.deletePublication(id)
+    res.status(200).send(new ResponseSuccess({ publicationDeleted }))
   }
 }

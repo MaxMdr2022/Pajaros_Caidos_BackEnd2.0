@@ -92,3 +92,15 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
 
   next()
 }
+
+export async function validateLimitQuery(req: Request, res: Response, next: NextFunction) {
+  const { limit } = req.query
+
+  if (limit && Number(limit) < 1) {
+    const message = `The order limit has to be greater than zero.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  res.locals.limit = limit
+  next()
+}
