@@ -18,6 +18,12 @@ const helper = new UserHelper()
 
 @Controller('user')
 export class UserController {
+  @Get('guarden')
+  @Middleware([validateToken])
+  async authGuarden(req: Request, res: Response) {
+    return res.status(200).send(new ResponseSuccess({ access: 'Authorized access' }))
+  }
+
   @Get('all')
   @Middleware([validateFilterQuery]) //[validateToken, validateFilterQuery]
   async getUsers(req: Request, res: Response) {
@@ -73,11 +79,11 @@ export class UserController {
   @Post('login')
   @Middleware([validateDataLogIn])
   async logIn(req: Request, res: Response) {
-    const { email } = res.locals
+    const { email, user } = res.locals
 
     const JWT = await helper.getJWTUserLogIn(email)
 
-    res.status(200).send({ JWT })
+    res.status(200).send(new ResponseSuccess({ JWT, user }))
   }
 
   @Put('update/:id')

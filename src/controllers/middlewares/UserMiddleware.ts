@@ -77,6 +77,7 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   }
 
   res.locals.email = email
+  res.locals.user = user
   next()
 }
 
