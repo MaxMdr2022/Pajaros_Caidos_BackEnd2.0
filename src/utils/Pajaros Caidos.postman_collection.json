@@ -10,12 +10,50 @@
 			"name": "User",
 			"item": [
 				{
-					"name": "getUsers",
+					"name": "authGuarden",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRydW1fOTRAbGl2ZS5jb20uYXIiLCJpYXQiOjE2ODk2MTc5ODgsImV4cCI6MTY4OTYxODA0OH0.gEm4yHqYBX3K2k9Bde4fugG3dI7qODAUN-jYJkytiqM",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/user/all?filter=complete",
+							"raw": "{{DOMAIN}}/user/guarden",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"guarden"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/user/all",
 							"host": [
 								"{{DOMAIN}}"
 							],
@@ -26,7 +64,8 @@
 							"query": [
 								{
 									"key": "filter",
-									"value": "complete"
+									"value": "complete",
+									"disabled": true
 								}
 							]
 						}
@@ -39,18 +78,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/user/ed69bddd-adb9-455c-a2ef-13883d5c3b06?filter=all",
+							"raw": "{{DOMAIN}}/user/ad01b19f-f414-4135-ab8d-02591abe9e9",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"user",
-								"ed69bddd-adb9-455c-a2ef-13883d5c3b06"
+								"ad01b19f-f414-4135-ab8d-02591abe9e9"
 							],
 							"query": [
 								{
 									"key": "filter",
-									"value": "all"
+									"value": "all",
+									"disabled": true
 								},
 								{
 									"key": "filter",
@@ -74,7 +114,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"nuevoUser@live.com.ar\",\r\n    \"password\":\"1234qwerty\"\r\n}",
+							"raw": "{\r\n    \"email\":\"dr@live.com.ar\",\r\n    \"password\":\"admin123\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -101,7 +141,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"newUser@live.com.ar\",\r\n    \"password\":\"1234qwerty\",\r\n    \"first_name\":\"John\",\r\n    \"last_name\":\"Vo\"\r\n}",
+							"raw": "{\r\n    \"email\":\"jua@hotmail.com\",\r\n    \"password\":\"1234qwerty\",\r\n    \"first_name\":\"John\",\r\n    \"last_name\":\"Vo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -122,13 +162,13 @@
 					"response": []
 				},
 				{
-					"name": "updateUser",
+					"name": "validateUserEmail",
 					"request": {
-						"method": "PUT",
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"max\",\r\n    \"country\":\"Argentina\",\r\n    \"birth_date\":\"1994-04-29\"\r\n}",
+							"raw": "{\r\n   \"code\": \"14169\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,14 +176,61 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/user/update/ed69bddd-adb9-455c-a2ef-13883d5c3b06",
+							"raw": "{{DOMAIN}}/user/5bf39c11-5c36-45ee-af3f-fbe300c10876/validate",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"5bf39c11-5c36-45ee-af3f-fbe300c10876",
+								"validate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createNewCodeValidateUserEmail",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/user/5bf39c11-5c36-45ee-af3ffbe300c10876/code",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"user",
+								"5bf39c11-5c36-45ee-af3ffbe300c10876",
+								"code"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"max\",\r\n    \"country\":\"Argentina\",\r\n    \"city\":\"Bahia Blanca\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/user/update/3103333a-fabf-40ef-b88f-699a59cc8510",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"user",
 								"update",
-								"ed69bddd-adb9-455c-a2ef-13883d5c3b06"
+								"3103333a-fabf-40ef-b88f-699a59cc8510"
 							]
 						}
 					},
@@ -164,14 +251,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/user/admin/ed69bddd-adb9-455c-a2ef-13883d5c3b06/action",
+							"raw": "{{DOMAIN}}/user/admin/3103333a-fabf-40ef-b88f-699a59cc8510/action",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"user",
 								"admin",
-								"ed69bddd-adb9-455c-a2ef-13883d5c3b06",
+								"3103333a-fabf-40ef-b88f-699a59cc8510",
 								"action"
 							]
 						}
@@ -189,13 +276,19 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/publication/all",
+							"raw": "{{DOMAIN}}/publication/all?limit=2",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
 								"all"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								}
 							]
 						}
 					},
@@ -205,7 +298,17 @@
 					"name": "getPublicationById",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/publication/4822bf58-be83-40d2-85c8-a6e7f8d122fa",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"publication",
+								"4822bf58-be83-40d2-85c8-a6e7f8d122fa"
+							]
+						}
 					},
 					"response": []
 				},
@@ -216,7 +319,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\":\"Encontre un pajarito6\",\r\n    \"description\":\"Aparecio en mi patio un pichon de gorrion, Que alimento deberia darle?\",\r\n    \"image\":[\"img01.jpg\"]\r\n}",
+							"raw": "{\r\n    \"title\":\"AIUDAA!! \",\r\n    \"description\":\"Que alimento deberia darle?\",\r\n    \"image\":[\"img01.jpg\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -224,14 +327,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/publication/create/ed69bddd-adb9-455c-a2ef-13883d5c3b06",
+							"raw": "{{DOMAIN}}/publication/create/ad01b19f-f414-4135-ab8d-02591abe9e95",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
 								"create",
-								"ed69bddd-adb9-455c-a2ef-13883d5c3b06"
+								"ad01b19f-f414-4135-ab8d-02591abe9e95"
 							]
 						}
 					},
@@ -252,14 +355,33 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/publication/update/0c6cd424-b182-446a-9d8d-847a3fadedbf",
+							"raw": "{{DOMAIN}}/publication/update/4822bf58-be83-40d2-85c8-a6e7f8d122fa",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
 								"update",
-								"0c6cd424-b182-446a-9d8d-847a3fadedbf"
+								"4822bf58-be83-40d2-85c8-a6e7f8d122fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deletePublication",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/publication/delete/4822bf58-be83-40d2-85c8-a6e7f8d122fa",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"publication",
+								"delete",
+								"4822bf58-be83-40d2-85c8-a6e7f8d122fa"
 							]
 						}
 					},
@@ -276,13 +398,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/comment/157203b3-2e70-4219-b65f-cfe5b5fd6efb",
+							"raw": "{{DOMAIN}}/comment/01bbecf0-1ae8-4c3d-b6ab-46d0a734e36a",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
-								"157203b3-2e70-4219-b65f-cfe5b5fd6efb"
+								"01bbecf0-1ae8-4c3d-b6ab-46d0a734e36a"
 							],
 							"query": [
 								{
@@ -302,7 +424,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"comment\":\"comentarioo... \",\r\n    \"idUser\": \"a5f308ba-3d7f-4e2b-a68e-8adfcffd188b\"\r\n}",
+							"raw": "{\r\n    \"comment\":\"A esa ave de la debe alimentar con semillas\",\r\n    \"idUser\": \"ad01b19f-f414-4135-ab8d-02591abe9e95\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,14 +432,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/comment/create/47458460-c347-4625-a157-d9133d4f8765",
+							"raw": "{{DOMAIN}}/comment/create/4a1a6bd0-7a7e-4162-829a-a5673361bbd0",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
 								"create",
-								"47458460-c347-4625-a157-d9133d4f8765"
+								"4a1a6bd0-7a7e-4162-829a-a5673361bbd0"
 							]
 						}
 					},
@@ -330,7 +452,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"comment\": \"nuevo comentario xD\"\r\n}",
+							"raw": "{\r\n    \"comment\": \"comentario actualizado xD\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -338,14 +460,33 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/comment/update/157203b3-2e70-4219-b65f-cfe5b5fd6efb",
+							"raw": "{{DOMAIN}}/comment/update/bcd48610-ef27-499a-bd5c-80fc79241f60",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
 								"update",
-								"157203b3-2e70-4219-b65f-cfe5b5fd6efb"
+								"bcd48610-ef27-499a-bd5c-80fc79241f60"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteComment",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/comment/delete/bcd48610-ef27-499a-bd5c-80fc79241f60",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"comment",
+								"delete",
+								"bcd48610-ef27-499a-bd5c-80fc79241f60"
 							]
 						}
 					},
@@ -363,7 +504,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"reaction\": \"like\",\r\n    \"idUser\":\"df01476e-e05a-43b9-ae7e-63dcbbf376c3\"\r\n}",
+							"raw": "{\r\n    \"reaction\": \"like\",\r\n    \"idUser\":\"ad01b19f-f414-4135-ab8d-02591abe9e95\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -371,14 +512,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/reaction/create/e52d6f98-a6d6-4dfe-993f-0ec88df08b90",
+							"raw": "{{DOMAIN}}/reaction/create/4a1a6bd0-7a7e-4162-829a-a5673361bbd0",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"reaction",
 								"create",
-								"e52d6f98-a6d6-4dfe-993f-0ec88df08b90"
+								"4a1a6bd0-7a7e-4162-829a-a5673361bbd0"
 							]
 						}
 					},
@@ -414,7 +555,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/bird/all?limit=2&location=españa",
+							"raw": "{{DOMAIN}}/bird/all?location=españa",
 							"host": [
 								"{{DOMAIN}}"
 							],
@@ -430,7 +571,8 @@
 								},
 								{
 									"key": "limit",
-									"value": "2"
+									"value": "12",
+									"disabled": true
 								},
 								{
 									"key": "location",
@@ -453,7 +595,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"gorrion\",\r\n    \"scientificName\":\"gg\",\r\n    \"image\":[\"img.jpg\"],\r\n    \"location\":[\"argentina\", \"JAPON\"],\r\n    \"size\":\"small\",\r\n    \"color\":\"brown\",\r\n    \"description\":\"Little funny bird\"\r\n}",
+							"raw": "{\r\n    \"name\":\"gorrion\",\r\n    \"scientificName\":\"pp\",\r\n    \"image\":[\"img.jpg\", \"imagen2.jpg\"],\r\n    \"location\":[\"argentina\", \"japon\"],\r\n    \"size\":\"small\",\r\n    \"color\":\"brown\"\r\n   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -480,7 +622,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n}",
+							"raw": "{\r\n    \"name\":\"Paloma\",\r\n    \"image\": [\"nuevaimagen.jpg\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -488,14 +630,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/bird/update/",
+							"raw": "{{DOMAIN}}/bird/update/296304bc-63c1-4d68-85f4-45918ee925c4",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"bird",
 								"update",
-								""
+								"296304bc-63c1-4d68-85f4-45918ee925c4"
 							]
 						}
 					},
