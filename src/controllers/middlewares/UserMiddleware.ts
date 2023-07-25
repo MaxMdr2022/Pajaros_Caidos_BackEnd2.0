@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from 'express'
 import { UserHelper } from '../../helpers/UserHelper'
 import { ErrorCodeType, ErrorResponse } from '../../models/responses/ErrorResponse'
-import { dateFormatRegex, UUIDRegex } from '../../utils/RegularsExpressions'
+import { dateFormatRegex, UUIDRegex, emailRegex } from '../../utils/RegularsExpressions'
+import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 import bcrypt from 'bcrypt'
 const helper = new UserHelper()
 
@@ -28,6 +29,12 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
     const keyError = Object.keys(validate).find((e) => validate[e])
 
     const message = errorMsg[keyError]
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  if (!emailRegex.test(email)) {
+    const message = `The email entered: ${email} .It is not a valid email.`
 
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
@@ -82,16 +89,43 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
 }
 
 export async function validateFilterQuery(req: Request, res: Response, next: NextFunction) {
-  const { filter } = req.query
+  const { verbose, last_name, pageNumber, userPerPage, userStatus } = req.query
 
-  if (filter !== undefined && String(filter) !== 'complete') {
+  if (verbose !== undefined && String(verbose) !== 'simple') {
     const message = `The value entered: ${String(
-      filter
-    )} for filter is invalid. Only 'complete' is supported.`
+      verbose
+    )} for filter is invalid. Only 'simple' is supported.`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
   }
 
-  res.locals.filter = filter
+  if (
+    userStatus &&
+    String(userStatus) !== 'isAdmin' &&
+    String(userStatus) !== 'isVoluntary' &&
+    String(userStatus) !== 'isBanned'
+  ) {
+    const message = `The value entered: ${String(
+      userStatus
+    )} for filter is invalid. Only 'isAdmin', 'isVoluntary' or 'isBanned' is supported.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  }
+
+  if ((pageNumber && !userPerPage) || (userPerPage && !pageNumber)) {
+    const message = `To paginate, you must provide both pageNumber and birdPerPage.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  } else {
+    if (pageNumber && !isValidNumber(pageNumber)) {
+      const message = `pageNumber must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+    if (userPerPage && !isValidNumber(userPerPage)) {
+      const message = `birdPerPage must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+  }
+
+  const data = { verbose, last_name, pageNumber, userPerPage, userStatus }
+  res.locals.data = data
   next()
 }
 
@@ -133,8 +167,18 @@ export async function validateId(req: Request, res: Response, next: NextFunction
 }
 
 export async function validateDataUpdate(req: Request, res: Response, next: NextFunction) {
-  const { first_name, last_name, nick_name, avatar, phone_number, country, city, birth_date } =
-    req.body
+  const {
+    first_name,
+    last_name,
+    nick_name,
+    avatar,
+    phone_number,
+    country,
+    city,
+    birth_date,
+    contact,
+    description,
+  } = req.body
 
   const validate = {
     reqProps:
@@ -145,7 +189,9 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       !phone_number &&
       !country &&
       !city &&
-      !birth_date,
+      !birth_date &&
+      !contact &&
+      !description,
     isString:
       (nick_name && typeof nick_name !== 'string') ||
       (avatar && typeof avatar !== 'string') ||
@@ -153,7 +199,9 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       (country && typeof country !== 'string') ||
       (city && typeof city !== 'string') ||
       (birth_date && typeof birth_date !== 'string') ||
-      (last_name && typeof last_name !== 'string'),
+      (last_name && typeof last_name !== 'string') ||
+      (description && typeof description !== 'string') ||
+      (contact && typeof contact !== 'string'),
     isNumber: phone_number ? typeof phone_number !== 'number' : false,
     dateFormat: birth_date ? !dateFormatRegex.test(birth_date) : false,
   }
@@ -193,6 +241,8 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     country,
     city,
     birth_date,
+    description,
+    contact,
   }
   next()
 }

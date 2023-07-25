@@ -13,23 +13,8 @@ import jwt from 'jsonwebtoken'
 const facade = new UserFacade()
 
 export class UserHelper {
-  async getAllUsers(filter?: string): Promise<QueryResponse | User[]> {
-    const users = await facade.getAllUsers()
-    if (!users || !users[0]) return null
-
-    if (filter !== undefined) return users
-
-    const usersResponseSimple = users.map((e) => {
-      return {
-        id: e.id,
-        nick_name: e.nick_name,
-        isVoluntary: e.isVoluntary,
-        isAdmin: e.isAdmin,
-        isBanned: e.isBanned,
-      }
-    })
-
-    return { users: usersResponseSimple }
+  async getAllUsers(data?: string): Promise<QueryResponse | User[]> {
+    return await facade.getAllUsers(data)
   }
 
   async getUserById(id: string, filter?: string): Promise<User> {
@@ -49,13 +34,18 @@ export class UserHelper {
 
     const nickName = email.split('@')[0]
 
+    const nameCapitalWord =
+      data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1).toLowerCase()
+
     const code = codeUserVerification()
 
     const passHashed = await bcrypt.hash(data.password, 10)
+
     data.password = passHashed
     const userData = {
       ...data,
       nick_name: nickName,
+      last_name: nameCapitalWord,
       emailValidateCode: code,
     }
 

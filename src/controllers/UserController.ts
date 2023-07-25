@@ -2,6 +2,7 @@ import { Controller, Get, Middleware, Post, Put, Patch } from '@overnightjs/core
 import { Request, Response } from 'express'
 import { UserHelper } from '../helpers/UserHelper'
 import { ResponseSuccess } from '../models/responses/ResponseSuccess'
+import { ErrorResponse, ErrorCodeType } from '../models/responses/ErrorResponse'
 import {
   validateAdminAction,
   validateCreateUser,
@@ -27,10 +28,16 @@ export class UserController {
   @Get('all')
   @Middleware([validateFilterQuery]) //[validateToken, validateFilterQuery]
   async getUsers(req: Request, res: Response) {
-    const { filter } = res.locals
+    const { data } = res.locals
 
-    const users = await helper.getAllUsers(filter)
-    return res.status(200).send(new ResponseSuccess(users))
+    const users = await helper.getAllUsers(data)
+
+    if (!users) {
+      const message = 'Users not found'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
+    }
+
+    return res.status(200).send(new ResponseSuccess({ users }))
   }
 
   @Get(':id')
