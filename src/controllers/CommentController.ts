@@ -24,8 +24,8 @@ export class CommentController {
   @Post('create/:id')
   @Middleware([validatePublicationId, validateDataCreate])
   async createComment(req: Request, res: Response) {
-    const { id, data } = res.locals
-    const newComment = await helper.createComment(id, data)
+    const { publication, data } = res.locals
+    const newComment = await helper.createComment(publication, data)
     res.status(200).send(new ResponseSuccess({ newComment }))
   }
 
@@ -40,9 +40,9 @@ export class CommentController {
   @Delete('delete/:id')
   @Middleware([validateCommentId])
   async deleteComment(req: Request, res: Response) {
-    const { id } = res.locals
+    const { comment } = res.locals
 
-    const quantityCommentDeleted = await helper.deleteComment(id)
+    const quantityCommentDeleted = await helper.deleteComment(comment)
 
     res.status(200).send(new ResponseSuccess({ quantityCommentDeleted }))
   }

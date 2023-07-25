@@ -23,6 +23,7 @@ export async function validateCommentId(req: Request, res: Response, next: NextF
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.CommentNotFound))
   }
   res.locals.id = id
+  res.locals.comment = comment
   return next()
 }
 
@@ -40,6 +41,7 @@ export async function validatePublicationId(req: Request, res: Response, next: N
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.PublicationNotFound))
   }
   res.locals.id = id
+  res.locals.publication = publication
   return next()
 }
 
@@ -62,7 +64,7 @@ export async function validateDataCreate(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
   }
 
-  res.locals.data = { comment, idUser }
+  res.locals.data = { comment, user }
 
   next()
 }
