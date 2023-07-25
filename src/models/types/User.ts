@@ -9,6 +9,8 @@ export type User = {
   country: string
   city: string
   phone_number: number
+  description: string
+  contact: string
   emailValidateCode?: string
   birth_date: Date
   isVoluntary: boolean

@@ -58,6 +58,16 @@ const user = (sequelize) => {
         defaultValue: '9999-12-31',
         // allowNull: false,
       },
+      description: {
+        type: DataTypes.STRING,
+        defaultValue: '-',
+        // allowNull: false,
+      },
+      contact: {
+        type: DataTypes.STRING,
+        defaultValue: '-',
+        // allowNull: false,
+      },
       emailValidateCode: {
         type: DataTypes.STRING,
       },
