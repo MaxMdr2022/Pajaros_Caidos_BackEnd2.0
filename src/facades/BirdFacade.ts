@@ -1,22 +1,47 @@
 import { PostgresDBStorage } from '../storages/PostgresDBStorage'
 import { Bird } from '../models/types/Bird'
+import { BirdsListModel } from '../storages/DB'
+import { Op } from 'sequelize'
 
 const storage = new PostgresDBStorage()
 
 export class BirdFacade {
   async getBirdById(id: string): Promise<Bird> {
-    return await storage.findBirdById(id)
+    return await storage.findById(BirdsListModel, id)
   }
 
-  async getAllBirds(limit?: number, filter?: any): Promise<Bird[]> {
-    return await storage.findAllBirds(limit, filter)
+  async getAllBirds(data?: any): Promise<Bird[]> {
+    const { location, color, pageNumber, birdPerPage, name } = data
+
+    const filter: any = {}
+
+    if (name) {
+      filter.where = { name }
+    }
+
+    if (location) {
+      filter.where = { location: { [Op.contains]: [location] } }
+    }
+
+    if (color) {
+      filter.where = { color: { [Op.eq]: color } }
+    }
+
+    if (pageNumber) {
+      const skip = (pageNumber - 1) * birdPerPage
+      filter.order = [['name', 'asc']]
+      filter.limit = birdPerPage
+      filter.offset = skip
+    }
+
+    return await storage.find(BirdsListModel, filter)
   }
 
   async createBird(data: any): Promise<Bird> {
-    return await storage.createBird(data)
+    return await storage.create(BirdsListModel, data)
   }
 
   async updateBird(id: string, data: any): Promise<Bird> {
-    return await storage.updateBird(id, data)
+    return await storage.update(BirdsListModel, { ...data }, { where: { id } })
   }
 }

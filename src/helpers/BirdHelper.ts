@@ -8,20 +8,19 @@ export class BirdHelper {
     return await facade.getBirdById(id)
   }
 
-  async getAllBirds(limit?: number, location?: string, color?: string): Promise<Bird[]> {
-    let filter: any = {}
-
-    if (location !== undefined) {
-      const locationCapitalWord = location.charAt(0).toUpperCase() + location.slice(1).toLowerCase()
-      filter.location = locationCapitalWord
+  async getAllBirds(data?: any): Promise<Bird[]> {
+    if (data.location !== undefined) {
+      const locationCapitalWord =
+        data.location.charAt(0).toUpperCase() + data.location.slice(1).toLowerCase()
+      data.location = locationCapitalWord
     }
-    if (color !== undefined) {
-      const colorCapitalWord = color.toLowerCase()
+    if (data.color !== undefined) {
+      const colorCapitalWord = data.color.toLowerCase()
 
-      filter.color = colorCapitalWord
+      data.color = colorCapitalWord
     }
 
-    return await facade.getAllBirds(limit, filter)
+    return await facade.getAllBirds(data)
   }
 
   async createBird(data: any): Promise<Bird> {

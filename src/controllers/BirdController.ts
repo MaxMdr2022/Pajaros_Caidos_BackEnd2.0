@@ -16,9 +16,9 @@ export class BirdController {
   @Get('all')
   @Middleware([validateQuery])
   async getAllBirds(req: Request, res: Response) {
-    const { limit, location, color } = res.locals
+    const { data } = res.locals
 
-    const birds = await helper.getAllBirds(limit, location, color)
+    const birds = await helper.getAllBirds(data)
     if (!birds) {
       const message = 'Birds not found'
       return res.status(400).send({ message })

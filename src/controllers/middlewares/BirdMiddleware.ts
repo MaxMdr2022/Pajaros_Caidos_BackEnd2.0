@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { BirdHelper } from '../../helpers/BirdHelper'
 import { ErrorCodeType, ErrorResponse } from '../../models/responses/ErrorResponse'
 import { UUIDRegex } from '../../utils/RegularsExpressions'
+import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 
 const helper = new BirdHelper()
 
@@ -77,14 +78,29 @@ export async function validateDataCreateBird(req: Request, res: Response, next: 
 }
 
 export async function validateQuery(req: Request, res: Response, next: NextFunction) {
-  const { location, color, limit } = req.query
+  const { location, color, limit, birdPerPage, pageNumber, name } = req.query
 
   if (limit !== undefined && Number(limit) < 1) {
     const message = `The filter parameter must be a positive integer.`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
   }
 
-  res.locals = { limit, location, color }
+  if ((pageNumber && !birdPerPage) || (birdPerPage && !pageNumber)) {
+    const message = `To paginate, you must provide both pageNumber and birdPerPage.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  } else {
+    if (pageNumber && !isValidNumber(pageNumber)) {
+      const message = `pageNumber must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+    if (birdPerPage && !isValidNumber(birdPerPage)) {
+      const message = `birdPerPage must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+  }
+
+  const data = { limit, location, color, pageNumber, birdPerPage, name }
+  res.locals.data = data
   next()
 }
 
