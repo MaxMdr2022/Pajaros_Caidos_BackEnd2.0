@@ -23,6 +23,7 @@ export async function validateReactionId(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.ReactionNotFound))
   }
   res.locals.id = id
+  res.locals.reaction = reaction
   return next()
 }
 
@@ -40,6 +41,7 @@ export async function validatePublicationId(req: Request, res: Response, next: N
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.PublicationNotFound))
   }
   res.locals.id = id
+  res.locals.publication = publication
   return next()
 }
 
@@ -71,7 +73,7 @@ export async function validateDataCreate(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  res.locals.data = { reaction, idUser }
+  res.locals.data = { reaction, user }
 
   next()
 }

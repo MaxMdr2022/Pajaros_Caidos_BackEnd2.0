@@ -1,18 +1,33 @@
 import { PostgresDBStorage } from '../storages/PostgresDBStorage'
 import { Reaction } from '../models/types/Reaction'
+import { ReactionsListModel } from '../storages/DB'
+import { Publication } from '../models/types/Publication'
+import { User } from '../models/types/User'
 
 const storage = new PostgresDBStorage()
 
 export class ReactionFacade {
   async getReactionById(id: string): Promise<Reaction> {
-    return await storage.findReactionById(id)
+    return await storage.findById(ReactionsListModel, id)
   }
 
-  async createReaction(id: string, idUser: string, reaction: string): Promise<Reaction> {
-    return await storage.createReaction(id, idUser, reaction)
+  async createReaction(publication: Publication, user: User, reaction: string): Promise<Reaction> {
+    const newReaction: Reaction = await storage.create(ReactionsListModel, { reaction })
+
+    await storage.relationship(user, 'addReaction', newReaction)
+    await storage.relationship(publication, 'addReaction', newReaction)
+
+    return newReaction
   }
 
-  async deleteReaction(id: string): Promise<Reaction> {
-    return await storage.deleteReaction(id)
+  async deleteReaction(reaction: any): Promise<Reaction> {
+    const filter: any = {
+      where: {
+        id: reaction.id,
+        userId: reaction.userId,
+        publicationId: reaction.publicationId,
+      },
+    }
+    return await storage.delete(ReactionsListModel, filter)
   }
 }
