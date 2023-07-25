@@ -3,6 +3,7 @@ import { PublicationHelper } from '../../helpers/PublicationHelper'
 import { UserHelper } from '../../helpers/UserHelper'
 import { ErrorResponse, ErrorCodeType } from '../../models/responses/ErrorResponse'
 import { UUIDRegex } from '../../utils/RegularsExpressions'
+import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 
 const helperPublication = new PublicationHelper()
 const helperUser = new UserHelper()
@@ -94,13 +95,33 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
 }
 
 export async function validateLimitQuery(req: Request, res: Response, next: NextFunction) {
-  const { limit } = req.query
+  const { limit, title, postPerPage, pageNumber, limitComments } = req.query
 
   if (limit && Number(limit) < 1) {
     const message = `The order limit has to be greater than zero.`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  res.locals.limit = limit
+  if (limitComments && Number(limitComments) < 1) {
+    const message = `limitComments has to be greater than zero.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  if ((pageNumber && !postPerPage) || (postPerPage && !pageNumber)) {
+    const message = `To paginate, you must provide both pageNumber and birdPerPage.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  } else {
+    if (pageNumber && !isValidNumber(pageNumber)) {
+      const message = `pageNumber must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+    if (postPerPage && !isValidNumber(postPerPage)) {
+      const message = `birdPerPage must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+  }
+
+  const data = { limit, title, postPerPage, pageNumber, limitComments }
+  res.locals.data = data
   next()
 }

@@ -16,8 +16,8 @@ export class PublicationController {
   @Get('all')
   @Middleware([validateLimitQuery])
   async getAllPublications(req: Request, res: Response) {
-    const { limit } = res.locals
-    const publications = await helper.getAllPublications(limit)
+    const { data } = res.locals
+    const publications = await helper.getAllPublications(data)
     res.status(200).send(new ResponseSuccess({ publications }))
   }
 

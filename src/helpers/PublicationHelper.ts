@@ -8,8 +8,8 @@ export class PublicationHelper {
     return await facade.createPublication(userId, data)
   }
 
-  async getAllPublications(limit: number): Promise<Publication[]> {
-    return await facade.getAllPublications(limit)
+  async getAllPublications(data?: any): Promise<Publication[]> {
+    return await facade.getAllPublications(data)
   }
 
   async getPublicationById(id: string): Promise<Publication> {
