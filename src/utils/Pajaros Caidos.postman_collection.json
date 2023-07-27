@@ -53,7 +53,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/user/all",
+							"raw": "{{DOMAIN}}/user/all?verbose=simple&userStatus=isVoluntary",
 							"host": [
 								"{{DOMAIN}}"
 							],
@@ -63,8 +63,26 @@
 							],
 							"query": [
 								{
-									"key": "filter",
-									"value": "complete",
+									"key": "verbose",
+									"value": "simple"
+								},
+								{
+									"key": "last_name",
+									"value": "meder",
+									"disabled": true
+								},
+								{
+									"key": "userStatus",
+									"value": "isVoluntary"
+								},
+								{
+									"key": "userPerPage",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "pageNumber",
+									"value": "2",
 									"disabled": true
 								}
 							]
@@ -78,19 +96,18 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/user/ad01b19f-f414-4135-ab8d-02591abe9e9",
+							"raw": "{{DOMAIN}}/user/54ce1c4e-c964-496b-9333-c4c21885ce41?filter=all",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"user",
-								"ad01b19f-f414-4135-ab8d-02591abe9e9"
+								"54ce1c4e-c964-496b-9333-c4c21885ce41"
 							],
 							"query": [
 								{
 									"key": "filter",
-									"value": "all",
-									"disabled": true
+									"value": "all"
 								},
 								{
 									"key": "filter",
@@ -141,7 +158,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\":\"jua@hotmail.com\",\r\n    \"password\":\"1234qwerty\",\r\n    \"first_name\":\"John\",\r\n    \"last_name\":\"Vo\"\r\n}",
+							"raw": "{\r\n    \"email\":\"drum1@as.com\",\r\n    \"password\":\"1234qwerty\",\r\n    \"first_name\":\"John\",\r\n    \"last_name\":\"Vo\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -215,7 +232,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"first_name\": \"max\",\r\n    \"country\":\"Argentina\",\r\n    \"city\":\"Bahia Blanca\"\r\n}",
+							"raw": "{\r\n    \"first_name\": \"max\",\r\n    \"nick_name\":\"Administrador12\",\r\n    \"country\":\"Argentina\",\r\n    \"city\":\"Bahia Blanca\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -223,14 +240,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/user/update/3103333a-fabf-40ef-b88f-699a59cc8510",
+							"raw": "{{DOMAIN}}/user/update/46d46e36-f71d-48eb-b75e-94274350f9eb",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"user",
 								"update",
-								"3103333a-fabf-40ef-b88f-699a59cc8510"
+								"46d46e36-f71d-48eb-b75e-94274350f9eb"
 							]
 						}
 					},
@@ -243,7 +260,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"isVoluntary\": true\r\n}",
+							"raw": "{\r\n    \"isBanned\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -251,14 +268,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/user/admin/3103333a-fabf-40ef-b88f-699a59cc8510/action",
+							"raw": "{{DOMAIN}}/user/admin/cb5039bd-caa7-4a82-9169-452dfdf91bfa/action",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"user",
 								"admin",
-								"3103333a-fabf-40ef-b88f-699a59cc8510",
+								"cb5039bd-caa7-4a82-9169-452dfdf91bfa",
 								"action"
 							]
 						}
@@ -276,7 +293,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/publication/all?limit=2",
+							"raw": "{{DOMAIN}}/publication/all",
 							"host": [
 								"{{DOMAIN}}"
 							],
@@ -287,7 +304,23 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "2"
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "limitComments",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "pageNumber",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "postPerPage",
+									"value": "2",
+									"disabled": true
 								}
 							]
 						}
@@ -300,13 +333,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/publication/4822bf58-be83-40d2-85c8-a6e7f8d122fa",
+							"raw": "{{DOMAIN}}/publication/6cb47080-50d8-46b3-9246-e928d73c8d77",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
-								"4822bf58-be83-40d2-85c8-a6e7f8d122fa"
+								"6cb47080-50d8-46b3-9246-e928d73c8d77"
 							]
 						}
 					},
@@ -327,14 +360,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/publication/create/ad01b19f-f414-4135-ab8d-02591abe9e95",
+							"raw": "{{DOMAIN}}/publication/create/54ce1c4e-c964-496b-9333-c4c21885ce41",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
 								"create",
-								"ad01b19f-f414-4135-ab8d-02591abe9e95"
+								"54ce1c4e-c964-496b-9333-c4c21885ce41"
 							]
 						}
 					},
@@ -355,14 +388,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/publication/update/4822bf58-be83-40d2-85c8-a6e7f8d122fa",
+							"raw": "{{DOMAIN}}/publication/update/c785b651-beb0-4f25-a519-871767dc2b0a",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
 								"update",
-								"4822bf58-be83-40d2-85c8-a6e7f8d122fa"
+								"c785b651-beb0-4f25-a519-871767dc2b0a"
 							]
 						}
 					},
@@ -374,14 +407,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/publication/delete/4822bf58-be83-40d2-85c8-a6e7f8d122fa",
+							"raw": "{{DOMAIN}}/publication/delete/c785b651-beb0-4f25-a519-871767dc2b0a",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"publication",
 								"delete",
-								"4822bf58-be83-40d2-85c8-a6e7f8d122fa"
+								"c785b651-beb0-4f25-a519-871767dc2b0a"
 							]
 						}
 					},
@@ -398,13 +431,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/comment/01bbecf0-1ae8-4c3d-b6ab-46d0a734e36a",
+							"raw": "{{DOMAIN}}/comment/f4d04653-e998-443c-9e57-d3656b62290f",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
-								"01bbecf0-1ae8-4c3d-b6ab-46d0a734e36a"
+								"f4d04653-e998-443c-9e57-d3656b62290f"
 							],
 							"query": [
 								{
@@ -424,7 +457,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"comment\":\"A esa ave de la debe alimentar con semillas\",\r\n    \"idUser\": \"ad01b19f-f414-4135-ab8d-02591abe9e95\"\r\n}",
+							"raw": "{\r\n    \"comment\":\"A esa ave de la debe alimentar con semillas 6\",\r\n    \"idUser\": \"54ce1c4e-c964-496b-9333-c4c21885ce41\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -432,14 +465,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/comment/create/4a1a6bd0-7a7e-4162-829a-a5673361bbd0",
+							"raw": "{{DOMAIN}}/comment/create/6cb47080-50d8-46b3-9246-e928d73c8d77",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
 								"create",
-								"4a1a6bd0-7a7e-4162-829a-a5673361bbd0"
+								"6cb47080-50d8-46b3-9246-e928d73c8d77"
 							]
 						}
 					},
@@ -460,14 +493,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/comment/update/bcd48610-ef27-499a-bd5c-80fc79241f60",
+							"raw": "{{DOMAIN}}/comment/update/1e9ee418-239f-451e-9dd4-50992cd1a1ab",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
 								"update",
-								"bcd48610-ef27-499a-bd5c-80fc79241f60"
+								"1e9ee418-239f-451e-9dd4-50992cd1a1ab"
 							]
 						}
 					},
@@ -479,14 +512,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/comment/delete/bcd48610-ef27-499a-bd5c-80fc79241f60",
+							"raw": "{{DOMAIN}}/comment/delete/fe4a9313-61cf-49e4-964a-158f5438141b",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"comment",
 								"delete",
-								"bcd48610-ef27-499a-bd5c-80fc79241f60"
+								"fe4a9313-61cf-49e4-964a-158f5438141b"
 							]
 						}
 					},
@@ -504,7 +537,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"reaction\": \"like\",\r\n    \"idUser\":\"ad01b19f-f414-4135-ab8d-02591abe9e95\"\r\n}",
+							"raw": "{\r\n    \"reaction\": \"free\",\r\n    \"idUser\":\"54ce1c4e-c964-496b-9333-c4c21885ce41\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -512,14 +545,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/reaction/create/4a1a6bd0-7a7e-4162-829a-a5673361bbd0",
+							"raw": "{{DOMAIN}}/reaction/create/6cb47080-50d8-46b3-9246-e928d73c8d77",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"reaction",
 								"create",
-								"4a1a6bd0-7a7e-4162-829a-a5673361bbd0"
+								"6cb47080-50d8-46b3-9246-e928d73c8d77"
 							]
 						}
 					},
@@ -531,14 +564,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/reaction/delete/e1f53068-d662-4843-83ec-27b241a5966f",
+							"raw": "{{DOMAIN}}/reaction/delete/96a73523-e2c4-4dca-9118-a90b6635a09e",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"reaction",
 								"delete",
-								"e1f53068-d662-4843-83ec-27b241a5966f"
+								"96a73523-e2c4-4dca-9118-a90b6635a09e"
 							]
 						}
 					},
@@ -555,7 +588,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{DOMAIN}}/bird/all?location=españa",
+							"raw": "{{DOMAIN}}/bird/all",
 							"host": [
 								"{{DOMAIN}}"
 							],
@@ -576,11 +609,27 @@
 								},
 								{
 									"key": "location",
-									"value": "españa"
+									"value": "argentina",
+									"disabled": true
 								},
 								{
 									"key": "color",
-									"value": "brown",
+									"value": "brow",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "gorrion",
+									"disabled": true
+								},
+								{
+									"key": "pageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "birdPerPage",
+									"value": "2",
 									"disabled": true
 								}
 							]
@@ -595,7 +644,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"gorrion\",\r\n    \"scientificName\":\"pp\",\r\n    \"image\":[\"img.jpg\", \"imagen2.jpg\"],\r\n    \"location\":[\"argentina\", \"japon\"],\r\n    \"size\":\"small\",\r\n    \"color\":\"brown\"\r\n   \r\n}",
+							"raw": "{\r\n    \"name\":\"gorrion\",\r\n    \"scientificName\":\"pp\",\r\n    \"image\":[\"img.jpg\", \"imagen2.jpg\"],\r\n    \"location\":[\"argentina\", \"japon\"],\r\n    \"size\":\"small\",\r\n    \"color\":\"brown\",\r\n    \"description\":\"brbrbrbrrb\"\r\n   \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -622,7 +671,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Paloma\",\r\n    \"image\": [\"nuevaimagen.jpg\"]\r\n}",
+							"raw": "{\r\n    \"name\":\"Paloma2\",\r\n    \"image\": [\"nuevaimagen.jpg\"],\r\n    \"location\":[\"Peru\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -630,14 +679,299 @@
 							}
 						},
 						"url": {
-							"raw": "{{DOMAIN}}/bird/update/296304bc-63c1-4d68-85f4-45918ee925c4",
+							"raw": "{{DOMAIN}}/bird/update/758a9566-2a73-416b-8749-cbee6d2dd599",
 							"host": [
 								"{{DOMAIN}}"
 							],
 							"path": [
 								"bird",
 								"update",
-								"296304bc-63c1-4d68-85f4-45918ee925c4"
+								"758a9566-2a73-416b-8749-cbee6d2dd599"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Item",
+			"item": [
+				{
+					"name": "getItemById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/shop/item/452266b9-8b44-494f-9795-847e7886f9fa",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"item",
+								"452266b9-8b44-494f-9795-847e7886f9fa"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllItems",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/shop/items?orderCreate=asc&itemPerPage=2&pageNumber=4",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"items"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "talle M",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "calco palom",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "50",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "1000",
+									"disabled": true
+								},
+								{
+									"key": "orderPrice",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "orderName",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "orderCreate",
+									"value": "asc"
+								},
+								{
+									"key": "itemPerPage",
+									"value": "2"
+								},
+								{
+									"key": "pageNumber",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createItem",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"calco paloma 9\",\r\n    \"description\":\"calco redonda 20cm radio\",\r\n    \"price\": 9000,\r\n    \"image\":[\"\"],\r\n    \"category\":[\"talle S\"]\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/shop/item",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"item"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateItem",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\":700,\r\n    \"category\":[\"talle L\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/shop/item/db672b4b-e018-4e61-af15-e48a038292e8",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"item",
+								"db672b4b-e018-4e61-af15-e48a038292e8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "removeCategory",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category\":\"negro\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/shop/item/e5463891-dba6-4244-b64a-00ededce276e",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"item",
+								"e5463891-dba6-4244-b64a-00ededce276e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteItem",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/shop/item/06b34c96-8e39-4e27-9aa4-c8809746a979",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"item",
+								"06b34c96-8e39-4e27-9aa4-c8809746a979"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/shop/category",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"talle S\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/shop/category",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategory",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"talle M\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/shop/category/be5a79d7-4b50-40cd-8659-2412c6365e7b",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"category",
+								"be5a79d7-4b50-40cd-8659-2412c6365e7b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategory",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/shop/category/1dbdeef8-8755-4cab-913f-b974801a8499",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"shop",
+								"category",
+								"1dbdeef8-8755-4cab-913f-b974801a8499"
 							]
 						}
 					},
