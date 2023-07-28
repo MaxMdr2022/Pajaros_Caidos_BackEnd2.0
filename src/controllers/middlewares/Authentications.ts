@@ -3,7 +3,7 @@ import { ErrorCodeType, ErrorResponse } from '../../models/responses/ErrorRespon
 import jwt from 'jsonwebtoken'
 
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
-  const headerToken = req.headers['authorization'] // => "Bearer asd12h21g3fgh123ssda22sd32f23"
+  const headerToken = req.headers['authorization'] // =>  "Bearer asd12h21g3fgh123ssda22sd32f23"
 
   if (headerToken !== undefined && headerToken.startsWith('Bearer')) {
     try {
