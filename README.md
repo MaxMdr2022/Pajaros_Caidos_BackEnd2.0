@@ -114,6 +114,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "city": "-",
                                 "phone_number": 0,
                                 "birth_date": "9999-12-31",
+                                "description":"-",
+                                "contact":"-",
                                 "emailValidateCode": null,
                                 "isVoluntary": false,
                                 "isPrincipalAdmin": true,
@@ -145,81 +147,104 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Method: GET
 - Endpoint: 'user/all'
 - Query parameters:
-  - 'filter=complete' (optional): It brings all the information of the users. (id, first_name, last_name, nick_name, email, password, avatar, country, city, phone_number, birth_date, emailValidateCode, isVoluntary, isPrincipalAdmin, isAdmin, isBanned, formComplete, userEmailValidate, createdAt, updatedAt ).
-- Description: Returns an array with user information (id, nick_name, isVoluntary, isBanned, isAdmin).
+
+  - 'verbose'='simple' (optional): Returns the following user information: id, first_name, last_name, nick_name, email, avatar, isVoluntary, isAdmin, isBanned, description, contact.
+  - 'userStatus' (optional): Filter users by their status. Only supported: 'isVoluntary', 'isAdmin', 'isBanned'.
+  - 'last_name'= userLastName(optional): Search for the user/s by their last_name.
+  - 'userPerPage'= 9 (optional): The number of users per page.
+  - 'pageNumber'= 1 (optional): The page.
+
+- Description: Returns an array with user information.
 - Successful response:
 - Status code: 200 (OK)
-- Response body:
+- Response body (query params verbose=simple):
 
            {
                 "users": [
                         {
                                 "id": "3103333a-fabf-40ef-b88f-699a59cc8510",
                                 "nick_name": "Administrador",
-                                "isVoluntary": false,
+                                "first_name": "Tony",
+                                "last_name": "Stark",
+                                "avatar": "https://t4.ftcdn.net/jpg/04/75PKaqi.jpg",
                                 "isAdmin": true,
-                                "isBanned": false
+                                "isVoluntary": false,
+                                "isBanned": false,
+                                "description": "-",
+                                "contact": "-",
+                                "email": "dr@live.com.ar"
                         },
                         {
                                 "id": "ad01b19f-f414-4135-ab8d-02591abe9e95",
-                                "nick_name": "Administrador",
-                                "isVoluntary": false,
+                                "nick_name": "La_araña_que_pica",
+                                "first_name": "Peter",
+                                "last_name": "Parker",
+                                "avatar": "https://t4.ftcdn.net/jpg/04/aqi.jpg",
                                 "isAdmin": true,
-                                "isBanned": false
+                                "isVoluntary": true,
+                                "isBanned": false,
+                                "description": "-",
+                                "contact": "-",
+                                "email": "pp@hotmail.com"
                         },
                 ],
                 "status": "success"
         }
 
-- Response body (query params filter=complete):
+- Response body:
 
            {
-                "0": {
-                        "id": "3103333a-fabf-40ef-b88f-699a59cc8510",
-                        "first_name": "Maxi",
-                        "last_name": "Meder",
-                        "nick_name": "Administrador",
-                        "email": "dr@live.com.ar",
-                        "password": "$2b$10$iULBHrQVmEdynQ0dWNrkG.RSpn.49jHJVKUWwWMK9MZDMMMdVOE3y",
-                        "avatar": "https://t4.ftcdn.net/jpg/04/75/00/99/.jpg",
-                        "country": "-",
-                        "city": "-",
-                        "phone_number": 0,
-                        "birth_date": "9999-12-31",
-                        "emailValidateCode": null,
-                        "isVoluntary": false,
-                        "isPrincipalAdmin": true,
-                        "isAdmin": true,
-                        "isBanned": false,
-                        "formComplete": false,
-                        "userEmailValidate": true,
-                        "createdAt": "2023-07-12T21:29:54.790Z",
-                        "updatedAt": "2023-07-12T21:29:54.790Z"
-                },
-                "1": {
-                        "id": "ad01b19f-f414-4135-ab8d-02591abe9e95",
-                        "first_name": "Clara",
-                        "last_name": "Correa",
-                        "nick_name": "Administrador",
-                        "email": "pajaros_caidos@hotmail.com",
-                        "password": "$2b$10$NMXyyktwebzmF8vnED/dlu2C3pLARRGTVgBfJ5E9tI9y8JX2hC1sq",
-                        "avatar": "https://t4.ftcdn.net/jpg/0.jpg",
-                        "country": "-",
-                        "city": "-",
-                        "phone_number": 0,
-                        "birth_date": "9999-12-31",
-                        "emailValidateCode": null,
-                        "isVoluntary": false,
-                        "isPrincipalAdmin": true,
-                        "isAdmin": true,
-                        "isBanned": false,
-                        "formComplete": false,
-                        "userEmailValidate": true,
-                        "createdAt": "2023-07-12T21:29:54.958Z",
-                        "updatedAt": "2023-07-12T21:29:54.958Z"
-                },
-
-                "status": "success"
+                        "users": [
+                                {
+                                        "id": "9e88084d-b944-4c51-b945-183b5e98de24",
+                                        "first_name": "Tony",
+                                        "last_name": "Stark",
+                                        "nick_name": "Administrador",
+                                        "email": "drum_94@live.com.ar",
+                                        "password": "$2b$10$ajJcg58D3GX8ZKbA4MQQWisy2025C.Cjq56",
+                                        "avatar": "https://t4.ftcdn.net/PKaqi.jpg",
+                                        "country": "-",
+                                        "city": "-",
+                                        "phone_number": 0,
+                                        "birth_date": "9999-12-31",
+                                        "description": "-",
+                                        "contact": "-",
+                                        "emailValidateCode": null,
+                                        "isVoluntary": false,
+                                        "isPrincipalAdmin": true,
+                                        "isAdmin": true,
+                                        "isBanned": false,
+                                        "formComplete": false,
+                                        "userEmailValidate": true,
+                                        "createdAt": "2023-07-29T02:13:41.035Z",
+                                        "updatedAt": "2023-07-29T02:13:41.035Z"
+                                },
+                                {
+                                        "id": "e567e7f4-a38b-4d0b-a313-2807af2762ef",
+                                        "first_name": "Peter",
+                                        "last_name": "Parker",
+                                        "nick_name": "La_araña_que_pica",
+                                        "email": "pp@hotmail.com",
+                                        "password": "$2b$10$D8cYgJ8/FTYu1C3ig0IsKPzio8Xjm",
+                                        "avatar": "https://t4.ftcdn.net/jpgOSyPKaqi.jpg",
+                                        "country": "-",
+                                        "city": "-",
+                                        "phone_number": 0,
+                                        "birth_date": "9999-12-31",
+                                        "description": "-",
+                                        "contact": "-",
+                                        "emailValidateCode": null,
+                                        "isVoluntary": false,
+                                        "isPrincipalAdmin": true,
+                                        "isAdmin": true,
+                                        "isBanned": false,
+                                        "formComplete": false,
+                                        "userEmailValidate": true,
+                                        "createdAt": "2023-07-29T02:13:41.174Z",
+                                        "updatedAt": "2023-07-29T02:13:41.174Z"
+                                }
+                        ],
+                        "status": "success"
                 }
 
 ### Get User
@@ -238,10 +263,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
            {
                 "user": {
                         "id": "ad01b19f-f414-4135-ab8d-02591abe9e95",
-                        "first_name": "Clara",
-                        "last_name": "Correa",
-                        "nick_name": "Administrador",
-                        "email": "pajaros_caidos@hotmail.com",
+                        "first_name": "Peter",
+                        "last_name": "Parker",
+                        "nick_name": "La_araña_que_pica",
+                        "email": "pp@hotmail.com",
                         "password": "$2b$10$NMXyyktwebzmF8vnED/dlu2C3pLARRGTVgBfJ5E9tI9y8JX2hC1sq",
                         "avatar": "https://t4.ftcdn.net/jpg/04/75/00/99/360.jpg",
                         "country": "-",
@@ -251,6 +276,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "emailValidateCode": null,
                         "isVoluntary": false,
                         "isPrincipalAdmin": true,
+                        "description": "-",
+                        "contact": "-",
                         "isAdmin": true,
                         "isBanned": false,
                         "formComplete": false,
@@ -266,10 +293,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
            {
                 "user": {
                         "id": "ad01b19f-f414-4135-ab8d-02591abe9e95",
-                        "first_name": "Clara",
-                        "last_name": "Correa",
-                        "nick_name": "Administrador",
-                        "email": "pajaros_caidos@hotmail.com",
+                        "first_name": "Peter",
+                        "last_name": "Parker",
+                        "nick_name": "La_araña_que_pica",
+                        "email": "pp@hotmail.com",
                         "password": "$2b$10$NMXyyktwebzmF8vnED/dlu2C3pLARRGTVgBfJ5E9tI9y8JX2hC1sq",
                         "avatar": "https://t4.ftcdn.net/jpg/04/75/00/99/36.jpg",
                         "country": "-",
@@ -277,6 +304,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "phone_number": 0,
                         "birth_date": "9999-12-31",
                         "emailValidateCode": null,
+                        "description": "-",
+                        "contact": "-",
                         "isVoluntary": false,
                         "isPrincipalAdmin": true,
                         "isAdmin": true,
@@ -456,6 +485,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
   - 'country' (optional): User name (string).
   - 'city' (optional): User name (string).
   - 'birth_date' (optional): User name (string).
+  - 'description' (optional): User name (string).
+  - 'contact' (optional): User name (string).
 
 - Successful response:
 
@@ -467,7 +498,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "id": "3103333a-fabf-40ef-b88f-699a59cc8510",
                         "first_name": "max",
                         "last_name": "Meder",
-                        "nick_name": "Administrador",
+                        "nick_name": "mgm",
                         "email": "dr@live.com.ar",
                         "password": "$2b$10$iULBHrQVmEdynQ0dWNrkG.RSpn.49jHJVKUWwWMK9MZDMMMdVOE3y",
                         "avatar": "https://t4.ftcdn.net/jpg/.jpg",
@@ -478,6 +509,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "emailValidateCode": null,
                         "isVoluntary": false,
                         "isPrincipalAdmin": true,
+                        "description": "-",
+                        "contact": "-",
                         "isAdmin": true,
                         "isBanned": false,
                         "formComplete": false,
@@ -531,6 +564,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "phone_number": 0,
                         "birth_date": "-",
                         "emailValidateCode": null,
+                        "description": "-",
+                        "contact": "-",
                         "isVoluntary": true,
                         "isPrincipalAdmin": true,
                         "isAdmin": true,
@@ -564,7 +599,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Endpoint: 'publication/all'
 - Query parameters:
   - 'limit=2' (optional): Return of publications up to the limit of the quantity requested.(number)
-- Description: Retorna un arreglo con la info, comentarios y reacciones de las publicaciones.(nota: solo devuelve hasta dos comentarios de cada publication)
+  - 'limitComments=2' (optional): Limit the number of comments on posts.(number)
+  - 'pageNumber=2' (optional): Number page.(number)
+  - 'postPerPage=2' (optional): Publications per page.(number)
+- Description: Retorna un arreglo con la info, comentarios y reacciones de las publicaciones.
 - Successful response:
 - Status code: 200 (OK)
 - Response body:
@@ -938,7 +976,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Endpoint: 'reaction/create/:id' (publication id)
 - Request parameters:
   - 'reaction' (obligatory): Las unicas reacciones soportadas son: 'love', 'like', 'applause', 'laugh', 'sad', 'free', 'angry'. (string).
-    -'idUser'(obligatory): User id (string)
+  - 'idUser'(obligatory): User id (string)
 - Description: Create a new category.
 - Successful response:
 
@@ -1005,9 +1043,14 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Method: GET
 - Endpoint: 'bird/all'
 - Query parameter:
+
   - 'limit' (optional): Devuelve hasta la cantidad solicitada (number).
   - 'location' (optional): Filtra por pais.
   - 'color' (optional): Filtra por color.
+  - 'name' (optional): Busca ave por el nombre
+  - 'pageNumber'= 1 (optional): Numero de la pagina
+  - 'birdPerPage'= 9 (optional): Aves por pagina
+
 - Description: Un arreglo con datos de las aves registradas.
 - Successful response (simple):
 
@@ -1065,21 +1108,19 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                 "message": "Birds not found"
         }
 
-## Create Bird
-
-name, scientificName, image, location, size, color, description
+### Create Bird
 
 - Method: POST
 - Endpoint: 'bird/create'
 - Request parameters:
-  - 'name' (obligatory): Category name (string).
+  - 'name' (obligatory): Bird name (string).
   - 'scientificName' (obligatory): (string).
   - 'image' (obligatory): (array of string).
   - 'location' (obligatory): (array of string).
   - 'size' (obligatory): (string).
   - 'color' (obligatory): (string).
   - 'description' (obligatory): (string).
-- Description: Create a new category.
+- Description: Create a new bird.
 - Successful response:
 
   - Status code: 200 (OK)
@@ -1126,7 +1167,7 @@ name, scientificName, image, location, size, color, description
 - Endpoint: 'bird/update/:id' (bird id)
 - Description: Update bird.
 - Request parameters:
-  - 'name' (optional): Category name (string).
+  - 'name' (optional): Bird name (string).
   - 'scientificName' (optional): (string).
   - 'image' (optional): (array of string).
   - 'location' (optional): (array of string).
@@ -1172,3 +1213,396 @@ name, scientificName, image, location, size, color, description
                         "code": "BIRD_NOT_FOUND"
                 }
         }
+
+## SHOP
+
+### Get item by id
+
+- Method: GET
+- Endpoint: 'shop/item/:id'
+- Description: Returns the item related to the id.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "item": {
+                        "id": "d0453780-c3d3-4897-93b9-d1b657ef36b6",
+                        "title": "Remera imagen paloma",
+                        "description": "Remera algodon ...",
+                        "image": ['image.jpg'],
+                        "price": 5000,
+                        "createdAt": "2023-07-29T03:51:06.030Z",
+                        "updatedAt": "2023-07-29T03:51:06.030Z",
+                        "categories": [
+                        {
+                                "id": "9d0aad61-7dde-4143-98a7-257cdb9a9462",
+                                "name": "talle L"
+                        }
+                        ]
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "there is no item with that id",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Get all items
+
+- Method: GET
+- Endpoint: 'shop/items'
+- Query parameter:
+
+  - 'limit' (optional): Devuelve hasta la cantidad solicitada (number).
+  - 'category' (optional): Filtra por categoria.
+  - 'name' (optional): Busca por nombre del title.
+  - 'minPrice' (optional): Trae los items que esten en el rango del precio (setear query minPrice y maxPrice)
+  - 'minPrice' (optional): Trae los items que esten en el rango del precio (setear query minPrice y maxPrice)
+  - 'orderPrice' (optional): Ordena los items por el precio (setear query asc / desc)
+  - 'orderName' (optional): Ordena los items alfabéticamente (setear query asc / desc)
+  - 'orderCreate' (optional): Ordena los items por fecha de creación (setear query asc / desc)
+  - 'pageNumber'= 1 (optional): Numero de la pagina
+  - 'itemPerPage'= 9 (optional): items por pagina
+
+- Description: Un arreglo con datos de los items.
+- Successful response (simple):
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "items": [
+                        {
+                        "id": "d0453780-c3d3-4897-93b9-d1b657ef36b6",
+                        "title": "Remera imagen paloma",
+                        "description": "Remera algodon ...",
+                        "image": [
+                                "image.jpg"
+                        ],
+                        "price": 5000,
+                        "createdAt": "2023-07-29T03:51:06.030Z",
+                        "updatedAt": "2023-07-29T03:51:06.030Z",
+                        "categories": [
+                                {
+                                "id": "9d0aad61-7dde-4143-98a7-257cdb9a9462",
+                                "name": "talle L"
+                                }
+                        ]
+                        }
+                ],
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "message": "Birds not found"
+        }
+
+### Create item
+
+- Method: POST
+- Endpoint: 'shop/item'
+- Request parameters:
+
+  - 'title' (obligatory): (string).
+  - 'description' (obligatory): (string).
+  - 'price' (obligatory): (number).
+  - 'image' (obligatory): (array of string).
+  - 'category' (obligatory): (array of string).
+
+- Description: Create a new item.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newItem": {
+                        "id": "d0453780-c3d3-4897-93b9-d1b657ef36b6",
+                        "title": "Remera imagen paloma",
+                        "description": "Remera algodon ...",
+                        "price": 5000,
+                        "image": [
+                        "image.jpg"
+                        ],
+                        "updatedAt": "2023-07-29T03:51:06.030Z",
+                        "createdAt": "2023-07-29T03:51:06.030Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "category must be provided and must be a string or number.",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Update item
+
+- Method: PUT
+- Endpoint: 'shop/item/:id'
+- Request parameters:
+
+  - 'title' (optionals): (string).
+  - 'description' (optionals): (string).
+  - 'price' (optionals): (number).
+  - 'image' (optionals): (array of string).
+
+- Description: Update item.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newItem": {
+                        "id": "d0453780-c3d3-4897-93b9-d1b657ef36b6",
+                        "title": "Remera imagen paloma",
+                        "description": "Remera algodon ...",
+                        "price": 5000,
+                        "image": [
+                        "image.jpg"
+                        ],
+                        "updatedAt": "2023-07-29T03:51:06.030Z",
+                        "createdAt": "2023-07-29T03:51:06.030Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "category must be provided and must be a string or number.",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Remover la categoría del item
+
+- Method: PATCH
+- Endpoint: 'shop/item/:id'
+- Request parameters:
+
+  - 'category' (optionals): (string).
+
+- Description: Update item.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "itemUpdated": {
+                        "id": "d0453780-c3d3-4897-93b9-d1b657ef36b6",
+                        "title": "Remera imagen paloma",
+                        "description": "Remera algodon ...",
+                        "image": [
+                        "image.jpg"
+                        ],
+                        "price": 5000,
+                        "createdAt": "2023-07-29T03:51:06.030Z",
+                        "updatedAt": "2023-07-29T03:51:06.030Z",
+                        "categories": []
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "there is no item with that id",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Delete item
+
+- Method: DELETE
+- Endpoint: 'shop/item/:id'
+- Description: Removes the item related to the ID.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "itemDeleted": 1,
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "there is no item with that id",
+                        "code": "ITEM_NOT_FOUND"
+                }
+        }
+
+### Get all categories
+
+- Method: GET
+- Endpoint: 'shop/category'
+- Description: Un arreglo con datos de las categorias.
+- Successful response (simple):
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "categories": [
+                        {
+                        "id": "9d0aad61-7dde-4143-98a7-257cdb9a9462",
+                        "name": "talle L",
+                        "createdAt": "2023-07-29T03:50:55.241Z",
+                        "updatedAt": "2023-07-29T03:50:55.241Z"
+                        }
+                ],
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "message": "categories not found"
+        }
+
+### Create category
+
+- Method: POST
+- Endpoint: 'shop/category'
+- Request parameters:
+
+  - 'name' (obligatory):Category name (string).
+
+- Description: Create a new category.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newCategory": {
+                        "id": "9d0aad61-7dde-4143-98a7-257cdb9a9462",
+                        "name": "talle L",
+                        "updatedAt": "2023-07-29T03:50:55.241Z",
+                        "createdAt": "2023-07-29T03:50:55.241Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "talle L exist",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Update category
+
+- Method: PUT
+- Endpoint: 'shop/category/:id'
+- Request parameters:
+
+  - 'name' (optionals): (string).
+
+- Description: Update category.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "categoryUpdated": [
+                        1
+                ],
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "there is no such category",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Delete category
+
+- Method: DELETE
+- Endpoint: 'shop/category/:id'
+- Description: Removes the category related to the ID.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "categoryDeleted": 1,
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "there is no such category",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+## NEWS
