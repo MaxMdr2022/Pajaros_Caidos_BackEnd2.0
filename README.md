@@ -1606,3 +1606,375 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
         }
 
 ## NEWS
+
+### Get news by id
+
+- Method: GET
+- Endpoint: 'news/:id'
+- Description: Returns the news related to the id.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "news": {
+                        "id": "0d9a636f-5ac0-426f-8617-32e2137c1e89",
+                        "title": "Evento para recaudar fondos",
+                        "description": "El evento se va a realizar el dia...",
+                        "image": [
+                        "imagen1.jpg"
+                        ],
+                        "createdAt": "2023-07-31T01:55:29.355Z",
+                        "updatedAt": "2023-07-31T01:55:29.355Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "News not found",
+                        "code": "NEWS_NOT_FOUND"
+                }
+        }
+
+### Get all news
+
+- Method: GET
+- Endpoint: 'news'
+- Description: Un arreglo con datos de las noticias.
+- Query parameter:
+
+  - 'pageNumber' (optional): Cantidad de paginas (number).
+  - 'newsPerPage' (optional): Cantidad de noticias por pagina (number).
+
+- Successful response (simple):
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "news": [
+                        {
+                                "id": "3ef53e71-44ed-4d7b-bedb-b94557696f3a",
+                                "title": "Evento para recaudar fondos  1",
+                                "description": "El evento se va a realizar el dia...",
+                                "image": [
+                                        "imagen1.jpg"
+                                ],
+                                "createdAt": "2023-07-31T01:55:25.555Z",
+                                "updatedAt": "2023-07-31T01:55:25.555Z"
+                        },
+                        {
+                                "id": "0d9a636f-5ac0-426f-8617-32e2137c1e89",
+                                "title": "Evento para recaudar fondos  2",
+                                "description": "El evento se va a realizar el dia...",
+                                "image": [
+                                        "imagen1.jpg"
+                                ],
+                                "createdAt": "2023-07-31T01:55:29.355Z",
+                                "updatedAt": "2023-07-31T01:55:29.355Z"
+                        }
+                ],
+                "status": "success"
+        }
+
+### Create news
+
+- Method: POST
+- Endpoint: 'news'
+- Request parameters:
+
+  - 'title' (obligatory): (string).
+  - 'description' (obligatory): (string).
+  - 'image' (obligatory): (array of string).
+
+- Description: Create a new News.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newNews": {
+                        "id": "03023fd0-f763-4f3e-8397-4c0accc9ae8e",
+                        "title": "Evento para recaudar fondos",
+                        "description": "El evento se va a realizar el dia...",
+                        "image": [
+                        "imagen1.jpg"
+                        ],
+                        "updatedAt": "2023-07-31T02:32:12.870Z",
+                        "createdAt": "2023-07-31T02:32:12.870Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "The image  has to be an array of strings",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Update News
+
+- Method: PUT
+- Endpoint: 'news/:id'
+- Request parameters:
+
+  - 'title' (optionals): (string).
+  - 'description' (optionals): (string).
+  - 'image' (optionals): (array of string).
+
+- Description: Update category.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newsUpdated": [
+                        1
+                ],
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Delete news
+
+- Method: DELETE
+- Endpoint: 'news/:id'
+- Description: Removes the news related to the ID.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newsDeleted": 1,
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "News not found",
+                        "code": "NEWS_NOT_FOUND"
+                }
+        }
+
+## Advertising
+
+### Get Advertising by id
+
+- Method: GET
+- Endpoint: 'advertising/:id'
+- Description: Returns the Advertising related to the id.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "advertising": {
+                        "id": "4100426c-17f7-4e0c-89c8-03067c8eb80b",
+                        "contact": "https://www.spacex.com/",
+                        "company": "SpaceX",
+                        "image": [
+                        "image1.jpg"
+                        ],
+                        "createdAt": "2023-07-31T02:03:20.581Z",
+                        "updatedAt": "2023-07-31T02:03:20.581Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "Advertising not found",
+                        "code": "ADVERTISING_NOT_FOUND"
+                }
+        }
+
+### Get all Advertising
+
+- Method: GET
+- Endpoint: 'advertising'
+- Description: Un arreglo con datos de las publicidades.
+- Query parameter:
+
+  - 'pageNumber' (optional): Cantidad de paginas (number).
+  - 'advertisingPerPage' (optional): Cantidad de publicidades por pagina (number).
+
+- Successful response (simple):
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "advertising": [
+                        {
+                                "id": "4100426c-17f7-4e0c-89c8-03067c8eb80b",
+                                "contact": "https://www.spacex.com/",
+                                "company": "SpaceX",
+                                "image": [
+                                        "image1.jpg"
+                                ],
+                                "createdAt": "2023-07-31T02:03:20.581Z",
+                                "updatedAt": "2023-07-31T02:03:20.581Z"
+                        },
+                        {
+                                "id": "8bfb3b9a-f54c-4dd3-b98c-40d663c21eba",
+                                "contact": "https://www.spacex.com/",
+                                "company": "SpaceX 2",
+                                "image": [
+                                        "image1.jpg"
+                                ],
+                                "createdAt": "2023-07-31T02:03:24.819Z",
+                                "updatedAt": "2023-07-31T02:03:24.819Z"
+                        }
+                ],
+                "status": "success"
+        }
+
+### Create Advertising
+
+- Method: POST
+- Endpoint: 'advertising'
+- Request parameters:
+
+  - 'company' (obligatory): Company name (string).
+  - 'contact' (obligatory): Company URL (string).
+  - 'image' (obligatory): (array of string).
+
+- Description: Create a new Advertising.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "newAdvertising": {
+                        "id": "8bfb3b9a-f54c-4dd3-b98c-40d663c21eba",
+                        "contact": "https://www.spacex.com/",
+                        "company": "SpaceX 2",
+                        "image": [
+                        "image1.jpg"
+                        ],
+                        "updatedAt": "2023-07-31T02:03:24.819Z",
+                        "createdAt": "2023-07-31T02:03:24.819Z"
+                },
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "The image  has to be an array of strings",
+                        "code": "INVALID_BODY"
+                }
+        }
+
+### Update Advertising
+
+- Method: PUT
+- Endpoint: 'advertising/:id'
+- Request parameters:
+
+  - 'company' (optionals): (string).
+  - 'contact' (optionals): (string).
+  - 'image' (optionals): (array of string).
+
+- Description: Update Advertising.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "advertisingUpdated": [
+                        1
+                ],
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "Advertising not found",
+                        "code": "ADVERTISING_NOT_FOUND"
+                }
+        }
+
+### Delete news
+
+- Method: DELETE
+- Endpoint: 'advertising/:id'
+- Description: Removes the Advertising related to the ID.
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "advertisingDeleted": 1,
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "Advertising not found",
+                        "code": "ADVERTISING_NOT_FOUND"
+                }
+        }
