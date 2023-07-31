@@ -17,6 +17,8 @@ export enum ErrorCodeType {
   ReactionNotFound = 'REACTION_NOT_FOUND',
   BirdNotFound = 'BIRD_NOT_FOUND',
   InvalidParameter = 'INVALID_PARAMETER',
+  NewsNotFound = 'NEWS_NOT_FOUND',
+  AdvertisingNotFound = 'ADVERTISING_NOT_FOUND',
 }
 
 export class ErrorResponse {
