@@ -1,4 +1,4 @@
-import { NewsFacade } from '../facades/News'
+import { NewsFacade } from '../facades/NewsFacade'
 import { News } from '../models/types/News'
 
 const facade = new NewsFacade()
