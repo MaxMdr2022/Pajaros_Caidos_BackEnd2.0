@@ -4,6 +4,8 @@ import { CommentController } from './controllers/CommentController'
 import { ReactionController } from './controllers/ReactionController'
 import { BirdController } from './controllers/BirdController'
 import { ItemController } from './controllers/ItemController'
+import { NewsController } from './controllers/News'
+import { AdvertisingController } from './controllers/AdvertisingController'
 import { Response, Request } from 'express'
 import express from 'express'
 import { Server } from '@overnightjs/core'
@@ -39,6 +41,8 @@ class StartServer extends Server {
       new ReactionController(),
       new BirdController(),
       new ItemController(),
+      new NewsController(),
+      new AdvertisingController(),
     ])
 
     this.app.use(default404)
