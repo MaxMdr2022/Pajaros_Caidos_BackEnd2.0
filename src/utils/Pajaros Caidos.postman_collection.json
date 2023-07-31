@@ -978,6 +978,247 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "News",
+			"item": [
+				{
+					"name": "getNewsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/news",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllNews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/news?pageNumber=3&newsPerPage=2",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"news"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "3"
+								},
+								{
+									"key": "newsPerPage",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createNews",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"Evento para recaudar fondos\",\r\n    \"description\":\"El evento se va a realizar el dia...\",\r\n    \"image\":[\"imagen1.jpg\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/news",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"news"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateNews",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\":\"nuevo titulo..\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/news/59868df5-ef62-4dd0-9cbc-a2406ee8ea78",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"news",
+								"59868df5-ef62-4dd0-9cbc-a2406ee8ea78"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteNews",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/news/",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"news",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Advertising",
+			"item": [
+				{
+					"name": "getAdvertisingById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/advertising/4100426c-17f7-4e0c-89c8-03067c8eb80b",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"advertising",
+								"4100426c-17f7-4e0c-89c8-03067c8eb80b"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllAdvertising",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/advertising?pageNumber=2&advertisingPerPage=2",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"advertising"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "2"
+								},
+								{
+									"key": "advertisingPerPage",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createAdvertising",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"company\":\"\",\r\n    \"image\":[\"image1.jpg\"],\r\n    \"constact\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/advertising",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"advertising"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAdvertising",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"image\":[\"newImage.jpg\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{DOMAIN}}/advertising/c3ca62c5-922d-4738-8287-4e89c3e8cd74",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"advertising",
+								"c3ca62c5-922d-4738-8287-4e89c3e8cd74"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteaAdvertising",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{DOMAIN}}/advertising/c3ca62c5-922d-4738-8287-4e89c3e8cd74",
+							"host": [
+								"{{DOMAIN}}"
+							],
+							"path": [
+								"advertising",
+								"c3ca62c5-922d-4738-8287-4e89c3e8cd74"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
