@@ -1,8 +1,8 @@
 import { DataTypes } from 'sequelize'
 
 export default (sequelize) => {
-  const News = sequelize.define(
-    'news',
+  const Advertising = sequelize.define(
+    'advertising',
     {
       id: {
         type: DataTypes.UUID,
@@ -10,11 +10,11 @@ export default (sequelize) => {
         primaryKey: true,
         allowNull: false,
       },
-      title: {
+      contact: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      description: {
+      company: {
         type: DataTypes.TEXT,
         allowNull: false,
       },
@@ -22,20 +22,11 @@ export default (sequelize) => {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
       },
-      // video: {
-      //     type: DataTypes.ARRAY(DataTypes.STRING),
-      //     allowNull: false
-      // },
-      // isDeleted: {
-      //   type: DataTypes.BOOLEAN,
-      //   defaultValue: false,
-      //   allowNull: false,
-      // },
     },
     {
       timestamps: true,
     }
   )
 
-  return News
+  return Advertising
 }
