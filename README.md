@@ -200,7 +200,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                         "first_name": "Tony",
                                         "last_name": "Stark",
                                         "nick_name": "Administrador",
-                                        "email": "drum_94@live.com.ar",
+                                        "email": "dr@live.com.ar",
                                         "password": "$2b$10$ajJcg58D3GX8ZKbA4MQQWisy2025C.Cjq56",
                                         "avatar": "https://t4.ftcdn.net/PKaqi.jpg",
                                         "country": "-",
