@@ -191,6 +191,11 @@ export async function validateItemQuery(req: Request, res: Response, next: NextF
 
     const invalidCategories = await helper.checkCategories(categoriesArray)
 
+    if (typeof invalidCategories[0] === 'string') {
+      const message = 'not categories'
+      return res.status(400).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
     if (invalidCategories.length > 0) {
       const categories = await helper.getAllCategories()
       const categoryNames = categories.map((e) => e.name)
