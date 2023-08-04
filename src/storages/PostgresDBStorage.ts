@@ -4,6 +4,12 @@ export class PostgresDBStorage {
     return
   }
 
+  async count(model:any):Promise<number>{
+    const quantity = await model.count()
+
+    return quantity
+  }
+
   async find<T>(model: any, filter?: any): Promise<T> {
     const document = await model.findAll(filter)
 
