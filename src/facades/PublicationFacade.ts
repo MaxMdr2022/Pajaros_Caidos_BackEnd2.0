@@ -10,6 +10,10 @@ import {
 const storage = new PostgresDBStorage()
 
 export class PublicationFacade {
+  async countPublications(): Promise<number> {
+    return await storage.count(PublicationsListModel)
+  }
+
   async createPublication(userId: string, data: any): Promise<Publication> {
     const newPublication: Publication = await storage.create(PublicationsListModel, data)
 

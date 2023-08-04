@@ -18,7 +18,7 @@ export class PublicationController {
   async getAllPublications(req: Request, res: Response) {
     const { data } = res.locals
     const publications = await helper.getAllPublications(data)
-    res.status(200).send(new ResponseSuccess({ publications }))
+    res.status(200).send(new ResponseSuccess(publications))
   }
 
   @Get(':id')

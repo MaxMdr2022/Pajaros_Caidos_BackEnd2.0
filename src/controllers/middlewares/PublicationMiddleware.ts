@@ -115,8 +115,8 @@ export async function validateLimitQuery(req: Request, res: Response, next: Next
       const message = `pageNumber must be a valid number..`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
     }
-    if (postPerPage && !isValidNumber(postPerPage)) {
-      const message = `birdPerPage must be a valid number..`
+    if ((postPerPage && !isValidNumber(postPerPage)) || Number(postPerPage) < 1) {
+      const message = `postPerPage must be a valid number or greater than one.`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
     }
   }
