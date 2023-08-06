@@ -52,7 +52,7 @@ class StartServer extends Server {
   }
 
   public start(port: number): void {
-    database.sync({ force: true }).then(() => {
+    database.sync({ force: false }).then(() => {
       this.app.listen(port, async () => {
         await bulkCreateAdmin()
         console.log(`Server listen in port: ${port}`)
