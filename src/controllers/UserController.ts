@@ -14,6 +14,7 @@ import {
 } from './middlewares/UserMiddleware'
 import { validateToken } from './middlewares/Authentications'
 import { validateUserEmail } from './middlewares/ValidateUserEmail'
+import { createCookie } from './middlewares/CookieMiddleware'
 
 const helper = new UserHelper()
 
@@ -84,13 +85,14 @@ export class UserController {
   }
 
   @Post('login')
-  @Middleware([validateDataLogIn])
+  @Middleware([validateDataLogIn, createCookie])
   async logIn(req: Request, res: Response) {
     const { email, user } = res.locals
 
     const JWT = await helper.getJWTUserLogIn(email)
 
-    res.status(200).send(new ResponseSuccess({ JWT, user }))
+    res.cookie('JWT', JWT)
+    res.status(200).send(new ResponseSuccess({ user }))
   }
 
   @Put('update/:id')
