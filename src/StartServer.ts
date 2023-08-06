@@ -15,6 +15,7 @@ import { errorHandler } from './utils/HandlerErrors'
 import bulkCreateAdmin from './utils/admins/BulkCreateAdmin'
 import { database } from './storages/DB'
 import cors from 'cors'
+import cookieParser from 'cookie-parser'
 
 const default404 = (req: Request, res: Response) =>
   res
@@ -33,6 +34,7 @@ class StartServer extends Server {
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(cors())
+    this.app.use(cookieParser())
 
     super.addControllers([
       new UserController(),
@@ -50,7 +52,7 @@ class StartServer extends Server {
   }
 
   public start(port: number): void {
-    database.sync({ force: false }).then(() => {
+    database.sync({ force: true }).then(() => {
       this.app.listen(port, async () => {
         await bulkCreateAdmin()
         console.log(`Server listen in port: ${port}`)
