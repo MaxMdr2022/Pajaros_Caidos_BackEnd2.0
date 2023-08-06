@@ -31,10 +31,10 @@ class StartServer extends Server {
   constructor() {
     super()
     this.app.use(parserJson())
+    this.app.use(cookieParser())
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
     this.app.use(cors())
-    this.app.use(cookieParser())
 
     super.addControllers([
       new UserController(),
@@ -52,7 +52,7 @@ class StartServer extends Server {
   }
 
   public start(port: number): void {
-    database.sync({ force: false }).then(() => {
+    database.sync({ force: true }).then(() => {
       this.app.listen(port, async () => {
         await bulkCreateAdmin()
         console.log(`Server listen in port: ${port}`)
