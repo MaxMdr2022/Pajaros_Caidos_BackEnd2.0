@@ -34,7 +34,7 @@ class StartServer extends Server {
     this.app.use(parserJson())
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
-    this.app.use(cors({ origin: '*', credentials: true }))
+    this.app.use(cors({ credentials: true }))
 
     super.addControllers([
       new UserController(),
