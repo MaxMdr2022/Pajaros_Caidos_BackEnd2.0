@@ -14,7 +14,6 @@ import {
 } from './middlewares/UserMiddleware'
 import { validateToken } from './middlewares/Authentications'
 import { validateUserEmail } from './middlewares/ValidateUserEmail'
-import { createCookie } from './middlewares/CookieMiddleware'
 
 const helper = new UserHelper()
 
@@ -85,7 +84,7 @@ export class UserController {
   }
 
   @Post('login')
-  @Middleware([validateDataLogIn, createCookie])
+  @Middleware([validateDataLogIn])
   async logIn(req: Request, res: Response) {
     const { email, user } = res.locals
 
