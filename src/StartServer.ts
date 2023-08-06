@@ -30,11 +30,11 @@ const default404 = (req: Request, res: Response) =>
 class StartServer extends Server {
   constructor() {
     super()
-    this.app.use(parserJson())
     this.app.use(cookieParser())
+    this.app.use(parserJson())
     this.app.use(express.json())
     this.app.use(express.urlencoded({ extended: true }))
-    this.app.use(cors())
+    this.app.use(cors({ origin: '*' }))
 
     super.addControllers([
       new UserController(),
