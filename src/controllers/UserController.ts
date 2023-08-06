@@ -90,7 +90,7 @@ export class UserController {
 
     const JWT = await helper.getJWTUserLogIn(email)
 
-    res.cookie('JWT', JWT, { sameSite: 'none', secure: true })
+    res.cookie('JWT', JWT, { sameSite: 'lax', secure: true })
     console.log(req.cookies)
 
     res.status(200).send(new ResponseSuccess({ user }))
