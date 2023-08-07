@@ -3,7 +3,7 @@ import { ErrorCodeType, ErrorResponse } from '../../models/responses/ErrorRespon
 import jwt from 'jsonwebtoken'
 
 export async function validateToken(req: Request, res: Response, next: NextFunction) {
-  const { JWT } = req.cookies()
+  const { JWT } = req.cookies
 
   if (JWT) {
     try {
