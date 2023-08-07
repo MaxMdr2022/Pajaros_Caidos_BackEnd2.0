@@ -72,7 +72,7 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   if (!user) {
     const message = `There is no registered user with the email: ${email}`
 
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
   }
 
   const validatePassword = await bcrypt.compare(password, user.password)
@@ -80,7 +80,7 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   if (!validatePassword) {
     const message = `Invalid password.`
 
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidPassword))
   }
 
   res.locals.email = email
