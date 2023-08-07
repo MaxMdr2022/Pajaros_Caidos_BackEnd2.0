@@ -12,6 +12,7 @@ export enum ErrorCodeType {
   AccessDenied = 'ACCESS_DENIED',
   InvalidToken = 'INVALID_TOKEN',
   UserNotFound = 'USER_NOT_FOUND',
+  InvalidPassword = 'INVALID_PASSWORD',
   PublicationNotFound = 'PUBLICATION_NOT_FOUND',
   CommentNotFound = 'COMMENT_NOT_FOUND',
   ReactionNotFound = 'REACTION_NOT_FOUND',
