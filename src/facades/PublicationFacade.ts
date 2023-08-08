@@ -25,7 +25,7 @@ export class PublicationFacade {
   }
 
   async getAllPublications(data?: any): Promise<Publication[]> {
-    const { limit, title, postPerPage, pageNumber, limitComments } = data
+    const { limit, title, postPerPage, pageNumber, limitComments, orderCreate } = data
 
     const filter: any = {
       include: [
@@ -56,7 +56,7 @@ export class PublicationFacade {
 
     if (pageNumber) {
       const skip = (pageNumber - 1) * postPerPage
-      filter.order = [['createdAt', 'asc']]
+      filter.order = [['createdAt', orderCreate]]
       filter.limit = postPerPage
       filter.offset = skip
     }
