@@ -121,7 +121,7 @@ export async function validateLimitQuery(req: Request, res: Response, next: Next
     }
   }
 
-  if ((orderCreate && orderCreate !== 'asc') || orderCreate !== 'desc') {
+  if (orderCreate && orderCreate !== 'asc' && orderCreate !== 'desc') {
     const message = `The only valid values are asc and desc`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
   }
