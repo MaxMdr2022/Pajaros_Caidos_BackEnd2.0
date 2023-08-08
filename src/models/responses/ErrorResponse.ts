@@ -20,6 +20,9 @@ export enum ErrorCodeType {
   InvalidParameter = 'INVALID_PARAMETER',
   NewsNotFound = 'NEWS_NOT_FOUND',
   AdvertisingNotFound = 'ADVERTISING_NOT_FOUND',
+  EmailUsed = 'EMAIL_USED',
+  ValidateEmailCode = 'VALIDATE_EMAIL_CODE',
+  InvalidCode = 'INVALID_CODE',
 }
 
 export class ErrorResponse {
