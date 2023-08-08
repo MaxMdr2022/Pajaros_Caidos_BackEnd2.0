@@ -95,7 +95,7 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
 }
 
 export async function validateLimitQuery(req: Request, res: Response, next: NextFunction) {
-  const { limit, title, postPerPage, pageNumber, limitComments } = req.query
+  const { limit, title, postPerPage, pageNumber, limitComments, orderCreate } = req.query
 
   if (limit && Number(limit) < 1) {
     const message = `The order limit has to be greater than zero.`
@@ -121,7 +121,12 @@ export async function validateLimitQuery(req: Request, res: Response, next: Next
     }
   }
 
-  const data = { limit, title, postPerPage, pageNumber, limitComments }
+  if ((orderCreate && orderCreate !== 'asc') || orderCreate !== 'desc') {
+    const message = `The only valid values are asc and desc`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  }
+
+  const data = { limit, title, postPerPage, pageNumber, limitComments, orderCreate }
   res.locals.data = data
   next()
 }
