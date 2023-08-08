@@ -12,7 +12,7 @@ export async function validateUserEmail(req: Request, res: Response, next: NextF
 
   if (code !== user.emailValidateCode) {
     const message = `The entered ${code} code is not valid.`
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidCode))
   }
 
   res.locals.code = code
