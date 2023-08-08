@@ -44,7 +44,7 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
   if (user) {
     const message = `There is a registered user with the email entered: ${email}`
 
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.EmailUsed))
   }
 
   const data = { email, password, first_name, last_name }
@@ -74,6 +74,12 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
 
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
   }
+
+  // if(!user.emailValidateCode){
+  //   const message = `The user must validate the email.`
+
+  //   return res.status(404).send(new ErrorResponse(message, ErrorCodeType.ValidateEmailCode))
+  // }
 
   const validatePassword = await bcrypt.compare(password, user.password)
 
