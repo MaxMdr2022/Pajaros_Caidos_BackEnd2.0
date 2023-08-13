@@ -8,9 +8,11 @@ import {
   validateCreateUser,
   validateDataLogIn,
   validateDataUpdate,
+  validateEmail,
   validateFilterQuery,
   validateFilterUserQuery,
   validateId,
+  validateNewPassword,
 } from './middlewares/UserMiddleware'
 import { validateToken } from './middlewares/Authentications'
 import { validateUserEmail } from './middlewares/ValidateUserEmail'
@@ -83,6 +85,16 @@ export class UserController {
       .send(new ResponseSuccess({ userEmailValidate: 'Verification code sent successfully.' }))
   }
 
+  @Post('generate-password')
+  @Middleware([validateEmail])
+  async generateANewPass(req: Request, res: Response) {
+    const { user } = res.locals
+
+    await helper.generateNewPassword(user)
+
+    res.status(200).send(new ResponseSuccess({ userPassword: 'Password generated successfully' }))
+  }
+
   @Post('login')
   @Middleware([validateDataLogIn])
   async logIn(req: Request, res: Response) {
@@ -101,6 +113,16 @@ export class UserController {
     const { data, id } = res.locals
 
     const userUpdated = await helper.updateUser(id, data)
+
+    res.status(200).send(new ResponseSuccess({ userUpdated }))
+  }
+
+  @Put('update-password/:id')
+  @Middleware([validateId, validateNewPassword])
+  async updatePassword(req: Request, res: Response) {
+    const { newPassword, id } = res.locals
+
+    const userUpdated = await helper.updatePassword(id, newPassword)
 
     res.status(200).send(new ResponseSuccess({ userUpdated }))
   }
