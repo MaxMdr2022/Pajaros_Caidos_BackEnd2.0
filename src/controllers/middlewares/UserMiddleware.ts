@@ -94,6 +94,40 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   next()
 }
 
+export async function validateEmail(req: Request, res: Response, next: NextFunction) {
+  const { email } = req.body
+
+  if (!email) {
+    const message = `To log in you must enter email.`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  if (typeof email !== 'string') {
+    const message = `Email must be strings.`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  const user = await helper.getUserByEmail(email)
+
+  if (!user) {
+    const message = `There is no registered user with the email: ${email}`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
+  }
+
+  // if(!user.emailValidateCode){
+  //   const message = `The user must validate the email.`
+
+  //   return res.status(404).send(new ErrorResponse(message, ErrorCodeType.ValidateEmailCode))
+  // }
+
+  res.locals.email = email
+  res.locals.user = user
+  next()
+}
+
 export async function validateFilterQuery(req: Request, res: Response, next: NextFunction) {
   const { verbose, last_name, pageNumber, userPerPage, userStatus } = req.query
 
@@ -250,6 +284,27 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     description,
     contact,
   }
+  next()
+}
+
+export async function validateNewPassword(req: Request, res: Response, next: NextFunction) {
+  const { oldPassword, newPassword } = req.body
+  const { user } = res.locals
+
+  if (!oldPassword || !newPassword) {
+    const message = `You must enter the old and new password`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+  const validatePassword = await bcrypt.compare(oldPassword, user.password)
+
+  if (!validatePassword) {
+    const message = `Invalid password.`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidPassword))
+  }
+
+  res.locals.newPassword = newPassword
   next()
 }
 
