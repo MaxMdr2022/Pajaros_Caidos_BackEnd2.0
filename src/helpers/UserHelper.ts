@@ -4,6 +4,7 @@ import { User } from '../models/types/User'
 import {
   codeUserVerification,
   mailOption,
+  mailOptionGeneratePassword,
   sendEmail,
   transporter,
 } from '../utils/nodeMailer/Functions'
@@ -94,5 +95,25 @@ export class UserHelper {
     sendEmail(emailMessage)
 
     return userUpdated
+  }
+
+  async generateNewPassword(user: User): Promise<User> {
+    const newPass = codeUserVerification()
+
+    const passHashed = await bcrypt.hash(newPass, 10)
+
+    const userUpdated = await facade.updateUser(user.id, { password: passHashed })
+
+    const emailMessage = mailOptionGeneratePassword(user.email, user.first_name, newPass)
+
+    sendEmail(emailMessage)
+
+    return userUpdated
+  }
+
+  async updatePassword(id: string, newPassword: string): Promise<User> {
+    const passHashed = await bcrypt.hash(newPassword, 10)
+
+    return await facade.updateUser(id, { password: passHashed })
   }
 }
