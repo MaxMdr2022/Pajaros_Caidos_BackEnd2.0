@@ -96,12 +96,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Request parameters:
   - 'email' (obligatory): User email (string).
   - 'password' (obligatory): User password (string).
-- Description: Returns an object with the Json Web Token and the information of the user who started the session.
+- Description: Returns an object with the information of the user who started the session and saves a JWT in cookies for validation in private routes.
 - Status code: 200 (OK)
 - Response body:
 
                 {
-                        "JWT": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRydW1fOTRAbG",
                         "user": {
                                 "id": "3103333a-fabf-40ef-b88f-699a59cc8510",
                                 "first_name": "Maxi",
@@ -534,6 +533,73 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                 }
         }
 
+### update password
+
+- Method: PUT
+- Endpoint: 'user/update-password/:id' (user id)
+- Description: Update password user.
+- Request parameters:
+
+  - 'oldPassword' (obligatory): (string).
+  - 'newPassword' (obligatory): (string).
+
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "userUpdated": [
+                        1
+                ],
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "Invalid password.",
+                        "code": "INVALID_PASSWORD"
+                }
+        }
+
+### generate a new password (The new password is sent to the user's email.)
+
+- Method: POST
+- Endpoint: 'user/generate-password'
+- Description: This route is used when the user clicks on "forgot my password" It generates a new one and sends it to them by email.
+- Request parameters:
+
+  - 'email' (obligatory): (string).
+
+- Successful response:
+
+  - Status code: 200 (OK)
+  - Response body:
+
+        {
+                "userPassword": "Password generated successfully",
+                "status": "success"
+        }
+
+- Error response:
+
+  - Status code: 404(Not Found)
+  - Error body:
+
+        {
+                "status": "error",
+                "error": {
+                        "message": "There is no registered user with the email: email@123.com",
+                        "code": "USER_NOT_FOUND"
+                }
+        }
+
 ### Admin actions
 
 - Method: PATCH
@@ -602,12 +668,14 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
   - 'limitComments=2' (optional): Limit the number of comments on posts.(number)
   - 'pageNumber=2' (optional): Number page.(number)
   - 'postPerPage=2' (optional): Publications per page.(number)
+  - 'orderCreate' (optional): Ordena las publicaciones de forma ascendente o descendente (valores admitidos 'asc' o 'desc')
 - Description: Retorna un arreglo con la info, comentarios y reacciones de las publicaciones.
 - Successful response:
 - Status code: 200 (OK)
 - Response body:
 
                {
+                "totalPages": 2,
                 "publications":
                         [
                                 {
