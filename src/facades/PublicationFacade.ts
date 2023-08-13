@@ -56,7 +56,12 @@ export class PublicationFacade {
 
     if (pageNumber) {
       const skip = (pageNumber - 1) * postPerPage
-      filter.order = [['createdAt', orderCreate]]
+      if (!orderCreate) {
+        filter.order = [['createdAt', 'desc']]
+      } else {
+        filter.order = [['createdAt', orderCreate]]
+      }
+
       filter.limit = postPerPage
       filter.offset = skip
     }
