@@ -109,3 +109,41 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
 
   next()
 }
+
+//------------------ BANNER -------------------------------
+
+export async function validateIdBannerImage(req: Request, res: Response, next: NextFunction) {
+  const { id } = req.params
+
+  if (!UUIDRegex.test(id)) {
+    const message = 'Invalid id'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  }
+  const image = await helper.getBannerImageById(id)
+
+  if (!image) {
+    const message = 'Banner image not found'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.NewsNotFound))
+  }
+  res.locals.id = id
+  res.locals.image = image
+  return next()
+}
+
+export async function validateDataCreateBanner(req: Request, res: Response, next: NextFunction) {
+  const { name, image } = req.body
+
+  if (!name || !image) {
+    const message = 'To create a news you need title description and image'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  if (typeof name !== 'string' || typeof image !== 'string') {
+    const message = 'Name and image must be string'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  res.locals.data = { name, image }
+
+  next()
+}
