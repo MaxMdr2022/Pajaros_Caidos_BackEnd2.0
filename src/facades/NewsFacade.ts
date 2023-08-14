@@ -1,15 +1,20 @@
 import { PostgresDBStorage } from '../storages/PostgresDBStorage'
-import { NewsListModel } from '../storages/DB'
+import { NewsListModel, BannerListModel } from '../storages/DB'
 import { News } from '../models/types/News'
+import { Banner } from '../models/types/Banner'
 
 const storage = new PostgresDBStorage()
 
 export class NewsFacade {
+  async countNews(): Promise<number> {
+    return await storage.count(NewsListModel)
+  }
+
   async getNewsById(id: string): Promise<News> {
     return await storage.findById(NewsListModel, id)
   }
 
-  async getAllNews(filters?: any): Promise<News> {
+  async getAllNews(filters?: any): Promise<News[]> {
     const { pageNumber, newsPerPage } = filters
 
     const filter: any = {}
@@ -34,5 +39,30 @@ export class NewsFacade {
 
   async deleteNews(id: string): Promise<News> {
     return await storage.delete(NewsListModel, { where: { id } })
+  }
+
+  //--------------- BANNER ---------------------------
+
+  async getBannerImageById(id: string): Promise<Banner> {
+    return await storage.findById(BannerListModel, id)
+  }
+  async getAllBannerImages(): Promise<Banner[]> {
+    const filter: any = {}
+
+    filter.order = [['createdAt', 'desc']]
+
+    return await storage.find(BannerListModel, filter)
+  }
+
+  async addBannerImage(data: Banner): Promise<Banner> {
+    return await storage.create(BannerListModel, data)
+  }
+
+  async updateBannerImage(id: string, data: any): Promise<Banner> {
+    return await storage.update(BannerListModel, { ...data }, { where: { id } })
+  }
+
+  async deleteBannerImage(id: string): Promise<Banner> {
+    return await storage.delete(BannerListModel, { where: { id } })
   }
 }
