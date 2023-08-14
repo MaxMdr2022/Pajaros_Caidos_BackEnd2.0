@@ -9,6 +9,7 @@ import CategoryModel from '../models/models/Category'
 import ItemModel from '../models/models/Item'
 import NewsModel from '../models/models/News'
 import AdvertisingModel from '../models/models/Advertising'
+import BannerModel from '../models/models/Banner'
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env
 
@@ -29,6 +30,7 @@ const ItemListModel = ItemModel(database)
 const CategoryListModel = CategoryModel(database)
 const NewsListModel = NewsModel(database)
 const AdvertisingListModel = AdvertisingModel(database)
+const BannerListModel = BannerModel(database)
 
 UserListModel.hasMany(CommentsListModel)
 CommentsListModel.belongsTo(UserListModel)
@@ -58,5 +60,6 @@ export {
   CategoryListModel,
   NewsListModel,
   AdvertisingListModel,
+  BannerListModel,
   database,
 }
