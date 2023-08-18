@@ -43,6 +43,14 @@ export class UserController {
     return res.status(200).send(new ResponseSuccess({ users }))
   }
 
+  @Get('logout')
+  @Middleware([validateToken])
+  async logout(req: Request, res: Response) {
+    res.clearCookie('JWT', { sameSite: 'none', secure: true })
+
+    res.status(200).send(new ResponseSuccess({ message: 'Logged out successfully' }))
+  }
+
   @Get(':id')
   @Middleware([validateId, validateFilterUserQuery])
   async getUserById(req: Request, res: Response) {
