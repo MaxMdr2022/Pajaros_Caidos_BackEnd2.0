@@ -8,6 +8,7 @@ import {
   validateCreateUser,
   validateDataLogIn,
   validateDataUpdate,
+  validateDataUserAuth0,
   validateEmail,
   validateFilterQuery,
   validateFilterUserQuery,
@@ -63,7 +64,7 @@ export class UserController {
   }
 
   @Post('login-auth0')
-  @Middleware([])
+  @Middleware([validateDataUserAuth0])
   async loginAuth0(req: Request, res: Response) {
     const { data, user } = res.locals
 
@@ -73,7 +74,7 @@ export class UserController {
       return res.status(200).send(new ResponseSuccess({ user: user })) //{user: {...user}}
     }
 
-    const userAuth0 = 'await helper createUserAuth0(data)'
+    const userAuth0 = await helper.createUserAuth0(data)
 
     res.status(200).send(new ResponseSuccess({ user: userAuth0 }))
   }
