@@ -76,7 +76,9 @@ export class UserController {
   async loginAuth0(req: Request, res: Response) {
     const { data, user } = res.locals
 
-    await helper.getJWTUserLogIn(data.email)
+    const JWT = await helper.getJWTUserLogIn(data.email)
+
+    res.cookie('JWT', JWT, { sameSite: 'none', secure: true })
 
     if (user) {
       return res.status(200).send(new ResponseSuccess({ user: user })) //{user: {...user}}
