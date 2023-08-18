@@ -44,7 +44,7 @@ export class UserController {
   }
 
   @Get('logout')
-  @Middleware([validateToken])
+  @Middleware([])
   async logout(req: Request, res: Response) {
     res.clearCookie('JWT', { sameSite: 'none', secure: true })
 
