@@ -66,6 +66,17 @@ export class UserHelper {
     return token
   }
 
+  async createUserAuth0(data: any): Promise<User> {
+    const userData = {
+      ...data,
+      userEmailValidate: true,
+      registerWithAuth0: true,
+    }
+    const newUser = await facade.createUser(userData)
+    if (!newUser) return null
+    return newUser
+  }
+
   async updateUser(id: string, data: any): Promise<User> {
     return await facade.updateUser(id, data)
   }
