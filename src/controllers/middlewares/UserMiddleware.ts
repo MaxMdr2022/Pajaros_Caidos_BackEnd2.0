@@ -94,6 +94,30 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   next()
 }
 
+export async function validateDataUserAuth0(req: Request, res: Response, next: NextFunction) {
+  const { email, family_name, given_name, picture, nickname } = req.body
+
+  if (!email) {
+    const message = `No user email received when logging in with Auth0.`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  const user = await helper.getUserByEmail(email)
+
+  const data = {
+    email,
+    first_name: given_name,
+    last_name: family_name,
+    avatar: picture,
+    nick_name: nickname,
+  }
+
+  res.locals.user = user
+  res.locals.data = data
+  next()
+}
+
 export async function validateEmail(req: Request, res: Response, next: NextFunction) {
   const { email } = req.body
 
