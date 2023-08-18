@@ -19,6 +19,7 @@ export type User = {
   isBanned: boolean
   userEmailValidate: boolean
   form_complete: boolean
+  registerWithAuth0: boolean
   createdAt?: Date
   updatedAt?: Date
 }

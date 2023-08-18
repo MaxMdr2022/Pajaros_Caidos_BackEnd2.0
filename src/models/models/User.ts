@@ -31,7 +31,7 @@ const user = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        // allowNull: false,
       },
       avatar: {
         type: DataTypes.STRING,
@@ -97,6 +97,11 @@ const user = (sequelize) => {
         defaultValue: false,
       },
       userEmailValidate: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
+      registerWithAuth0: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
