@@ -62,6 +62,22 @@ export class UserController {
     res.status(200).send(new ResponseSuccess({ newUser }))
   }
 
+  @Post('login-auth0')
+  @Middleware([])
+  async loginAuth0(req: Request, res: Response) {
+    const { data, user } = res.locals
+
+    await helper.getJWTUserLogIn(data.email)
+
+    if (user) {
+      return res.status(200).send(new ResponseSuccess({ user: user })) //{user: {...user}}
+    }
+
+    const userAuth0 = 'await helper createUserAuth0(data)'
+
+    res.status(200).send(new ResponseSuccess({ user: userAuth0 }))
+  }
+
   @Post(':id/validate')
   @Middleware([validateId, validateUserEmail])
   async validateUserEmail(req: Request, res: Response) {
