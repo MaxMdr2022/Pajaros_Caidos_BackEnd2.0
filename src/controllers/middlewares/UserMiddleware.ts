@@ -95,7 +95,7 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
 }
 
 export async function validateDataUserAuth0(req: Request, res: Response, next: NextFunction) {
-  const { email, family_name, given_name, picture, nickname } = req.body
+  const { email, avatar, nick_name } = req.body
 
   if (!email) {
     const message = `No user email received when logging in with Auth0.`
@@ -105,16 +105,8 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
 
   const user = await helper.getUserByEmail(email)
 
-  const data = {
-    email,
-    first_name: given_name,
-    last_name: family_name,
-    avatar: picture,
-    nick_name: nickname,
-  }
-
   res.locals.user = user
-  res.locals.data = data
+  res.locals.data = { email, avatar, nick_name }
   next()
 }
 
