@@ -75,6 +75,11 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
   }
 
+  if (user.registerWithAuth0) {
+    const message = `This user must log in with google.`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
   // if(!user.emailValidateCode){
   //   const message = `The user must validate the email.`
 
@@ -306,6 +311,12 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
 export async function validateNewPassword(req: Request, res: Response, next: NextFunction) {
   const { oldPassword, newPassword } = req.body
   const { user } = res.locals
+
+  if (user.registerWithAuth0) {
+    const message = `A user registered with Google cannot change their password.`
+
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
 
   if (!oldPassword || !newPassword) {
     const message = `You must enter the old and new password`
