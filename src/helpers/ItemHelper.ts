@@ -1,6 +1,7 @@
 import { ItemFacade } from '../facades/ItemFacade'
 import { Item } from '../models/types/Item'
 import { Category } from '../models/types/Category'
+import { deleteImage } from '../utils/cloudinary/Cloudinary'
 
 const facade = new ItemFacade()
 
@@ -24,14 +25,37 @@ export class ItemHelper {
   }
 
   async updateItem(id: string, data: any): Promise<Item> {
-    return await facade.updateItem(id, data)
+    const { newImages, deleteImages, ...dataUpdated } = data
+
+    const image = data.item.image
+    dataUpdated.image = image
+
+    if (deleteImages && deleteImages[0]) {
+      const imageNoDeleted = image.filter((e) => !deleteImages.find((el) => e.public_id === el))
+
+      dataUpdated.image = imageNoDeleted
+
+      for (const img of deleteImages) {
+        await deleteImage(img)
+      }
+    }
+
+    if (newImages && newImages[0]) {
+      const updatedImages = [...dataUpdated.image, ...newImages]
+      dataUpdated.image = updatedImages
+    }
+
+    return await facade.updateItem(id, dataUpdated)
   }
 
   async removeCategory(item: Item, category: Category): Promise<Item> {
     return await facade.removeCategory(item, category)
   }
 
-  async deleteItem(id: string): Promise<Item> {
+  async deleteItem(id: string, item: Item): Promise<Item> {
+    for (const img of item.image) {
+      await deleteImage(img.public_id)
+    }
     return await facade.deleteItem(id)
   }
 
