@@ -1,6 +1,7 @@
 import { NewsFacade } from '../facades/NewsFacade'
 import { News, Response } from '../models/types/News'
 import { Banner } from '../models/types/Banner'
+import { deleteImage } from '../utils/cloudinary/Cloudinary'
 
 const facade = new NewsFacade()
 
@@ -32,11 +33,37 @@ export class NewsHelper {
     return await facade.createNews(data)
   }
 
-  async updateNews(id: string, data: any): Promise<News> {
-    return await facade.updateNews(id, data)
+  async updateNews(id: string, news: News, data: any): Promise<News> {
+    //me traigo el news y if hay imagen que las elimine deleteImage(public_id)
+
+    const { newImages, deleteImages, ...dataUpdated } = data
+
+    const image = news.image
+    dataUpdated.image = image
+
+    if (deleteImages && deleteImages[0]) {
+      const imageNoDeleted = image.filter((e) => !deleteImages.find((el) => e.public_id === el))
+
+      dataUpdated.image = imageNoDeleted
+
+      for (const img of deleteImages) {
+        await deleteImage(img)
+      }
+    }
+
+    if (newImages && newImages[0]) {
+      const updatedImages = [...dataUpdated.image, ...newImages]
+      dataUpdated.image = updatedImages
+    }
+
+    return await facade.updateNews(id, dataUpdated)
   }
 
-  async deleteNews(id: string): Promise<News> {
+  async deleteNews(id: string, news: News): Promise<News> {
+    for (const img of news.image) {
+      await deleteImage(img.public_id)
+    }
+
     return await facade.deleteNews(id)
   }
 
@@ -60,7 +87,11 @@ export class NewsHelper {
     return await facade.updateBannerImage(id, data)
   }
 
-  async deleteBannerImage(id: string): Promise<Banner> {
+  async deleteBannerImage(id: string, banner: Banner): Promise<Banner> {
+    if (banner.image?.public_id) {
+      await deleteImage(banner.image.public_id)
+    }
+
     return await facade.deleteBannerImage(id)
   }
 }
