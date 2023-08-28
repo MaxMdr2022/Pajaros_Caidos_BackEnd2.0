@@ -5,7 +5,7 @@ export type User = {
   nick_name: string
   email: string
   password: string
-  avatar: string
+  avatar: Image
   country: string
   city: string
   phone_number: number
@@ -22,4 +22,9 @@ export type User = {
   registerWithAuth0: boolean
   createdAt?: Date
   updatedAt?: Date
+}
+type Image = {
+  public_id: string
+  secure_url: string
+  avatar_url: string
 }
