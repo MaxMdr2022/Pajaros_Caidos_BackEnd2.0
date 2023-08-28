@@ -11,6 +11,8 @@ import {
   validateQuery,
 } from './middlewares/NewsMiddleware'
 
+import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
+
 const helper = new NewsHelper()
 
 @Controller('news')
@@ -52,7 +54,7 @@ export class NewsController {
   }
 
   @Post()
-  @Middleware([validateDataCreateNews])
+  @Middleware([fileUploadMiddleware, validateDataCreateNews])
   async createNews(req: Request, res: Response) {
     const { data } = res.locals
 
@@ -62,11 +64,11 @@ export class NewsController {
   }
 
   @Put(':id')
-  @Middleware([validateId, validateDataUpdate])
+  @Middleware([fileUploadMiddleware, validateId, validateDataUpdate])
   async updateNews(req: Request, res: Response) {
-    const { id, data } = res.locals
+    const { id, news, data } = res.locals
 
-    const newsUpdated = await helper.updateNews(id, data)
+    const newsUpdated = await helper.updateNews(id, news, data)
 
     res.status(200).send(new ResponseSuccess({ newsUpdated }))
   }
@@ -74,9 +76,9 @@ export class NewsController {
   @Delete(':id')
   @Middleware([validateId])
   async deleteNews(req: Request, res: Response) {
-    const { id } = res.locals
+    const { id, news } = res.locals
 
-    const newsDeleted = await helper.deleteNews(id)
+    const newsDeleted = await helper.deleteNews(id, news)
 
     res.status(200).send(new ResponseSuccess({ newsDeleted }))
   }
@@ -84,7 +86,7 @@ export class NewsController {
   //----------- Banner ----------------------
 
   @Post('banner')
-  @Middleware([validateDataCreateBanner])
+  @Middleware([fileUploadMiddleware, validateDataCreateBanner])
   async createBannerImage(req: Request, res: Response) {
     const { data } = res.locals
 
@@ -93,8 +95,8 @@ export class NewsController {
     res.status(200).send(new ResponseSuccess({ newImage }))
   }
 
-  @Put('banner/:id')
-  @Middleware([validateIdBannerImage, validateDataCreateBanner])
+  @Put('banner/:id') //>>>>>>>>>>>>>>>>> deprecate
+  @Middleware([fileUploadMiddleware, validateIdBannerImage, validateDataCreateBanner])
   async updateBannerImage(req: Request, res: Response) {
     const { id, data } = res.locals
 
@@ -106,9 +108,9 @@ export class NewsController {
   @Delete('banner/:id')
   @Middleware([validateIdBannerImage])
   async deleteBannerImage(req: Request, res: Response) {
-    const { id } = res.locals
+    const { id, image } = res.locals
 
-    const imageDeleted = await helper.deleteBannerImage(id)
+    const imageDeleted = await helper.deleteBannerImage(id, image)
 
     res.status(200).send(new ResponseSuccess({ imageDeleted }))
   }
