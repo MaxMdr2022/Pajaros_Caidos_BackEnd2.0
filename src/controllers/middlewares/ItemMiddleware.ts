@@ -3,14 +3,20 @@ import { ErrorResponse, ErrorCodeType } from '../../models/responses/ErrorRespon
 import { ItemHelper } from '../../helpers/ItemHelper'
 import { UUIDRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber, isValidOrder, isStringOrNumber } from '../../utils/AuxiliaryFunctions'
+import { File } from '../../utils/cloudinary/Files'
+import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
 
 const helper = new ItemHelper()
 
 export async function validateItemCreation(req: Request, res: Response, next: NextFunction) {
-  const { title, description, price, category, image } = req.body
+  let { title, description, price, category } = req.body
 
-  const validate = { title, description, price, category, image }
-  const requiredFields = ['title', 'description', 'price', 'category', 'image']
+  category = JSON.parse(category) // sacar este y cambiar let por const ----------<<<<
+
+  const data: any = {}
+
+  const validate = { title, description, price, category }
+  const requiredFields = ['title', 'description', 'price', 'category']
 
   for (const field of requiredFields) {
     if (!validate[field] || !isStringOrNumber(validate[field])) {
@@ -44,12 +50,25 @@ export async function validateItemCreation(req: Request, res: Response, next: Ne
     return res.status(400).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  if (!Array.isArray(image) || image.length === 0 || !image.every((e) => typeof e === 'string')) {
-    const message = 'image must be an array of strings.'
-    return res.status(400).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  if (!req.files?.image) {
+    const message = 'To create a item you need a image'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+  const { image } = req.files
+
+  const response = await uploadImg(image, File.SHOP)
+
+  if (typeof response === 'string') {
+    const message = 'Error Cloudinary response'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  const data = { title, description, price, category, image }
+  data.image = response
+  data.title = title
+  data.description = description
+  data.price = price
+  data.category = category
+
   res.locals.data = data
 
   next()
@@ -74,9 +93,14 @@ export async function validateItemId(req: Request, res: Response, next: NextFunc
 }
 
 export async function validateDataItemUpdate(req: Request, res: Response, next: NextFunction) {
-  const { title, description, price, category, image } = req.body
+  let { title, description, price, category, deleteImages } = req.body
 
-  if (!title && !description && !price && !category && !image) {
+  // if (deleteImages || category) {
+  //   deleteImages = JSON.parse(deleteImages) // sacar este y cambiar let por const ----------<<<<
+  //   category = JSON.parse(category) // sacar este y cambiar let por const ----------<<<<
+  // }
+
+  if (!title && !description && !price && !category && !deleteImages && !req.files?.newImage) {
     const message = 'you must enter something to update'
 
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
@@ -124,22 +148,41 @@ export async function validateDataItemUpdate(req: Request, res: Response, next: 
     }
   }
 
-  if (image) {
-    if (!Array.isArray(image)) {
-      const message = `The image has to be an array of strings`
+  if (deleteImages) {
+    if (!Array.isArray(deleteImages)) {
+      const message = `The deleteImages has to be an array of strings`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
     }
 
-    const validateImg = image.some((e) => typeof e !== 'string')
+    const validateImage = deleteImages.some((e) => typeof e !== 'string')
 
-    if (validateImg || !image[0]) {
-      const message = `The image has to be an array of strings`
+    if (validateImage || !deleteImages[0]) {
+      const message = `The deleteImages  has to be an array of strings (public_id)`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
     }
   }
 
+  const newImages = []
+
+  if (req.files) {
+    if (!req.files?.newImage) {
+      const message = 'To update a item you need a newImage'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+    const { newImage } = req.files
+
+    const response = await uploadImg(newImage, File.SHOP)
+
+    if (typeof response === 'string') {
+      const message = 'Error Cloudinary response'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
+    newImages.push(...response)
+  }
+
   const { item } = res.locals
-  const data = { title, description, price, category, image, item }
+  const data = { title, description, price, category, deleteImages, newImages, item }
   res.locals.data = data
 
   next()
