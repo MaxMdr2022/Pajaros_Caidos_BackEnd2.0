@@ -10,12 +10,14 @@ import {
 } from './middlewares/PublicationMiddleware'
 import { validateToken } from './middlewares/Authentications'
 import { ResponseSuccess } from '../models/responses/ResponseSuccess'
+import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
+
 const helper = new PublicationHelper()
 
 @Controller('publication')
 export class PublicationController {
   @Get('all')
-  @Middleware([validateToken, validateLimitQuery])
+  @Middleware([validateLimitQuery]) //validateToken,
   async getAllPublications(req: Request, res: Response) {
     const { data } = res.locals
     const publications = await helper.getAllPublications(data)
@@ -31,7 +33,7 @@ export class PublicationController {
   }
 
   @Post('create/:userId')
-  @Middleware([validateUserId, validateDataCreate])
+  @Middleware([fileUploadMiddleware, validateUserId, validateDataCreate])
   async createPublication(req: Response, res: Response) {
     const { id, data } = res.locals
 
@@ -41,18 +43,18 @@ export class PublicationController {
   }
 
   @Put('update/:id')
-  @Middleware([validatePublicationId, validateDataUpdate])
+  @Middleware([fileUploadMiddleware, validatePublicationId, validateDataUpdate])
   async updatePublication(req: Request, res: Response) {
-    const { id, data } = res.locals
-    const publicationUpdated = await helper.updatePublication(id, data)
+    const { id, publication, data } = res.locals
+    const publicationUpdated = await helper.updatePublication(id, publication, data)
     res.status(200).send(new ResponseSuccess({ publicationUpdated }))
   }
 
   @Delete('delete/:id')
   @Middleware([validatePublicationId])
   async deletePublication(req: Request, res: Response) {
-    const { id } = res.locals
-    const publicationDeleted = await helper.deletePublication(id)
+    const { id, publication } = res.locals
+    const publicationDeleted = await helper.deletePublication(id, publication)
     res.status(200).send(new ResponseSuccess({ publicationDeleted }))
   }
 }
