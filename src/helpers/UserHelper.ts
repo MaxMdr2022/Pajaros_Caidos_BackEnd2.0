@@ -10,6 +10,7 @@ import {
 } from '../utils/nodeMailer/Functions'
 import { QueryResponse } from '../models/responses/UserResponse'
 import jwt from 'jsonwebtoken'
+import { deleteImage } from '../utils/cloudinary/Cloudinary'
 
 const facade = new UserFacade()
 
@@ -77,7 +78,13 @@ export class UserHelper {
     return newUser
   }
 
-  async updateUser(id: string, data: any): Promise<User> {
+  async updateUser(id: string, user: User, data: any): Promise<User> {
+    const { avatar } = data
+
+    if (avatar && user.avatar.public_id) {
+      await deleteImage(user.avatar.public_id)
+    }
+
     return await facade.updateUser(id, data)
   }
 
