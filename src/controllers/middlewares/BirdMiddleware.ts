@@ -3,6 +3,8 @@ import { BirdHelper } from '../../helpers/BirdHelper'
 import { ErrorCodeType, ErrorResponse } from '../../models/responses/ErrorResponse'
 import { UUIDRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber } from '../../utils/AuxiliaryFunctions'
+import { File } from '../../utils/cloudinary/Files'
+import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
 
 const helper = new BirdHelper()
 
@@ -20,13 +22,16 @@ export async function validateBirdId(req: Request, res: Response, next: NextFunc
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.BirdNotFound))
   }
   res.locals.id = id
+  res.locals.bird = bird
   return next()
 }
 
 export async function validateDataCreateBird(req: Request, res: Response, next: NextFunction) {
-  const { name, scientificName, image, location, size, color, description } = req.body
+  const { name, scientificName, location, size, color, description } = req.body
 
-  if (!name || !scientificName || !image || !location || !size || !color || !description) {
+  const data: any = {}
+
+  if (!name || !scientificName || !location || !size || !color || !description) {
     const message =
       'To create a bird you must enter name, scientificName, image, location, size, color and description.'
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
@@ -59,21 +64,36 @@ export async function validateDataCreateBird(req: Request, res: Response, next: 
     }
   }
 
-  if (!Array.isArray(location) || !Array.isArray(image)) {
-    const message = `The location and image have to be an array of strings`
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
-  }
-
-  const validateImage = image.some((e) => typeof e !== 'string')
   const validateLocation = location.some((e) => typeof e !== 'string')
 
-  if (validateImage || !image[0] || validateLocation || !location[0]) {
-    const message = `The image and location have to be an array of strings`
+  if (validateLocation || !location[0]) {
+    const message = `The location have to be an array of strings`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  const data = { name, scientificName, image, location, size, color, description }
+  if (!req.files?.image) {
+    const message = 'To create a bird you need a image'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+  const { image } = req.files
+
+  const response = await uploadImg(image, File.BIRDS)
+
+  if (typeof response === 'string') {
+    const message = 'Error Cloudinary response'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+
+  data.image = response
+  data.name = name
+  data.scientificName = scientificName
+  data.location = location
+  data.size = size
+  data.color = color
+  data.description = description
+
   res.locals.data = data
+
   next()
 }
 
@@ -105,9 +125,22 @@ export async function validateQuery(req: Request, res: Response, next: NextFunct
 }
 
 export async function validateDataUpdateBird(req: Request, res: Response, next: NextFunction) {
-  const { name, scientificName, image, location, size, color, description } = req.body
+  let { name, scientificName, deleteImages, location, size, color, description } = req.body
 
-  if (!name && !scientificName && !image && !location && !size && !color && !description) {
+  // if (deleteImages) {
+  //   deleteImages = JSON.parse(deleteImages) // sacar este y cambiar let por const ----------<<<<
+  // }
+
+  if (
+    !name &&
+    !scientificName &&
+    !deleteImages &&
+    !req.files?.newImage &&
+    !location &&
+    !size &&
+    !color &&
+    !description
+  ) {
     const message =
       'To update a bird you must enter name, scientificName, image, location, size, color or description.'
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
@@ -140,24 +173,54 @@ export async function validateDataUpdateBird(req: Request, res: Response, next: 
     }
   }
 
-  if (location || image) {
-    if ((location && !Array.isArray(location)) || (image && !Array.isArray(image))) {
-      const message = `The location and image have to be an array of strings`
+  if (location) {
+    if (location && !Array.isArray(location)) {
+      const message = `The location have to be an array of strings`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
     }
 
-    const validateImage = image?.some((e) => typeof e !== 'string')
     const validateLocation = location?.some((e) => typeof e !== 'string')
 
-    if (
-      (image && (validateImage || !image[0])) ||
-      (location && (validateLocation || !location[0]))
-    ) {
-      const message = `The image and location have to be an array of strings`
+    if (location && (validateLocation || !location[0])) {
+      const message = `The location have to be an array of strings`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
     }
   }
-  const data = { name, scientificName, image, location, size, color, description }
+
+  if (deleteImages) {
+    if (!Array.isArray(deleteImages)) {
+      const message = `The deleteImages has to be an array of strings`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
+    const validateImage = deleteImages.some((e) => typeof e !== 'string')
+
+    if (validateImage || !deleteImages[0]) {
+      const message = `The deleteImages  has to be an array of strings (public_id)`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+  }
+
+  const newImages = []
+
+  if (req.files) {
+    if (!req.files?.newImage) {
+      const message = 'To update a bird you need a newImage'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+    const { newImage } = req.files
+
+    const response = await uploadImg(newImage, File.BIRDS)
+
+    if (typeof response === 'string') {
+      const message = 'Error Cloudinary response'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
+    newImages.push(...response)
+  }
+
+  const data = { name, scientificName, deleteImages, newImages, location, size, color, description }
   res.locals.data = data
   next()
 }
