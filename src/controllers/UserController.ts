@@ -17,6 +17,7 @@ import {
 } from './middlewares/UserMiddleware'
 import { validateToken } from './middlewares/Authentications'
 import { validateUserEmail } from './middlewares/ValidateUserEmail'
+import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
 
 const helper = new UserHelper()
 
@@ -135,11 +136,11 @@ export class UserController {
   }
 
   @Put('update/:id')
-  @Middleware([validateId, validateDataUpdate])
+  @Middleware([fileUploadMiddleware, validateId, validateDataUpdate])
   async updateUser(req: Request, res: Response) {
-    const { data, id } = res.locals
+    const { data, user, id } = res.locals
 
-    const userUpdated = await helper.updateUser(id, data)
+    const userUpdated = await helper.updateUser(id, user, data)
 
     res.status(200).send(new ResponseSuccess({ userUpdated }))
   }
