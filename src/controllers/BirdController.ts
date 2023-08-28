@@ -8,6 +8,7 @@ import {
   validateDataUpdateBird,
   validateQuery,
 } from './middlewares/BirdMiddleware'
+import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
 
 const helper = new BirdHelper()
 
@@ -27,7 +28,7 @@ export class BirdController {
   }
 
   @Post('create')
-  @Middleware([validateDataCreateBird])
+  @Middleware([fileUploadMiddleware, validateDataCreateBird])
   async createBird(req: Request, res: Response) {
     const { data } = res.locals
 
@@ -37,11 +38,11 @@ export class BirdController {
   }
 
   @Put('update/:id')
-  @Middleware([validateBirdId, validateDataUpdateBird])
+  @Middleware([fileUploadMiddleware, validateBirdId, validateDataUpdateBird])
   async updateBird(req: Request, res: Response) {
-    const { id, data } = res.locals
+    const { id, bird, data } = res.locals
 
-    const birdUpdated = await helper.updateBird(id, data)
+    const birdUpdated = await helper.updateBird(id, bird, data)
 
     res.status(200).send(new ResponseSuccess(birdUpdated))
   }
