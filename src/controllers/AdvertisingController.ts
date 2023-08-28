@@ -8,6 +8,7 @@ import {
   validateId,
   validateQuery,
 } from './middlewares/AdvertisingMiddleware'
+import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
 
 const helper = new AdvertisingHelper()
 
@@ -32,7 +33,7 @@ export class AdvertisingController {
   }
 
   @Post()
-  @Middleware([validateDataCreateAdvertising])
+  @Middleware([fileUploadMiddleware, validateDataCreateAdvertising])
   async createAdvertising(req: Request, res: Response) {
     const { data } = res.locals
 
@@ -42,11 +43,11 @@ export class AdvertisingController {
   }
 
   @Put(':id')
-  @Middleware([validateId, validateDataUpdate])
+  @Middleware([fileUploadMiddleware, validateId, validateDataUpdate])
   async updateAdvertising(req: Request, res: Response) {
-    const { id, data } = res.locals
+    const { id, data, advertising } = res.locals
 
-    const advertisingUpdated = await helper.updateAdvertising(id, data)
+    const advertisingUpdated = await helper.updateAdvertising(id, advertising, data)
 
     res.status(200).send(new ResponseSuccess({ advertisingUpdated }))
   }
@@ -54,9 +55,9 @@ export class AdvertisingController {
   @Delete(':id')
   @Middleware([validateId])
   async deleteAdvertising(req: Request, res: Response) {
-    const { id } = res.locals
+    const { id, advertising } = res.locals
 
-    const advertisingDeleted = await helper.deleteAdvertising(id)
+    const advertisingDeleted = await helper.deleteAdvertising(id, advertising)
 
     res.status(200).send(new ResponseSuccess({ advertisingDeleted }))
   }
