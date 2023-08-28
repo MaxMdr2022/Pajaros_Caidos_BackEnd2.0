@@ -12,13 +12,14 @@ import {
   validateItemQuery,
   validateRemoveCategory,
 } from './middlewares/ItemMiddleware'
+import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
 
 const helper = new ItemHelper()
 
 @Controller('shop')
 export class ItemController {
   @Post('item')
-  @Middleware([validateItemCreation])
+  @Middleware([fileUploadMiddleware, validateItemCreation])
   async createItem(req: Request, res: Response) {
     const { data } = res.locals
 
@@ -47,7 +48,7 @@ export class ItemController {
   }
 
   @Put('item/:id')
-  @Middleware([validateItemId, validateDataItemUpdate])
+  @Middleware([fileUploadMiddleware, validateItemId, validateDataItemUpdate])
   async updateItem(req: Request, res: Response) {
     const { data, id } = res.locals
 
@@ -69,9 +70,9 @@ export class ItemController {
   @Delete('item/:id')
   @Middleware([validateItemId])
   async deleteItem(req: Request, res: Response) {
-    const { id } = res.locals
+    const { id, item } = res.locals
 
-    const itemDeleted = await helper.deleteItem(id)
+    const itemDeleted = await helper.deleteItem(id, item)
 
     res.status(200).send(new ResponseSuccess({ itemDeleted }))
   }
