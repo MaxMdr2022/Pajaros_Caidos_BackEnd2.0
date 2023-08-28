@@ -108,7 +108,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "nick_name": "Administrador",
                                 "email": "dr@live.com.ar",
                                 "password": "$2b$10$iULBHrQVmEdynQ0dWNrkG.RSpn.49jHJVKUWwWMK9MZDMMMdVOE3y",
-                                "avatar": "https://t4.ftcdn.net.jpg",
+                                "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                                } ,
                                 "country": "-",
                                 "city": "-",
                                 "phone_number": 0,
@@ -165,7 +169,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "nick_name": "Administrador",
                                 "first_name": "Tony",
                                 "last_name": "Stark",
-                                "avatar": "https://t4.ftcdn.net/jpg/04/75PKaqi.jpg",
+                                "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                                } ,
                                 "isAdmin": true,
                                 "isVoluntary": false,
                                 "isBanned": false,
@@ -178,7 +186,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "nick_name": "La_araña_que_pica",
                                 "first_name": "Peter",
                                 "last_name": "Parker",
-                                "avatar": "https://t4.ftcdn.net/jpg/04/aqi.jpg",
+                                "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                                } ,
                                 "isAdmin": true,
                                 "isVoluntary": true,
                                 "isBanned": false,
@@ -201,7 +213,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                         "nick_name": "Administrador",
                                         "email": "dr@live.com.ar",
                                         "password": "$2b$10$ajJcg58D3GX8ZKbA4MQQWisy2025C.Cjq56",
-                                        "avatar": "https://t4.ftcdn.net/PKaqi.jpg",
+                                        "avatar":{
+                                                "avatar_url": "https://t4.ftcdn.net.jpg",
+                                                public_id: "-",
+                                                secure_url: "-"
+                                        } ,
                                         "country": "-",
                                         "city": "-",
                                         "phone_number": 0,
@@ -225,7 +241,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                         "nick_name": "La_araña_que_pica",
                                         "email": "pp@hotmail.com",
                                         "password": "$2b$10$D8cYgJ8/FTYu1C3ig0IsKPzio8Xjm",
-                                        "avatar": "https://t4.ftcdn.net/jpgOSyPKaqi.jpg",
+                                        "avatar":{
+                                                "avatar_url": "https://t4.ftcdn.net.jpg",
+                                                public_id: "-",
+                                                secure_url: "-"
+                                        } ,
                                         "country": "-",
                                         "city": "-",
                                         "phone_number": 0,
@@ -267,7 +287,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "nick_name": "La_araña_que_pica",
                         "email": "pp@hotmail.com",
                         "password": "$2b$10$NMXyyktwebzmF8vnED/dlu2C3pLARRGTVgBfJ5E9tI9y8JX2hC1sq",
-                        "avatar": "https://t4.ftcdn.net/jpg/04/75/00/99/360.jpg",
+                        "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                        } ,
                         "country": "-",
                         "city": "-",
                         "phone_number": 0,
@@ -297,7 +321,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "nick_name": "La_araña_que_pica",
                         "email": "pp@hotmail.com",
                         "password": "$2b$10$NMXyyktwebzmF8vnED/dlu2C3pLARRGTVgBfJ5E9tI9y8JX2hC1sq",
-                        "avatar": "https://t4.ftcdn.net/jpg/04/75/00/99/36.jpg",
+                        "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                        } ,
                         "country": "-",
                         "city": "-",
                         "phone_number": 0,
@@ -319,7 +347,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                         "title": "AIUDAA!! ",
                                         "description": " Que alimento deberia darle?",
                                         "image": [
-                                        "img01.jpg"
+                                        {
+                                                "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                                         ],
                                         "isDeleted": false,
                                         "createdAt": "2023-07-17T18:41:16.525Z",
@@ -372,7 +403,9 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
         {
                 "newUser": {
                         "id": "a5260e01-6c92-4e4c-b7e7-ed564fb9bbdd",
-                        "avatar": "-",
+                        "avatar": {
+                                "avatar_url": "-"
+                        },
                         "country": "-",
                         "city": "-",
                         "phone_number": 0,
@@ -479,7 +512,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
   - 'first_name' (optional): User name (string).
   - 'last_name' (optional): User name (string).
   - 'nick_name' (optional): User name (string).
-  - 'avatar' (optional): User name (string).
+  - 'avatar' (optional): User name (files).
   - 'phone_number' (optional): User name (string).
   - 'country' (optional): User name (string).
   - 'city' (optional): User name (string).
@@ -500,7 +533,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "nick_name": "mgm",
                         "email": "dr@live.com.ar",
                         "password": "$2b$10$iULBHrQVmEdynQ0dWNrkG.RSpn.49jHJVKUWwWMK9MZDMMMdVOE3y",
-                        "avatar": "https://t4.ftcdn.net/jpg/.jpg",
+                        "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                        } ,
                         "country": "Argentina",
                         "city": "-",
                         "phone_number": 0,
@@ -624,7 +661,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "nick_name": "Administrador",
                         "email": "dr4@live.com.ar",
                         "password": "$2b$10$iULBHrQVmEdynQ0dWNrkG.RSpn.49jHJVKUWwWMK9MZDMMMdVOE3y",
-                        "avatar": "https://t4.ftcdn.net/jpg/04/75/00/9.jpg",
+                        "avatar":{
+                                        "avatar_url": "https://t4.ftcdn.net.jpg",
+                                        public_id: "-",
+                                        secure_url: "-"
+                        } ,
                         "country": "Argentina",
                         "city": "-",
                         "phone_number": 0,
@@ -682,7 +723,12 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "id": "4822bf58-be83-40d2-85c8-a6e7f8d122fa",
                                 "title": "AIUDAA!! ",
                                 "description": "Que alimento deberia darle?",
-                                "image": [ "img01.jpg"],
+                                "image": [
+                                        {
+                                                "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
+                                        ],
                                 "isDeleted": false,
                                 "createdAt": "2023-07-17T18:41:16.525Z",
                                 "updatedAt": "2023-07-17T18:41:16.659Z",
@@ -739,8 +785,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "title": "AIUDAA!! ",
                                 "description": "Que alimento deberia darle?",
                                 "image": [
-                                "img01.jpg"
-                                ],
+                                        {
+                                                "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
+                                        ],
                                 "isDeleted": false,
                                 "createdAt": "2023-07-17T18:41:16.525Z",
                                 "updatedAt": "2023-07-17T18:41:16.659Z",
@@ -787,7 +836,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
   - 'title'(obligatory): (string).
   - 'description' (obligatory): (string).
-  - 'image' (obligatory): ( array of string).
+  - 'image' (obligatory): ( files).
 
 - Successful response:
 
@@ -801,8 +850,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "title": "AIUDAA!! ",
                                 "description": "Que alimento deberia darle?",
                                 "image": [
-                                "img01.jpg"
-                                ],
+                                        {
+                                                "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
+                                        ],
                                 "updatedAt": "2023-07-17T20:53:54.813Z",
                                 "createdAt": "2023-07-17T20:53:54.813Z",
                                 "userId": null
@@ -830,7 +882,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Description: Update the post title, description or images.
   - 'title' (optional): (string).
   - 'description' (optional): (string).
-  - 'image' (optional): (array of string).
+  - 'newImage' (optional): (files).
+  - 'deleteImages' (optional): ( array of string) pasar el/los public_id ejemplo: ["PUBLICATIONS/gpxzjaerbhylpsqg9emf"].
 - Successful response:
 
   - Status code: 200 (OK)
@@ -842,8 +895,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "title": "nuevo titulo",
                         "description": "Que alimento deberia darle?",
                         "image": [
-                        "img01.jpg"
-                        ],
+                                        {
+                                                "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
+                                        ],
                         "isDeleted": false,
                         "createdAt": "2023-07-17T18:41:16.525Z",
                         "updatedAt": "2023-07-17T23:16:00.124Z",
@@ -1132,8 +1188,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "name": "paloma",
                         "scientificName": "pp",
                         "image": [
-                                "img.jpg",
-                                "imagen2.jpg"
+                                {
+                                        "public_id": "BIRDS/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "location": [
                                 "Argentina",
@@ -1183,7 +1241,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Request parameters:
   - 'name' (obligatory): Bird name (string).
   - 'scientificName' (obligatory): (string).
-  - 'image' (obligatory): (array of string).
+  - 'image' (obligatory): (files).
   - 'location' (obligatory): (array of string).
   - 'size' (obligatory): (string).
   - 'color' (obligatory): (string).
@@ -1200,8 +1258,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "name": "gorrion",
                         "scientificName": "pp",
                         "image": [
-                        "img.jpg",
-                        "imagen2.jpg"
+                                {
+                                        "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "location": [
                         "Argentina",
@@ -1237,7 +1297,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Request parameters:
   - 'name' (optional): Bird name (string).
   - 'scientificName' (optional): (string).
-  - 'image' (optional): (array of string).
+  - 'newImage' (optional): (files).
+  - 'deleteImages' (optional): (array of string) ["public_id"].
   - 'location' (optional): (array of string).
   - 'size' (optional): (string).
   - 'color' (optional): (string).
@@ -1253,8 +1314,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "name": "Paloma",
                         "scientificName": "pp",
                         "image": [
-                        "nuevaimagen.jpg"
-                        ],
+                                {
+                                        "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
+                         ],
                         "location": [
                         "Argentina",
                         "España"
@@ -1299,7 +1363,12 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "id": "d0453780-c3d3-4897-93b9-d1b657ef36b6",
                         "title": "Remera imagen paloma",
                         "description": "Remera algodon ...",
-                        "image": ['image.jpg'],
+                        "image": [
+                                {
+                                        "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
+                        ],
                         "price": 5000,
                         "createdAt": "2023-07-29T03:51:06.030Z",
                         "updatedAt": "2023-07-29T03:51:06.030Z",
@@ -1356,7 +1425,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "title": "Remera imagen paloma",
                         "description": "Remera algodon ...",
                         "image": [
-                                "image.jpg"
+                                        {
+                                                "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                         ],
                         "price": 5000,
                         "createdAt": "2023-07-29T03:51:06.030Z",
@@ -1390,8 +1462,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
   - 'title' (obligatory): (string).
   - 'description' (obligatory): (string).
   - 'price' (obligatory): (number).
-  - 'image' (obligatory): (array of string).
-  - 'category' (obligatory): (array of string).
+  - 'image' (obligatory): (files).
+  - 'category' (obligatory): (array of string) ["talle L"].
 
 - Description: Create a new item.
 - Successful response:
@@ -1406,8 +1478,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "description": "Remera algodon ...",
                         "price": 5000,
                         "image": [
-                        "image.jpg"
-                        ],
+                                {
+                                        "public_id": "SHOP/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
+                         ],
                         "updatedAt": "2023-07-29T03:51:06.030Z",
                         "createdAt": "2023-07-29T03:51:06.030Z"
                 },
@@ -1436,7 +1511,9 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
   - 'title' (optionals): (string).
   - 'description' (optionals): (string).
   - 'price' (optionals): (number).
-  - 'image' (optionals): (array of string).
+  - 'newImage' (optionals): (files).
+  - 'deleteImages' (optionals): (array of string) ['public_id'].
+  - 'category' (optional): (array of string) ["talle m", "blanco"]. NOTA: agrega categorias, para sacar usar la ruta PATCH
 
 - Description: Update item.
 - Successful response:
@@ -1451,7 +1528,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "description": "Remera algodon ...",
                         "price": 5000,
                         "image": [
-                        "image.jpg"
+                                        {
+                                                "public_id": "SHOP/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                         ],
                         "updatedAt": "2023-07-29T03:51:06.030Z",
                         "createdAt": "2023-07-29T03:51:06.030Z"
@@ -1478,7 +1558,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 - Endpoint: 'shop/item/:id'
 - Request parameters:
 
-  - 'category' (optionals): (string).
+  - 'category' (optionals): (string) La categoria que quiere sacar del arreglo.
 
 - Description: Update item.
 - Successful response:
@@ -1492,7 +1572,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "title": "Remera imagen paloma",
                         "description": "Remera algodon ...",
                         "image": [
-                        "image.jpg"
+                                {
+                                        "public_id": "SHOP/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "price": 5000,
                         "createdAt": "2023-07-29T03:51:06.030Z",
@@ -1691,7 +1774,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "title": "Evento para recaudar fondos",
                         "description": "El evento se va a realizar el dia...",
                         "image": [
-                        "imagen1.jpg"
+                                {
+                                        "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "createdAt": "2023-07-31T01:55:29.355Z",
                         "updatedAt": "2023-07-31T01:55:29.355Z"
@@ -1733,8 +1819,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "id": "3ef53e71-44ed-4d7b-bedb-b94557696f3a",
                                 "title": "Evento para recaudar fondos  1",
                                 "description": "El evento se va a realizar el dia...",
-                                "image": [
-                                        "imagen1.jpg"
+                                 "image": [
+                                        {
+                                                "public_id": "NEWS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                                 ],
                                 "createdAt": "2023-07-31T01:55:25.555Z",
                                 "updatedAt": "2023-07-31T01:55:25.555Z"
@@ -1743,8 +1832,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "id": "0d9a636f-5ac0-426f-8617-32e2137c1e89",
                                 "title": "Evento para recaudar fondos  2",
                                 "description": "El evento se va a realizar el dia...",
-                                "image": [
-                                        "imagen1.jpg"
+                                 "image": [
+                                        {
+                                                "public_id": "NEWS/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                                 ],
                                 "createdAt": "2023-07-31T01:55:29.355Z",
                                 "updatedAt": "2023-07-31T01:55:29.355Z"
@@ -1761,7 +1853,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
   - 'title' (obligatory): (string).
   - 'description' (obligatory): (string).
-  - 'image' (obligatory): (array of string).
+  - 'image' (obligatory): (FILES).
 
 - Description: Create a new News.
 - Successful response:
@@ -1774,8 +1866,11 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "id": "03023fd0-f763-4f3e-8397-4c0accc9ae8e",
                         "title": "Evento para recaudar fondos",
                         "description": "El evento se va a realizar el dia...",
-                        "image": [
-                        "imagen1.jpg"
+                         "image": [
+                                {
+                                        "public_id": "PUBLICATIONS/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "updatedAt": "2023-07-31T02:32:12.870Z",
                         "createdAt": "2023-07-31T02:32:12.870Z"
@@ -1804,7 +1899,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
   - 'title' (optionals): (string).
   - 'description' (optionals): (string).
-  - 'image' (optionals): (array of string).
+  - 'newImage' (optionals): (files).
+  - 'deleteImages' (optionals): (array of string) ['public_id'].
 
 - Description: Update category.
 - Successful response:
@@ -1878,7 +1974,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "contact": "https://www.spacex.com/",
                         "company": "SpaceX",
                         "image": [
-                        "image1.jpg"
+                                {
+                                        "public_id": "ADVERTISING/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "createdAt": "2023-07-31T02:03:20.581Z",
                         "updatedAt": "2023-07-31T02:03:20.581Z"
@@ -1921,7 +2020,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "contact": "https://www.spacex.com/",
                                 "company": "SpaceX",
                                 "image": [
-                                        "image1.jpg"
+                                        {
+                                                "public_id": "ADVERTISING/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                                 ],
                                 "createdAt": "2023-07-31T02:03:20.581Z",
                                 "updatedAt": "2023-07-31T02:03:20.581Z"
@@ -1931,7 +2033,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                                 "contact": "https://www.spacex.com/",
                                 "company": "SpaceX 2",
                                 "image": [
-                                        "image1.jpg"
+                                        {
+                                                "public_id": "ADVERTISING/v6drdjidixamyj6z5aff",
+                                                "secure_url": "https://res.cloudinary.com/.jpg"
+                                        }
                                 ],
                                 "createdAt": "2023-07-31T02:03:24.819Z",
                                 "updatedAt": "2023-07-31T02:03:24.819Z"
@@ -1948,7 +2053,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
   - 'company' (obligatory): Company name (string).
   - 'contact' (obligatory): Company URL (string).
-  - 'image' (obligatory): (array of string).
+  - 'image' (obligatory): (files).
 
 - Description: Create a new Advertising.
 - Successful response:
@@ -1962,7 +2067,10 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "contact": "https://www.spacex.com/",
                         "company": "SpaceX 2",
                         "image": [
-                        "image1.jpg"
+                                {
+                                        "public_id": "ADVERTISING/v6drdjidixamyj6z5aff",
+                                        "secure_url": "https://res.cloudinary.com/.jpg"
+                                }
                         ],
                         "updatedAt": "2023-07-31T02:03:24.819Z",
                         "createdAt": "2023-07-31T02:03:24.819Z"
@@ -1991,7 +2099,8 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
   - 'company' (optionals): (string).
   - 'contact' (optionals): (string).
-  - 'image' (optionals): (array of string).
+  - 'newImage' (optionals): (files).
+  - 'deleteImages' (optionals): (array of string) ['public_id'].
 
 - Description: Update Advertising.
 - Successful response:
