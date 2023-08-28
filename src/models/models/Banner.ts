@@ -14,9 +14,8 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-
       image: {
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
         allowNull: false,
       },
     },
