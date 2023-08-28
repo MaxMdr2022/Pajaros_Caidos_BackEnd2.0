@@ -21,7 +21,7 @@ export class NewsFacade {
 
     if (pageNumber) {
       const skip = (pageNumber - 1) * newsPerPage
-      filter.order = [['createdAt', 'asc']]
+      filter.order = [['createdAt', 'desc']]
       filter.limit = newsPerPage
       filter.offset = skip
     }
