@@ -4,6 +4,9 @@ import { ErrorCodeType, ErrorResponse } from '../../models/responses/ErrorRespon
 import { dateFormatRegex, UUIDRegex, emailRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 import bcrypt from 'bcrypt'
+import { File } from '../../utils/cloudinary/Files'
+import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
+
 const helper = new UserHelper()
 
 export async function validateCreateUser(req: Request, res: Response, next: NextFunction) {
@@ -47,7 +50,7 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.EmailUsed))
   }
 
-  const data = { email, password, first_name, last_name }
+  const data = { email, password, first_name, last_name, avatar: { avatar_url: '-' } }
   res.locals.data = data
   next()
 }
@@ -102,6 +105,8 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
 export async function validateDataUserAuth0(req: Request, res: Response, next: NextFunction) {
   const { email, avatar, nick_name } = req.body
 
+  const data: any = {}
+
   if (!email) {
     const message = `No user email received when logging in with Auth0.`
 
@@ -110,8 +115,12 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
 
   const user = await helper.getUserByEmail(email)
 
+  data.email = email
+  data.nick_name = nick_name
+  data.avatar = { avatar_url: avatar }
+
   res.locals.user = user
-  res.locals.data = { email, avatar, nick_name }
+  res.locals.data = data
   next()
 }
 
@@ -232,7 +241,6 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     first_name,
     last_name,
     nick_name,
-    avatar,
     phone_number,
     country,
     city,
@@ -246,7 +254,6 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       !first_name &&
       !last_name &&
       !nick_name &&
-      !avatar &&
       !phone_number &&
       !country &&
       !city &&
@@ -255,7 +262,6 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       !description,
     isString:
       (nick_name && typeof nick_name !== 'string') ||
-      (avatar && typeof avatar !== 'string') ||
       (first_name && typeof first_name !== 'string') ||
       (country && typeof country !== 'string') ||
       (city && typeof city !== 'string') ||
@@ -293,11 +299,30 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     }
   }
 
+  const newImage: any = {}
+
+  if (req.files) {
+    if (!req.files?.avatar) {
+      const message = 'To update a user you need a avatar'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+    const { avatar } = req.files
+
+    const response = await uploadImg(avatar, File.USER)
+
+    if (typeof response === 'string') {
+      const message = 'Error Cloudinary response'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
+    newImage.avatar = response[0]
+  }
+
   res.locals.data = {
     first_name,
     last_name,
     nick_name,
-    avatar,
+    avatar: newImage.avatar, // quedo medio raro xD
     phone_number,
     country,
     city,
