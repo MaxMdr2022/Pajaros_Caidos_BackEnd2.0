@@ -1,5 +1,6 @@
 import { BirdFacade } from '../facades/BirdFacade'
 import { Bird } from '../models/types/Bird'
+import { deleteImage } from '../utils/cloudinary/Cloudinary'
 
 const facade = new BirdFacade()
 
@@ -33,18 +34,38 @@ export class BirdHelper {
     return await facade.createBird(data)
   }
 
-  async updateBird(id: string, data: any): Promise<Bird> {
+  async updateBird(id: string, bird: Bird, data: any): Promise<Bird> {
+    const { newImages, deleteImages, ...dataUpdated } = data
+
     if (data.location) {
       const locationCapitalWord = data.location.map(
         (e) => e.charAt(0).toUpperCase() + e.slice(1).toLowerCase()
       )
-      data.location = locationCapitalWord
+      dataUpdated.location = locationCapitalWord
     }
 
     if (data.color) {
-      data.color = data.color.toLowerCase()
+      dataUpdated.color = data.color.toLowerCase()
     }
 
-    return await facade.updateBird(id, data)
+    const image = bird.image
+    dataUpdated.image = image
+
+    if (deleteImages && deleteImages[0]) {
+      const imageNoDeleted = image.filter((e) => !deleteImages.find((el) => e.public_id === el))
+
+      dataUpdated.image = imageNoDeleted
+
+      for (const img of deleteImages) {
+        await deleteImage(img)
+      }
+    }
+
+    if (newImages && newImages[0]) {
+      const updatedImages = [...dataUpdated.image, ...newImages]
+      dataUpdated.image = updatedImages
+    }
+
+    return await facade.updateBird(id, dataUpdated)
   }
 }
