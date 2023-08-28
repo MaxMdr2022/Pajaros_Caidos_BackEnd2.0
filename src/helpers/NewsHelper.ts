@@ -18,13 +18,14 @@ export class NewsHelper {
     if (!news || !news[0]) return { news: [] }
 
     if (newsPerPage) {
-      const bannerImages: Banner[] = await facade.getAllBannerImages()
+      // const bannerImages: Banner[] = await facade.getAllBannerImages()
 
       const quantity = await facade.countNews()
 
       const totalPages = Math.ceil(quantity / newsPerPage)
 
-      return { totalPages, news, banner: bannerImages }
+      // return { totalPages, news, banner: bannerImages }
+      return { totalPages, news }
     }
     return { news }
   }
