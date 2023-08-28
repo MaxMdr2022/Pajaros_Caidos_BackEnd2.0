@@ -34,7 +34,7 @@ const user = (sequelize) => {
         // allowNull: false,
       },
       avatar: {
-        type: DataTypes.STRING,
+        type: DataTypes.JSON,
         defaultValue: '-',
         // allowNull: false,
       },
