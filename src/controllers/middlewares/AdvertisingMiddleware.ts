@@ -3,6 +3,8 @@ import { AdvertisingHelper } from '../../helpers/AdvertisingHelper'
 import { ErrorResponse, ErrorCodeType } from '../../models/responses/ErrorResponse'
 import { UUIDRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber } from '../../utils/AuxiliaryFunctions'
+import { File } from '../../utils/cloudinary/Files'
+import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
 
 const helper = new AdvertisingHelper()
 
@@ -29,9 +31,11 @@ export async function validateDataCreateAdvertising(
   res: Response,
   next: NextFunction
 ) {
-  const { contact, company, image } = req.body
+  const { contact, company } = req.body
 
-  if (!contact || !company || !image) {
+  const data: any = {}
+
+  if (!contact || !company) {
     const message = 'To create a Advertising you need contact company and image'
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
@@ -41,19 +45,26 @@ export async function validateDataCreateAdvertising(
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  if (!Array.isArray(image)) {
-    const message = `The image has to be an array of strings`
+  data.contact = contact
+  data.company = company
+  data.image = []
+
+  if (!req.files?.image) {
+    const message = 'To create a news you need a image'
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  }
+  const { image } = req.files
+
+  const response = await uploadImg(image, File.ADVERTISING)
+
+  if (typeof response === 'string') {
+    const message = 'Error Cloudinary response'
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  const validateImage = image.some((e) => typeof e !== 'string')
+  data.image = response
 
-  if (validateImage || !image[0]) {
-    const message = `The image  has to be an array of strings`
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
-  }
-
-  res.locals.data = { contact, company, image }
+  res.locals.data = data
 
   next()
 }
@@ -83,9 +94,13 @@ export async function validateQuery(req: Request, res: Response, next: NextFunct
 }
 
 export async function validateDataUpdate(req: Request, res: Response, next: NextFunction) {
-  const { contact, company, image } = req.body
+  let { contact, company, deleteImages } = req.body
 
-  if (!contact && !company && !image) {
+  // if (deleteImages) {
+  //   deleteImages = JSON.parse(deleteImages) // sacar este y cambiar let por const ----------<<<<
+  // }
+
+  if (!contact && !company && !deleteImages && !req.files?.newImage) {
     const message = 'To create a Advertising you need contact company or image'
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
@@ -95,21 +110,40 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  if (image) {
-    if (!Array.isArray(image)) {
-      const message = `The image has to be an array of strings`
+  if (deleteImages) {
+    if (!Array.isArray(deleteImages)) {
+      const message = `The deleteImages has to be an array of strings`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
     }
 
-    const validateImage = image.some((e) => typeof e !== 'string')
+    const validateImage = deleteImages.some((e) => typeof e !== 'string')
 
-    if (validateImage || !image[0]) {
-      const message = `The image  has to be an array of strings`
+    if (validateImage || !deleteImages[0]) {
+      const message = `The deleteImages  has to be an array of strings (public_id)`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
     }
   }
 
-  res.locals.data = { contact, company, image }
+  const newImages = []
+
+  if (req.files) {
+    if (!req.files?.newImage) {
+      const message = 'To update a advertising you need a newImage'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+    const { newImage } = req.files
+
+    const response = await uploadImg(newImage, File.ADVERTISING)
+
+    if (typeof response === 'string') {
+      const message = 'Error Cloudinary response'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
+    newImages.push(...response)
+  }
+
+  res.locals.data = { company, contact, deleteImages, newImages }
 
   next()
 }
