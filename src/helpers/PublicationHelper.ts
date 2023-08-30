@@ -19,7 +19,30 @@ export class PublicationHelper {
   }
 
   async getAllPublications(data?: any): Promise<Response> {
-    const { postPerPage } = data
+    let { postPerPage, filter } = data
+
+    const currentDate = new Date()
+    data.currentDate = currentDate
+
+    if (filter === 'day') {
+      const startOfDay = new Date(currentDate)
+      startOfDay.setHours(0, 0, 0, 0) // Establecer a las 00:00:00
+      data.filter = startOfDay
+
+      const endOfDay = new Date(currentDate)
+      endOfDay.setHours(23, 59, 59, 999) // Establecer a las 23:59:59
+      data.currentDate = endOfDay
+    }
+    if (filter === 'week') {
+      const oneWeekAgo = new Date(currentDate.getTime() - 7 * 24 * 60 * 60 * 1000) // Hace una semana
+      data.filter = oneWeekAgo
+    }
+
+    if (filter === 'month') {
+      const oneMonthAgo = new Date(currentDate)
+      oneMonthAgo.setMonth(currentDate.getMonth() - 1) // Hace un mes
+      data.filter = oneMonthAgo
+    }
 
     const publications = await facade.getAllPublications(data)
 
