@@ -6,6 +6,7 @@ import {
   CommentsListModel,
   ReactionsListModel,
 } from '../storages/DB'
+import { Op, Sequelize as sequelize } from 'sequelize'
 
 const storage = new PostgresDBStorage()
 
@@ -25,10 +26,55 @@ export class PublicationFacade {
   }
 
   async getAllPublications(data?: any): Promise<Publication[]> {
-    const { limit, title, postPerPage, pageNumber, limitComments, orderCreate } = data
+    const {
+      limit,
+      title,
+      postPerPage,
+      pageNumber,
+      limitComments,
+      orderCreate,
+      currentDate,
+      filter,
+    } = data
 
-    const filter: any = {
-      include: [
+    const filterDB: any = {}
+
+    if (filter) {
+      filterDB.include = [
+        {
+          model: UserListModel,
+          attributes: ['id', 'avatar', 'nick_name'],
+        },
+      ]
+
+      if (filter === 'likes') {
+        filterDB.include.push({
+          model: ReactionsListModel,
+          attributes: [],
+          include: [],
+        })
+
+        filterDB.order = [
+          [
+            sequelize.literal(
+              '(SELECT COUNT(*) FROM "reactions" WHERE "reactions"."publicationId" = "publication"."id")'
+            ),
+            'DESC',
+          ],
+        ]
+      } else {
+        filterDB.where = {
+          createdAt: {
+            [Op.between]: [filter, currentDate],
+          },
+        }
+
+        filterDB.order = [['createdAt', 'desc']]
+      }
+
+      filterDB.limit = limit
+    } else {
+      filterDB.include = [
         {
           model: UserListModel,
           attributes: ['id', 'avatar', 'nick_name'],
@@ -47,26 +93,26 @@ export class PublicationFacade {
         {
           model: ReactionsListModel,
         },
-      ],
+      ]
     }
 
     if (title) {
-      filter.where = { title }
+      filterDB.where = { title }
     }
 
     if (pageNumber) {
       const skip = (pageNumber - 1) * postPerPage
       if (!orderCreate) {
-        filter.order = [['createdAt', 'desc']]
+        filterDB.order = [['createdAt', 'desc']]
       } else {
-        filter.order = [['createdAt', orderCreate]]
+        filterDB.order = [['createdAt', orderCreate]]
       }
 
-      filter.limit = postPerPage
-      filter.offset = skip
+      filterDB.limit = postPerPage
+      filterDB.offset = skip
     }
 
-    return await storage.find(PublicationsListModel, filter)
+    return await storage.find(PublicationsListModel, filterDB)
   }
 
   async getPublicationById(id: string): Promise<Publication> {
