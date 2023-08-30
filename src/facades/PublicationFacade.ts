@@ -69,7 +69,7 @@ export class PublicationFacade {
           },
         }
 
-        filterDB.order = [['createdAt', 'desc']]
+        filterDB.order = [['createdAt', 'asc']]
       }
 
       filterDB.limit = limit
