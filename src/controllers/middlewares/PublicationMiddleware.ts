@@ -130,7 +130,7 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
 }
 
 export async function validateLimitQuery(req: Request, res: Response, next: NextFunction) {
-  const { limit, title, postPerPage, pageNumber, limitComments, orderCreate } = req.query
+  const { limit, title, postPerPage, pageNumber, limitComments, orderCreate, filter } = req.query
 
   if (limit && Number(limit) < 1) {
     const message = `The order limit has to be greater than zero.`
@@ -161,7 +161,12 @@ export async function validateLimitQuery(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
   }
 
-  const data = { limit, title, postPerPage, pageNumber, limitComments, orderCreate }
+  if (filter && filter !== 'day' && filter !== 'week' && filter !== 'month' && filter !== 'likes') {
+    const message = `Query prop invalid: 'filter': ${filter} Only valid values are 'day', 'week', 'month' and 'likes' `
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  }
+
+  const data = { limit, title, postPerPage, pageNumber, limitComments, orderCreate, filter }
   res.locals.data = data
   next()
 }
