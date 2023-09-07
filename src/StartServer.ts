@@ -16,6 +16,7 @@ import bulkCreateAdmin from './utils/admins/BulkCreateAdmin'
 import { database } from './storages/DB'
 import cors from 'cors'
 import cookieParser from 'cookie-parser'
+import { UserListModel } from './storages/DB'
 
 const default404 = (req: Request, res: Response) =>
   res
@@ -57,11 +58,26 @@ class StartServer extends Server {
     this.app.use(errorHandler)
   }
 
+  // public start(port: number): void {
+  //   database.sync({ force: false }).then(() => {
+  //     this.app.listen(port, async () => {
+  //       await bulkCreateAdmin()
+  //       console.log(`Server listen in port: ${port}`)
+  //     })
+  //   })
+  // }
   public start(port: number): void {
     database.sync({ force: false }).then(() => {
-      this.app.listen(port, async () => {
-        await bulkCreateAdmin()
-        console.log(`Server listen in port: ${port}`)
+      const userId = [
+        'b4b57136-682e-4657-a585-f778dd54409b',
+        '096066c6-e315-40e1-aeee-c6869392d6b2',
+      ]
+
+      UserListModel.destroy({ where: { id: userId } }).then(() => {
+        this.app.listen(port, async () => {
+          await bulkCreateAdmin()
+          console.log(`Server listen in port: ${port}`)
+        })
       })
     })
   }

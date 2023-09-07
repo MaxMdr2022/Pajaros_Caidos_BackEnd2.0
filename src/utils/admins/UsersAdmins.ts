@@ -1,11 +1,13 @@
+const adminImage =
+  'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694102876/USER/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi_d5mmck.jpg'
+
 const UsersAdmins = [
   {
     first_name: 'Tony',
     last_name: 'Stark',
     nick_name: 'Iron-man',
     avatar: {
-      avatar_url:
-        'https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg',
+      avatar_url: adminImage,
     },
     isAdmin: true,
     isPrincipalAdmin: true,
@@ -16,8 +18,7 @@ const UsersAdmins = [
     last_name: 'Correa',
     nick_name: 'Administrador',
     avatar: {
-      avatar_url:
-        'https://t4.ftcdn.net/jpg/04/75/00/99/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi.jpg',
+      avatar_url: adminImage,
     },
     isAdmin: true,
     isPrincipalAdmin: true,
