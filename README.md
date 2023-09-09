@@ -402,13 +402,7 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
 
         {
                 "newUser": {
-                        "id": "a5260e01-6c92-4e4c-b7e7-ed564fb9bbdd",
-                        "avatar": {
-                                "avatar_url": "-"
-                        },
-                        "country": "-",
-                        "city": "-",
-                        "phone_number": 0,
+                        "id": "a3b4e8af-926f-4610-adb9-43ad04597369",
                         "birth_date": "9999-12-31",
                         "isVoluntary": false,
                         "isPrincipalAdmin": false,
@@ -416,17 +410,28 @@ Si deseas contribuir a este proyecto, sigue los siguientes pasos:
                         "isBanned": false,
                         "formComplete": false,
                         "userEmailValidate": false,
-                        "email": "jua@hotmail.com",
-                        "password": "$2b$10$I3jIOrrUZIivJit3gc9yeOxsUIPOgs9qh0WwLo7JO6B/4s/4R04Oa",
-                        "first_name": "John",
-                        "last_name": "Vo",
-                        "nick_name": "jua",
-                        "emailValidateCode": "760616",
-                        "updatedAt": "2023-07-17T18:52:20.487Z",
-                        "createdAt": "2023-07-17T18:52:20.487Z"
+                        "registerWithAuth0": false,
+                        "email": "batman@live.com",
+                        "password": "$2b$10$CCmGUDzDvHo2g4Dp5Pz3DetFeiYw/7lcY4wVkkoJjHV9S4scsg8ii",
+                        "first_name": "bruce",
+                        "last_name": "Weyne",
+                        "avatar": {
+                        "secure_url": "https://res.cloudinary.com//USER/456212_yncwde.png"
+                        },
+                        "nick_name": "batman",
+                        "emailValidateCode": "537148",
+                        "updatedAt": "2023-09-09T20:11:49.380Z",
+                        "createdAt": "2023-09-09T20:11:49.380Z",
+                        "country": null,
+                        "city": null,
+                        "province": null,
+                        "phone_number": null,
+                        "age": null,
+                        "description": null,
+                        "contact": null
                 },
                 "status": "success"
-        }
+                }
 
 - Error response:
 

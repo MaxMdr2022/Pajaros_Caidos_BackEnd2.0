@@ -12,18 +12,12 @@ const user = (sequelize) => {
       },
       first_name: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
       },
       last_name: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
       },
       nick_name: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
       },
       email: {
         type: DataTypes.STRING,
@@ -31,42 +25,34 @@ const user = (sequelize) => {
       },
       password: {
         type: DataTypes.STRING,
-        // allowNull: false,
       },
       avatar: {
         type: DataTypes.JSON,
-        defaultValue: '-',
-        // allowNull: false,
       },
       country: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
       },
       city: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
+      },
+      province: {
+        type: DataTypes.STRING,
       },
       phone_number: {
         type: DataTypes.INTEGER,
-        defaultValue: 0,
-        // allowNull: false,
       },
       birth_date: {
         type: DataTypes.DATEONLY,
         defaultValue: '9999-12-31',
-        // allowNull: false,
+      },
+      age: {
+        type: DataTypes.INTEGER,
       },
       description: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
       },
       contact: {
         type: DataTypes.STRING,
-        defaultValue: '-',
-        // allowNull: false,
       },
       emailValidateCode: {
         type: DataTypes.STRING,

@@ -7,7 +7,7 @@ const UsersAdmins = [
     last_name: 'Stark',
     nick_name: 'Iron-man',
     avatar: {
-      avatar_url: adminImage,
+      secure_url: adminImage,
     },
     isAdmin: true,
     isPrincipalAdmin: true,
@@ -18,7 +18,7 @@ const UsersAdmins = [
     last_name: 'Correa',
     nick_name: 'Administrador',
     avatar: {
-      avatar_url: adminImage,
+      secure_url: adminImage,
     },
     isAdmin: true,
     isPrincipalAdmin: true,

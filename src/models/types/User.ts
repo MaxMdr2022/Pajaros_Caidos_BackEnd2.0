@@ -7,12 +7,14 @@ export type User = {
   password: string
   avatar: Image
   country: string
+  province: string
   city: string
   phone_number: number
   description: string
   contact: string
   emailValidateCode?: string
   birth_date: Date
+  age: number
   isVoluntary: boolean
   isAdmin: boolean
   isPrincipalAdmin: boolean
@@ -26,5 +28,4 @@ export type User = {
 type Image = {
   public_id: string
   secure_url: string
-  avatar_url: string
 }

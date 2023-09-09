@@ -58,25 +58,27 @@ class StartServer extends Server {
     this.app.use(errorHandler)
   }
 
-  // public start(port: number): void {
-  //   database.sync({ force: false }).then(() => {
-  //     this.app.listen(port, async () => {
-  //       await bulkCreateAdmin()
-  //       console.log(`Server listen in port: ${port}`)
-  //     })
-  //   })
-  // }
   public start(port: number): void {
-    database.sync({ force: false }).then(() => {
-      const userId = ['00c4a913-6a1e-4d86-8cb3-eaae51c57389']
-
-      UserListModel.destroy({ where: { id: userId } }).then(() => {
-        this.app.listen(port, async () => {
-          await bulkCreateAdmin()
-          console.log(`Server listen in port: ${port}`)
-        })
+    database.sync({ force: true }).then(() => {
+      this.app.listen(port, async () => {
+        await bulkCreateAdmin()
+        console.log(`Server listen in port: ${port}`)
       })
     })
   }
+  // public start(port: number): void {
+  //   database.sync({ force: false }).then(() => {
+  //     const userId = [
+  //       'ebb2bec2-7c14-407a-9d25-63b3acd765eb'
+  //     ]
+
+  //     UserListModel.destroy({ where: { id: userId } }).then(() => {
+  //       this.app.listen(port, async () => {
+  //         await bulkCreateAdmin()
+  //         console.log(`Server listen in port: ${port}`)
+  //       })
+  //     })
+  //   })
+  // }
 }
 export default StartServer

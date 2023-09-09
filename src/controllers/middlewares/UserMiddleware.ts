@@ -50,7 +50,16 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.EmailUsed))
   }
 
-  const data = { email, password, first_name, last_name, avatar: { avatar_url: '-' } }
+  const data = {
+    email,
+    password,
+    first_name,
+    last_name,
+    avatar: {
+      secure_url:
+        'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694288720/USER/456212_yncwde.png',
+    },
+  }
   res.locals.data = data
   next()
 }
@@ -117,7 +126,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
 
   data.email = email
   data.nick_name = nick_name
-  data.avatar = { avatar_url: avatar }
+  data.avatar = { secure_url: avatar }
 
   res.locals.user = user
   res.locals.data = data
@@ -247,6 +256,8 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     birth_date,
     contact,
     description,
+    province,
+    age,
   } = req.body
 
   const validate = {
@@ -259,6 +270,8 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       !city &&
       !birth_date &&
       !contact &&
+      !province &&
+      !age &&
       !description,
     isString:
       (nick_name && typeof nick_name !== 'string') ||
@@ -268,15 +281,20 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       (birth_date && typeof birth_date !== 'string') ||
       (last_name && typeof last_name !== 'string') ||
       (description && typeof description !== 'string') ||
+      (province && typeof province !== 'string') ||
       (contact && typeof contact !== 'string'),
-    isNumber: phone_number ? typeof phone_number !== 'number' : false,
+    isNumber: phone_number
+      ? typeof phone_number !== 'number'
+      : false || age
+      ? typeof age !== 'number'
+      : false,
     dateFormat: birth_date ? !dateFormatRegex.test(birth_date) : false,
   }
 
   const errorMsg = {
     reqProps: 'You must enter the property you want to modify.',
     isString: 'Values have to be strings.',
-    isNumber: 'Value phone_number has to be number.',
+    isNumber: 'Value phone_number and age have to be number.',
     dateFormat: 'The date of birth format entered is incorrect. Must be year-month-day',
   }
 
@@ -322,13 +340,15 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     first_name,
     last_name,
     nick_name,
-    avatar: newImage.avatar, // quedo medio raro xD
+    avatar: newImage.avatar, // quedo medio raro xD avatar: {secure_url:"asd", public_id:"asd"}
     phone_number,
     country,
     city,
     birth_date,
     description,
     contact,
+    province,
+    age,
   }
   next()
 }
