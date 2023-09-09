@@ -68,10 +68,7 @@ class StartServer extends Server {
   // }
   public start(port: number): void {
     database.sync({ force: false }).then(() => {
-      const userId = [
-        'b4b57136-682e-4657-a585-f778dd54409b',
-        '096066c6-e315-40e1-aeee-c6869392d6b2',
-      ]
+      const userId = ['00c4a913-6a1e-4d86-8cb3-eaae51c57389']
 
       UserListModel.destroy({ where: { id: userId } }).then(() => {
         this.app.listen(port, async () => {
