@@ -59,20 +59,29 @@ export async function validateDataCreate(req: Request, res: Response, next: Next
   data.description = description
   data.image = []
 
-  if (!req.files?.image) {
-    const message = 'To create a post you need a image'
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+  if (req.files?.image) {
+    // const message = 'To create a post you need a image'
+    // return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+
+    const { image } = req.files
+
+    const response = await uploadImg(image, File.PUBLICATIONS)
+
+    if (typeof response === 'string') {
+      const message = 'Error Cloudinary response'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    }
+
+    data.image = response
+  } else {
+    data.image = [
+      {
+        public_id: null,
+        secure_url:
+          'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694024754/STATIC%20IMAGE/default-featured-image_ordz8y.png',
+      },
+    ]
   }
-  const { image } = req.files
-
-  const response = await uploadImg(image, File.PUBLICATIONS)
-
-  if (typeof response === 'string') {
-    const message = 'Error Cloudinary response'
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
-  }
-
-  data.image = response
 
   res.locals.data = data
 
