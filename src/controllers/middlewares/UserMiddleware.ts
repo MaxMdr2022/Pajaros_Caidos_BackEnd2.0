@@ -336,20 +336,47 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     newImage.avatar = response[0]
   }
 
-  res.locals.data = {
-    first_name,
-    last_name,
-    nick_name,
-    avatar: newImage.avatar, // quedo medio raro xD avatar: {secure_url:"asd", public_id:"asd"}
-    phone_number,
-    country,
-    city,
-    birth_date,
-    description,
-    contact,
-    province,
-    age,
+  const updatedData: any = {}
+
+  if (newImage?.avatar !== null || newImage?.avatar !== undefined) {
+    updatedData.avatar = newImage.avatar
   }
+
+  const allowedProperties = [
+    'first_name',
+    'last_name',
+    'nick_name',
+    'phone_number',
+    'country',
+    'city',
+    'birth_date',
+    'description',
+    'contact',
+    'province',
+    'age',
+  ]
+
+  for (const property of allowedProperties) {
+    if (req.body[property] !== null && req.body[property] !== undefined) {
+      updatedData[property] = req.body[property]
+    }
+  }
+
+  res.locals.data = updatedData
+  // res.locals.data = {
+  //   first_name,
+  //   last_name,
+  //   nick_name,
+  //   avatar: newImage.avatar, // quedo medio raro xD avatar: {secure_url:"asd", public_id:"asd"}
+  //   phone_number,
+  //   country,
+  //   city,
+  //   birth_date,
+  //   description,
+  //   contact,
+  //   province,
+  //   age,
+  // }
   next()
 }
 
