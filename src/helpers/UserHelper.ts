@@ -84,8 +84,10 @@ export class UserHelper {
     if (avatar && user.avatar.public_id) {
       await deleteImage(user.avatar.public_id)
     }
-
-    return await facade.updateUser(id, data)
+    await facade.updateUser(id, data)
+    const userUpdated = await facade.getUserById(id)
+    if (!userUpdated) return null
+    return userUpdated
   }
 
   async adminAction(id: string, action: any): Promise<User> {
