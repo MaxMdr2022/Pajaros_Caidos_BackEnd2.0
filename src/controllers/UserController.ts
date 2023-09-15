@@ -142,6 +142,8 @@ export class UserController {
 
     const userUpdated = await helper.updateUser(id, user, data)
 
+    if (!userUpdated) return res.status(404).send('Error al actualizar usuario')
+
     res.status(200).send(new ResponseSuccess({ userUpdated }))
   }
 
