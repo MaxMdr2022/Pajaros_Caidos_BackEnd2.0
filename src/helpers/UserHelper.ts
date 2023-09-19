@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import { UserFacade } from '../facades/UserFacade'
-import { User } from '../models/types/User'
+import { User, Response } from '../models/types/User'
 import {
   codeUserVerification,
   mailOption,
@@ -15,8 +15,21 @@ import { deleteImage } from '../utils/cloudinary/Cloudinary'
 const facade = new UserFacade()
 
 export class UserHelper {
-  async getAllUsers(data?: string): Promise<QueryResponse | User[]> {
-    return await facade.getAllUsers(data)
+  async getAllUsers(data?: any): Promise<Response | User[]> {
+    const { userPerPage } = data
+
+    const users: User[] = await facade.getAllUsers(data)
+
+    if (!users || !users[0]) return { users: [] }
+
+    if (userPerPage) {
+      const quantity = await facade.countUsers()
+
+      const totalPages = Math.ceil(quantity / userPerPage)
+
+      return { totalPages, users }
+    }
+    return { users }
   }
 
   async getUserById(id: string, filter?: string): Promise<User> {
