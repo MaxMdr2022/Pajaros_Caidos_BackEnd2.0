@@ -75,7 +75,7 @@ export class UserHelper {
   }
 
   async getJWTUserLogIn(email: string): Promise<string> {
-    const token = jwt.sign({ email }, process.env.SECRET_KEY_JWT, { expiresIn: 5 * 60 }) // => 60 seg | "2h" > 2 horas
+    const token = jwt.sign({ email }, process.env.SECRET_KEY_JWT, { expiresIn: 24 * 60 * 60 }) // => 1 dia
 
     return token
   }
