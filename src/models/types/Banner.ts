@@ -6,4 +6,5 @@ export type Banner = {
 type Image = {
   public_id: string
   secure_url: string
+  imageUrl: string
 }
