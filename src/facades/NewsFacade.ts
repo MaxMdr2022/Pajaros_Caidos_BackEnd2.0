@@ -43,13 +43,24 @@ export class NewsFacade {
 
   //--------------- BANNER ---------------------------
 
+  async countBanners(): Promise<number> {
+    return await storage.count(BannerListModel)
+  }
+
   async getBannerImageById(id: string): Promise<Banner> {
     return await storage.findById(BannerListModel, id)
   }
-  async getAllBannerImages(): Promise<Banner[]> {
+  async getAllBannerImages(filters?: any): Promise<Banner[]> {
+    const { pageNumber, bannerPerPage } = filters
+
     const filter: any = {}
 
-    filter.order = [['createdAt', 'desc']]
+    if (pageNumber) {
+      const skip = (pageNumber - 1) * bannerPerPage
+      filter.order = [['createdAt', 'desc']]
+      filter.limit = bannerPerPage
+      filter.offset = skip
+    }
 
     return await storage.find(BannerListModel, filter)
   }
