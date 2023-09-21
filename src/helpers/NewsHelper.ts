@@ -2,6 +2,7 @@ import { NewsFacade } from '../facades/NewsFacade'
 import { News, Response } from '../models/types/News'
 import { Banner } from '../models/types/Banner'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
+import { getImageFromCacheOrCloudinary } from '../utils/cacheFunction/CacheFunction'
 
 const facade = new NewsFacade()
 
@@ -16,6 +17,24 @@ export class NewsHelper {
     const news: News[] = await facade.getAllNews(data)
 
     if (!news || !news[0]) return { news: [] }
+
+    for (const e of news) {
+      const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
+
+      //convertir el buffer en una url para mandar al front
+
+      const base64Image = Buffer.from(buffer).toString('base64')
+
+      // tipo de imagen: .jpg, .png etc.
+      const type = e.image[0].secure_url.match(/\.([^.]+)$/)
+      if (!type) return null
+      const contentType = type[1].toLowerCase()
+
+      const imageUrl = `data:${contentType};base64,${base64Image}`
+
+      // console.log('URL', imageUrl)
+      e.image[0].imageUrl = imageUrl
+    }
 
     if (newsPerPage) {
       // const bannerImages: Banner[] = await facade.getAllBannerImages()
@@ -77,6 +96,25 @@ export class NewsHelper {
   async getAllBannerImages(): Promise<Banner[]> {
     const bannerImages: Banner[] = await facade.getAllBannerImages()
     if (!bannerImages || !bannerImages[0]) return []
+
+    for (const e of bannerImages) {
+      const buffer = await getImageFromCacheOrCloudinary(e.image.secure_url)
+
+      //convertir el buffer en una url para mandar al front
+
+      const base64Image = Buffer.from(buffer).toString('base64')
+
+      // tipo de imagen: .jpg, .png etc.
+      const type = e.image.secure_url.match(/\.([^.]+)$/)
+      if (!type) return null
+      const contentType = type[1].toLowerCase()
+
+      const imageUrl = `data:${contentType};base64,${base64Image}`
+
+      // console.log('URL', imageUrl)
+      e.image.imageUrl = imageUrl
+    }
+
     return bannerImages
   }
 
