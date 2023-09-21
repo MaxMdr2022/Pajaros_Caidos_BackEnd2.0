@@ -9,7 +9,7 @@ export async function getImageFromCacheOrCloudinary(imageUrl: string): Promise<B
   const cachedImage = cache.get(imageUrl) as Buffer | undefined
 
   if (cachedImage) {
-    console.log('Imagen obtenida desde caché.')
+    // console.log('Imagen obtenida desde caché.')
     return cachedImage
   } else {
     // Si la imagen no está en caché, realiza una solicitud a Cloudinary
@@ -19,7 +19,7 @@ export async function getImageFromCacheOrCloudinary(imageUrl: string): Promise<B
       // Guarda la imagen en caché
       cache.set(imageUrl, Buffer.from(response.data))
 
-      console.log('Imagen obtenida desde Cloudinary y guardada en caché.')
+      // console.log('Imagen obtenida desde Cloudinary y guardada en caché.')
 
       return Buffer.from(response.data)
     } catch (error) {
