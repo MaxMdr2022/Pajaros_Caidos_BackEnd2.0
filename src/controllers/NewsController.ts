@@ -9,6 +9,7 @@ import {
   validateId,
   validateIdBannerImage,
   validateQuery,
+  validateQueryBanner,
 } from './middlewares/NewsMiddleware'
 
 import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
@@ -30,9 +31,10 @@ export class NewsController {
   //----------- Banner ----------------------
 
   @Get('banner')
-  @Middleware([])
+  @Middleware([validateQueryBanner])
   async getBannerImages(req: Request, res: Response) {
-    const images = await helper.getAllBannerImages()
+    const { filters } = res.locals
+    const images = await helper.getAllBannerImages(filters)
 
     res.status(200).send(new ResponseSuccess({ images }))
   }
