@@ -78,7 +78,7 @@ export async function validateQuery(req: Request, res: Response, next: NextFunct
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
     }
     if (newsPerPage && !isValidNumber(newsPerPage)) {
-      const message = `birdPerPage must be a valid number..`
+      const message = `newsPerPage must be a valid number..`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
     }
   }
@@ -198,6 +198,30 @@ export async function validateDataCreateBanner(req: Request, res: Response, next
   data.image = response[0]
 
   res.locals.data = data
+
+  next()
+}
+
+export async function validateQueryBanner(req: Request, res: Response, next: NextFunction) {
+  const { pageNumber, bannerPerPage } = req.query
+
+  if ((pageNumber && !bannerPerPage) || (bannerPerPage && !pageNumber)) {
+    const message = `To paginate, you must provide both pageNumber and bannerPerPage.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  } else {
+    if (pageNumber && !isValidNumber(pageNumber)) {
+      const message = `pageNumber must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+    if (bannerPerPage && !isValidNumber(bannerPerPage)) {
+      const message = `bannerPerPage must be a valid number..`
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+    }
+  }
+
+  const filters = { pageNumber, bannerPerPage }
+
+  res.locals.filters = filters
 
   next()
 }
