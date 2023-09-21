@@ -8,3 +8,8 @@ type Image = {
   secure_url: string
   imageUrl: string
 }
+
+export type ResponseBanner = {
+  banners: Banner[]
+  totalPages?: number
+}
