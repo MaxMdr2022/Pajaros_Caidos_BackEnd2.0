@@ -115,7 +115,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
   const { email, avatar, nick_name } = req.body
 
   const data: any = {}
-
+  // AGARAR EL AVATAR Y GUARDAR EN CLOUD
   if (!email) {
     const message = `No user email received when logging in with Auth0.`
 
@@ -126,7 +126,10 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
 
   data.email = email
   data.nick_name = nick_name
-  data.avatar = { secure_url: avatar }
+  data.avatar = {
+    secure_url:
+      'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694288720/USER/456212_yncwde.png',
+  }
 
   res.locals.user = user
   res.locals.data = data
