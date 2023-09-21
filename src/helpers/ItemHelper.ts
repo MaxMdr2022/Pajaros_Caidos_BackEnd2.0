@@ -1,7 +1,8 @@
 import { ItemFacade } from '../facades/ItemFacade'
-import { Item } from '../models/types/Item'
+import { Item, Response } from '../models/types/Item'
 import { Category } from '../models/types/Category'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
+import { getImageFromCacheOrCloudinary } from '../utils/cacheFunction/CacheFunction'
 
 const facade = new ItemFacade()
 
@@ -12,8 +13,44 @@ export class ItemHelper {
     return newItem
   }
 
-  async getAllItems(data?: any): Promise<Item[]> {
-    return await facade.getItems(data)
+  async getAllItems(data?: any): Promise<Response> {
+    const { itemPerPage } = data
+
+    const items: Item[] = await facade.getItems(data)
+
+    if (!items || !items[0]) return { items: [] }
+
+    for (const e of items) {
+      for (const i of e.image) {
+        const buffer = await getImageFromCacheOrCloudinary(i.secure_url)
+
+        //convertir el buffer en una url para mandar al front
+
+        const base64Image = Buffer.from(buffer).toString('base64')
+
+        // tipo de imagen: .jpg, .png etc.
+        const type = i.secure_url.match(/\.([^.]+)$/)
+        if (!type) return null
+        const contentType = type[1].toLowerCase()
+
+        const imageUrl = `data:${contentType};base64,${base64Image}`
+
+        // console.log('URL', imageUrl)
+        i.imageUrl = imageUrl
+      }
+    }
+
+    if (itemPerPage) {
+      // const bannerImages: Banner[] = await facade.getAllBannerImages()
+
+      const quantity = await facade.countItems()
+
+      const totalPages = Math.ceil(quantity / itemPerPage)
+
+      // return { totalPages, news, banner: bannerImages }
+      return { totalPages, items }
+    }
+    return { items }
   }
 
   async getItemById(id: string): Promise<Item> {
