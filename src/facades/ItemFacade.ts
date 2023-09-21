@@ -7,6 +7,10 @@ import { Op } from 'sequelize'
 const storage = new PostgresDBStorage()
 
 export class ItemFacade {
+  async countItems(): Promise<number> {
+    return await storage.count(ItemListModel)
+  }
+
   async createItem(data: any): Promise<Item> {
     const newItem: Item = await storage.create(ItemListModel, data)
 
