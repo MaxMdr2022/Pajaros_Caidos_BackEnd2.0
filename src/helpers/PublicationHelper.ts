@@ -1,6 +1,7 @@
-import { Publication } from '../models/types/Publication'
+import { Publication, PublicationAndUser } from '../models/types/Publication'
 import { PublicationFacade } from '../facades/PublicationFacade'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
+import { getImageFromCacheOrCloudinary } from '../utils/cacheFunction/CacheFunction'
 
 const facade = new PublicationFacade()
 
@@ -44,9 +45,46 @@ export class PublicationHelper {
       data.filter = oneMonthAgo
     }
 
-    const publications = await facade.getAllPublications(data)
+    const publications: PublicationAndUser[] = await facade.getAllPublications(data)
 
     if (!publications) return { publications: [] }
+
+    for (const e of publications) {
+      const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
+
+      //convertir el buffer en una url para mandar al front
+
+      const base64Image = Buffer.from(buffer).toString('base64')
+
+      // tipo de imagen: .jpg, .png etc.
+      const type = e.image[0].secure_url.match(/\.([^.]+)$/)
+      if (!type) return null
+      const contentType = type[1].toLowerCase()
+
+      const imageUrl = `data:${contentType};base64,${base64Image}`
+
+      // console.log('URL', imageUrl)
+      e.image[0].imageUrl = imageUrl
+
+      if (e.user) {
+        const buffer = await getImageFromCacheOrCloudinary(e.user.avatar.secure_url)
+
+        //convertir el buffer en una url para mandar al front
+
+        const base64Image = Buffer.from(buffer).toString('base64')
+
+        // tipo de imagen: .jpg, .png etc.
+        const type = e.image[0].secure_url.match(/\.([^.]+)$/)
+        if (!type) return null
+        const contentType = type[1].toLowerCase()
+
+        const imageUrl = `data:${contentType};base64,${base64Image}`
+
+        // console.log('URL', imageUrl)
+        e.user.avatar.imageUrl = imageUrl
+      }
+    }
+
     if (postPerPage) {
       const quantity = await facade.countPublications()
 
