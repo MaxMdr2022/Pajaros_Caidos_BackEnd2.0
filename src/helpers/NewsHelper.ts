@@ -1,6 +1,6 @@
 import { NewsFacade } from '../facades/NewsFacade'
 import { News, Response } from '../models/types/News'
-import { Banner } from '../models/types/Banner'
+import { Banner, ResponseBanner } from '../models/types/Banner'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
 import { getImageFromCacheOrCloudinary } from '../utils/cacheFunction/CacheFunction'
 
@@ -93,11 +93,13 @@ export class NewsHelper {
     return await facade.getBannerImageById(id)
   }
 
-  async getAllBannerImages(): Promise<Banner[]> {
-    const bannerImages: Banner[] = await facade.getAllBannerImages()
-    if (!bannerImages || !bannerImages[0]) return []
+  async getAllBannerImages(data?: any): Promise<ResponseBanner> {
+    const { bannerPerPage } = data
 
-    for (const e of bannerImages) {
+    const banners: Banner[] = await facade.getAllBannerImages(data)
+    if (!banners || !banners[0]) return { banners: [] }
+
+    for (const e of banners) {
       const buffer = await getImageFromCacheOrCloudinary(e.image.secure_url)
 
       //convertir el buffer en una url para mandar al front
@@ -115,7 +117,14 @@ export class NewsHelper {
       e.image.imageUrl = imageUrl
     }
 
-    return bannerImages
+    if (bannerPerPage) {
+      const quantity = await facade.countBanners()
+
+      const totalPages = Math.ceil(quantity / bannerPerPage)
+
+      return { totalPages, banners }
+    }
+    return { banners }
   }
 
   async createBannerImage(data: Banner): Promise<Banner> {
