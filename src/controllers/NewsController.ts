@@ -45,6 +45,7 @@ export class NewsController {
     res.status(200).send(new ResponseSuccess({ image }))
   }
 
+  //------------------- News -----------------------------
   @Get(':id')
   @Middleware([validateId])
   async getNewsById(req: Request, res: Response) {
