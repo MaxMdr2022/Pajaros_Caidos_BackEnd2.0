@@ -82,7 +82,7 @@ export class PublicationFacade {
         {
           model: CommentsListModel,
           order: [['createdAt', 'DESC']],
-          limit: limitComments ? limitComments : 2,
+          limit: limitComments ? limitComments : null,
           include: [
             {
               model: UserListModel,
