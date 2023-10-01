@@ -125,7 +125,9 @@ export class PublicationHelper {
 
   async deletePublication(id: string, publication: Publication): Promise<Publication> {
     for (const img of publication.image) {
-      await deleteImage(img.public_id)
+      if (img.public_id) {
+        await deleteImage(img.public_id)
+      }
     }
     return await facade.deletePublication(id)
   }
