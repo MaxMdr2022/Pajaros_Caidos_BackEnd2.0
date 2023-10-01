@@ -285,19 +285,14 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       (last_name && typeof last_name !== 'string') ||
       (description && typeof description !== 'string') ||
       (province && typeof province !== 'string') ||
+      (phone_number && typeof phone_number !== 'string') ||
       (contact && typeof contact !== 'string'),
-    isNumber: phone_number
-      ? typeof phone_number !== 'number'
-      : false || age
-      ? typeof age !== 'number'
-      : false,
     dateFormat: birth_date ? !dateFormatRegex.test(birth_date) : false,
   }
 
   const errorMsg = {
     reqProps: 'You must enter the property you want to modify.',
     isString: 'Values have to be strings.',
-    isNumber: 'Value phone_number and age have to be number.',
     dateFormat: 'The date of birth format entered is incorrect. Must be year-month-day',
   }
 
