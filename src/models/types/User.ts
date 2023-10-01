@@ -9,12 +9,11 @@ export type User = {
   country: string
   province: string
   city: string
-  phone_number: number
+  phone_number: string
   description: string
   contact: string
   emailValidateCode?: string
   birth_date: Date
-  age: number
   isVoluntary: boolean
   isAdmin: boolean
   isPrincipalAdmin: boolean

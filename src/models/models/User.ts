@@ -39,14 +39,11 @@ const user = (sequelize) => {
         type: DataTypes.STRING,
       },
       phone_number: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING,
       },
       birth_date: {
         type: DataTypes.DATEONLY,
         defaultValue: '9999-12-31',
-      },
-      age: {
-        type: DataTypes.INTEGER,
       },
       description: {
         type: DataTypes.STRING,
