@@ -275,7 +275,8 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       !contact &&
       !province &&
       !age &&
-      !description,
+      !description &&
+      !req.files,
     isString:
       (nick_name && typeof nick_name !== 'string') ||
       (first_name && typeof first_name !== 'string') ||
