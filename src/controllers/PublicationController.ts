@@ -17,7 +17,7 @@ const helper = new PublicationHelper()
 @Controller('publication')
 export class PublicationController {
   @Get('all')
-  @Middleware([validateLimitQuery]) //validateToken,
+  @Middleware([validateToken, validateLimitQuery]) //
   async getAllPublications(req: Request, res: Response) {
     const { data } = res.locals
     const publications = await helper.getAllPublications(data)
