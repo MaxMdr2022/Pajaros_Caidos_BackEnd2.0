@@ -10,19 +10,25 @@ import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
 const helper = new UserHelper()
 
 export async function validateCreateUser(req: Request, res: Response, next: NextFunction) {
-  const { email, password, first_name, last_name } = req.body
+  const { email, password, first_name, last_name, phone_number, country, province } = req.body
 
+  //agregar lo otro
   const validate = {
-    reqProps: !email || !password || !first_name || !last_name,
+    reqProps:
+      !email || !password || !first_name || !last_name || !phone_number || !country || !province,
     isString:
       typeof email !== 'string' ||
       typeof password !== 'string' ||
       typeof first_name !== 'string' ||
+      typeof phone_number !== 'string' ||
+      typeof country !== 'string' ||
+      typeof province !== 'string' ||
       typeof last_name !== 'string',
   }
 
   const errorMsg = {
-    reqProps: 'To email, password, first_name and last_name is required.',
+    reqProps:
+      'To email, password, first_name, last_name, phone_number, country and province are required.',
     isString: 'Values have to be strings.',
   }
 
@@ -57,8 +63,11 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
     last_name,
     avatar: {
       secure_url:
-        'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694288720/USER/456212_yncwde.png',
+        'https://res.cloudinary.com/dzu7tm74o/image/upload/v1696514389/STATIC%20IMAGE/456212_yncwde_f2kzcg.png',
     },
+    phone_number,
+    province,
+    country,
   }
   res.locals.data = data
   next()
@@ -128,7 +137,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
   data.nick_name = nick_name
   data.avatar = {
     secure_url:
-      'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694288720/USER/456212_yncwde.png',
+      'https://res.cloudinary.com/dzu7tm74o/image/upload/v1696514389/STATIC%20IMAGE/456212_yncwde_f2kzcg.png',
   }
 
   res.locals.user = user
