@@ -63,30 +63,30 @@ class StartServer extends Server {
     this.app.use(errorHandler)
   }
 
-  // public start(port: number): void {
-  //   database.sync({ force: false }).then(() => {
-  //     this.app.listen(port, async () => {
-  //       await bulkCreateAdmin()
-  //       console.log(`Server listen in port: ${port}`)
-  //     })
-  //   })
-  // }
-
-  //----------------------------------------------------
   public start(port: number): void {
     database.sync({ force: false }).then(() => {
-      const userId = [
-        'c7a55416-1efe-42b4-8e00-9bcad91126fc',
-        '4fd52c0a-c41f-4683-b64c-1862033d92c0',
-      ]
-
-      UserListModel.destroy({ where: { id: userId } }).then(() => {
-        this.app.listen(port, async () => {
-          await bulkCreateAdmin()
-          console.log(`Server listen in port: ${port}`)
-        })
+      this.app.listen(port, async () => {
+        await bulkCreateAdmin()
+        console.log(`Server listen in port: ${port}`)
       })
     })
   }
+
+  //-------------------- DELETE USER BY ID --------------------------------
+  // public start(port: number): void {
+  //   database.sync({ force: false }).then(() => {
+  //     const userId = [
+  //       'c7a55416-1efe-42b4-8e00-9bcad91126fc',
+  //       '4fd52c0a-c41f-4683-b64c-1862033d92c0',
+  //     ]
+
+  //     UserListModel.destroy({ where: { id: userId } }).then(() => {
+  //       this.app.listen(port, async () => {
+  //         await bulkCreateAdmin()
+  //         console.log(`Server listen in port: ${port}`)
+  //       })
+  //     })
+  //   })
+  // }
 }
 export default StartServer
