@@ -1,5 +1,5 @@
 const adminImage =
-  'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694102876/USER/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi_d5mmck.jpg'
+  'https://res.cloudinary.com/dzu7tm74o/image/upload/v1696514023/STATIC%20IMAGE/360_F_475009987_zwsk4c77x3cTpcI3W1C1LU4pOSyPKaqi_d5mmck-removebg-preview_zl6mie.png'
 
 const UsersAdmins = [
   {
