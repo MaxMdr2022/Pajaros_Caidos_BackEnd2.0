@@ -23,6 +23,7 @@ export enum ErrorCodeType {
   EmailUsed = 'EMAIL_USED',
   ValidateEmailCode = 'VALIDATE_EMAIL_CODE',
   InvalidCode = 'INVALID_CODE',
+  UserBanned = 'USER_BANNED',
 }
 
 export class ErrorResponse {
