@@ -139,7 +139,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
 
   const user = await helper.getUserByEmail(email)
 
-  if (user.isBanned) {
+  if (user && user.isBanned) {
     const message = `User banned.`
 
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserBanned))
