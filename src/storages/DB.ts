@@ -31,7 +31,8 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env
 const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   host: `${DB_HOST}`,
   port: 5432,
-  dialect: 'postgres',
+  // dialect: 'postgres',
+  dialectModule: pg,
   native: false,
   logging: false,
 })
