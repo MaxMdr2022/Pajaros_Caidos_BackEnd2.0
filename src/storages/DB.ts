@@ -14,19 +14,25 @@ import BannerModel from '../models/models/Banner'
 
 const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env
 
-const database = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  {
-    logging: false,
-    native: false,
-    // dialectOptions: {
-    //   ssl: {
-    //     require: true, // Habilitar SSL
-    //     rejectUnauthorized: false, // en desarrollo poner en false
-    //   },
-    // },
-  }
-)
+// const database = new Sequelize(
+//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
+//   {
+//     logging: false,
+//     native: false,
+//     // dialectOptions: {
+//     //   ssl: {
+//     //     require: true, // Habilitar SSL
+//     //     rejectUnauthorized: false, // en desarrollo poner en false
+//     //   },
+//     // },
+//   }
+// )
+
+const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
+  host: `${DB_HOST}`,
+  native: false,
+  logging: false,
+})
 
 const UserListModel = UserModel(database)
 const CommentsListModel = CommentModel(database)
