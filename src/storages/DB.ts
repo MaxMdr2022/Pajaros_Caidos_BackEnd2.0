@@ -35,6 +35,7 @@ const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   dialectModule: pg,
   native: false,
   logging: false,
+  ssl: true, // en desarrollo deshabilitar (false)
 })
 
 const UserListModel = UserModel(database)
