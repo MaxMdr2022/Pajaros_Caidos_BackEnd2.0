@@ -38,7 +38,7 @@ const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   dialectOptions: {
     ssl: {
       require: true, // Habilitar SSL
-      rejectUnauthorized: true, // en desarrollo poner en false
+      rejectUnauthorized: false, // en desarrollo poner en false
     },
   },
 })
