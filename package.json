@@ -1,14 +1,14 @@
 {
   "name": "back-end",
-  "version": "1.0.0",
-  "description": "",
+  "version": "2.0.0",
+  "description": "The back-end of this project is the backbone of a multifunctional and versatile social media platform. It provides the capabilities necessary to create, search, update and delete users, manage posts that may include images, comments and reactions, as well as manage an online store for the sale of products. Additionally, the back-end offers functionality to publish news related to your activities. This server is based on technologies such as Express.js and Sequelize and uses PostgreSQL databases to securely store critical user, post, product, and news data. It also includes security features such as user authentication, session management, and JWT token authentication to ensure data privacy and integrity. With this back-end, users can register, share content, interact with other publications, purchase products and stay up to date with the latest news from around the web, providing a comprehensive experience on the platform.",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --config \"./nodemon.json\"/"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Maximiliano Meder",
+  "license": "CC BY-NC-ND",
   "dependencies": {
     "@overnightjs/core": "^1.7.6",
     "axios": "^1.5.0",
@@ -41,5 +41,9 @@
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MaxMdr2022/Pajaros_Caidos_BackEnd2.0"
   }
 }
