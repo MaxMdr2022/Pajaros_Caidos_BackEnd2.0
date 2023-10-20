@@ -45,7 +45,7 @@ export class PublicationHelper {
       data.filter = oneMonthAgo
     }
 
-    const publications: PublicationAndUser[] = await facade.getAllPublications(data)
+    let publications: PublicationAndUser[] = await facade.getAllPublications(data)
 
     if (!publications) return { publications: [] }
 
@@ -58,7 +58,11 @@ export class PublicationHelper {
 
       // tipo de imagen: .jpg, .png etc.
       const type = e.image[0].secure_url.match(/\.([^.]+)$/)
-      if (!type) return null
+      if (!type) {
+        console.log('entro')
+
+        return null
+      }
       const contentType = type[1].toLowerCase()
 
       const imageUrl = `data:${contentType};base64,${base64Image}`
@@ -66,6 +70,7 @@ export class PublicationHelper {
       // console.log('URL', imageUrl)
       e.image[0].imageUrl = imageUrl
 
+      // console.log('ss', e.image[0].imageUrl)
       if (e.user) {
         const buffer = await getImageFromCacheOrCloudinary(e.user.avatar.secure_url)
 

@@ -19,8 +19,13 @@ export default (sequelize) => {
         allowNull: false,
       },
       image: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
+        type: DataTypes.JSON,
         allowNull: false,
+        set(image) {
+          const imageArray = Array.isArray(image) ? image : []
+
+          this.setDataValue('image', imageArray)
+        },
       },
       //   category:{
       //     type:DataTypes.ARRAY(DataTypes.STRING),

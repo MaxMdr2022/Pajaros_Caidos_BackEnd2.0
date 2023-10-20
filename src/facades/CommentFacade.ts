@@ -1,8 +1,8 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { Comment } from '../models/types/Comment'
 import { CommentsListModel } from '../storages/DB'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class CommentFacade {
   async getCommentById(id: string): Promise<Comment> {

@@ -1,4 +1,4 @@
-import * as pg from 'pg'
+import mysql from 'mysql2'
 import { Sequelize } from 'sequelize'
 
 import UserModel from '../models/models/User'
@@ -30,17 +30,17 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env
 
 const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   host: `${DB_HOST}`,
-  port: 5432,
-  dialect: 'postgres',
-  dialectModule: pg,
+  // port: 3306,
+  dialect: 'mysql',
+  dialectModule: mysql,
   native: false,
   logging: false,
-  dialectOptions: {
-    ssl: {
-      require: true, // Habilitar SSL
-      rejectUnauthorized: false,
-    },
-  },
+  // dialectOptions: {
+  //   ssl: {
+  //     require: true, // Habilitar SSL
+  //     rejectUnauthorized: false,
+  //   },
+  // },
 })
 
 const UserListModel = UserModel(database)

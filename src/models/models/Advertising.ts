@@ -19,8 +19,13 @@ export default (sequelize) => {
         allowNull: false,
       },
       image: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
+        type: DataTypes.JSON,
         allowNull: false,
+        set(image) {
+          const imageArray = Array.isArray(image) ? image : []
+
+          this.setDataValue('image', imageArray)
+        },
       },
     },
     {
@@ -30,3 +35,6 @@ export default (sequelize) => {
 
   return Advertising
 }
+
+//abrir mysql , levantar el server , abrir postman y crear un post y ver si lo trae
+//para solucionar el tema del arreglo de objetos y no tener que tocar tanto codigo

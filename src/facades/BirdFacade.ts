@@ -1,9 +1,9 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { Bird } from '../models/types/Bird'
 import { BirdsListModel } from '../storages/DB'
 import { Op } from 'sequelize'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class BirdFacade {
   async getBirdById(id: string): Promise<Bird> {
@@ -30,7 +30,7 @@ export class BirdFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * birdPerPage
       filter.order = [['name', 'asc']]
-      filter.limit = birdPerPage
+      filter.limit = parseInt(birdPerPage, 10)
       filter.offset = skip
     }
 

@@ -1,5 +1,5 @@
 import { Publication } from '../models/types/Publication'
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import {
   PublicationsListModel,
   UserListModel,
@@ -8,7 +8,7 @@ import {
 } from '../storages/DB'
 import { Op, Sequelize as sequelize } from 'sequelize'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class PublicationFacade {
   async countPublications(): Promise<number> {
@@ -72,7 +72,7 @@ export class PublicationFacade {
         filterDB.order = [['createdAt', 'asc']]
       }
 
-      filterDB.limit = limit
+      filterDB.limit = parseInt(limit, 10)
     } else {
       filterDB.include = [
         {
@@ -108,7 +108,7 @@ export class PublicationFacade {
         filterDB.order = [['createdAt', orderCreate]]
       }
 
-      filterDB.limit = postPerPage
+      filterDB.limit = parseInt(postPerPage, 10)
       filterDB.offset = skip
     }
 

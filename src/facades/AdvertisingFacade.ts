@@ -1,8 +1,8 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { AdvertisingListModel } from '../storages/DB'
 import { Advertising } from '../models/types/Advertising'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class AdvertisingFacade {
   async getAdvertisingById(id: string): Promise<Advertising> {
@@ -17,7 +17,7 @@ export class AdvertisingFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * advertisingPerPage
       filter.order = [['createdAt', 'asc']]
-      filter.limit = advertisingPerPage
+      filter.limit = parseInt(advertisingPerPage, 10)
       filter.offset = skip
     }
 

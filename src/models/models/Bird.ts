@@ -18,14 +18,14 @@ export default (sequelize) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      image: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
-        allowNull: false,
-      },
-      location: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
-        allowNull: false,
-      },
+      // image: {
+      //   type: DataTypes.ARRAY(DataTypes.JSON),
+      //   allowNull: false,
+      // },
+      // location: {
+      //   type: DataTypes.ARRAY(DataTypes.STRING),
+      //   allowNull: false,
+      // },
       size: {
         type: DataTypes.STRING,
         allowNull: false,
