@@ -85,7 +85,7 @@ export class ItemFacade {
     }
 
     if (limit) {
-      filter.limit = limit
+      filter.limit = parseInt(limit, 10)
     }
 
     if (orderName) {
@@ -112,7 +112,7 @@ export class ItemFacade {
       // al paginar, setear algún tipo de order (pageNumber, itemPerPage, orderCreate)
       const skip = (pageNumber - 1) * itemPerPage
 
-      filter.limit = itemPerPage
+      filter.limit = parseInt(itemPerPage, 10)
       filter.offset = skip
     }
 

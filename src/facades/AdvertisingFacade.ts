@@ -17,7 +17,7 @@ export class AdvertisingFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * advertisingPerPage
       filter.order = [['createdAt', 'asc']]
-      filter.limit = advertisingPerPage
+      filter.limit = parseInt(advertisingPerPage, 10)
       filter.offset = skip
     }
 

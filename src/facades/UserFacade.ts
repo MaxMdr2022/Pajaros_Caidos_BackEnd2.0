@@ -47,7 +47,7 @@ export class UserFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * userPerPage
       filter.order = [['first_name', 'asc']]
-      filter.limit = userPerPage
+      filter.limit = parseInt(userPerPage, 10)
       filter.offset = skip
     }
 

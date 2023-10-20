@@ -22,7 +22,7 @@ export class NewsFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * newsPerPage
       filter.order = [['createdAt', 'desc']]
-      filter.limit = newsPerPage
+      filter.limit = parseInt(newsPerPage, 10)
       filter.offset = skip
     }
 
@@ -58,7 +58,7 @@ export class NewsFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * bannerPerPage
       filter.order = [['createdAt', 'desc']]
-      filter.limit = bannerPerPage
+      filter.limit = parseInt(bannerPerPage, 10)
       filter.offset = skip
     }
 

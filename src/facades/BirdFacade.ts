@@ -30,7 +30,7 @@ export class BirdFacade {
     if (pageNumber) {
       const skip = (pageNumber - 1) * birdPerPage
       filter.order = [['name', 'asc']]
-      filter.limit = birdPerPage
+      filter.limit = parseInt(birdPerPage, 10)
       filter.offset = skip
     }
 

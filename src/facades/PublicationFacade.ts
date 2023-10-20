@@ -72,7 +72,7 @@ export class PublicationFacade {
         filterDB.order = [['createdAt', 'asc']]
       }
 
-      filterDB.limit = limit
+      filterDB.limit = parseInt(limit, 10);
     } else {
       filterDB.include = [
         {
@@ -108,7 +108,7 @@ export class PublicationFacade {
         filterDB.order = [['createdAt', orderCreate]]
       }
 
-      filterDB.limit = postPerPage
+      filterDB.limit = parseInt(postPerPage, 10);
       filterDB.offset = skip
     }
 
