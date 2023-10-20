@@ -25,7 +25,15 @@ export default (sequelize) => {
           // Deserializa el JSON almacenado en la base de datos
           const image = this.getDataValue('image');
           const json = image ? JSON.parse(image) : [];
-          return JSON.parse(json.toString());
+          if (json) {
+            try {
+              return JSON.parse(json.toString());
+            } catch (error) {
+              return json;
+            }
+          } else {
+            console.log("json is null or undefined");
+          }
         },
         set(image) {
           // Serializa el JSON antes de guardarlo en la base de datos

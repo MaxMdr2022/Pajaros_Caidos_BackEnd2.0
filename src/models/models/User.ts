@@ -28,6 +28,28 @@ const user = (sequelize) => {
       },
       avatar: {
         type: DataTypes.JSON,
+        get() {
+          // Deserializa el JSON almacenado en la base de datos
+          const avatar = this.getDataValue('avatar');
+          var json = avatar ? JSON.parse(avatar) : "";
+          if (json) {
+            try {
+              return {
+                public_id: json && json.toString() ? JSON.parse(json.toString()).public_id : "",
+                secure_url: json ? JSON.parse(json.toString()).secure_url : "",
+                imageUrl: json && json.toString() ? JSON.parse(json.toString()).imageUrl : "",
+              };
+            } catch (error) {
+              return json;
+            }
+          } else {
+            console.log("json is null or undefined");
+          }
+        },
+        set(avatar) {
+          // Serializa el JSON antes de guardarlo en la base de datos
+          this.setDataValue('avatar', JSON.stringify(avatar));
+        },
       },
       country: {
         type: DataTypes.STRING,

@@ -25,7 +25,15 @@ export default (sequelize) => {
           // Deserializa el JSON almacenado en la base de datos
           const image = this.getDataValue('image');
           const json = image ? JSON.parse(image) : [];
-          return JSON.parse(json.toString());
+          if (json) {
+            try {
+              return JSON.parse(json.toString());
+            } catch (error) {
+              return json;
+            }
+          } else {
+            console.log("json is null or undefined");
+          }
         },
         set(image) {
           // Serializa el JSON antes de guardarlo en la base de datos
@@ -39,11 +47,15 @@ export default (sequelize) => {
           // Deserializa el JSON almacenado en la base de datos
           const location = this.getDataValue('location');
           const json = location ? JSON.parse(location) : [];
-          return JSON.parse(json.toString());
-        },
-        set(location) {
-          // Serializa el JSON antes de guardarlo en la base de datos
-          this.setDataValue('location', JSON.stringify(location));
+          if (json) {
+            try {
+              return JSON.parse(json.toString());
+            } catch (error) {
+              return json;
+            }
+          } else {
+            console.log("json is null or undefined");
+          }
         },
       },
       size: {
