@@ -1,4 +1,4 @@
-export class PostgresDBStorage {
+export class MySQLDBStorage {
   async relationship<T>(list1: any, relationMethod: string, list2: any): Promise<T> {
     await list1[relationMethod](list2)
     return

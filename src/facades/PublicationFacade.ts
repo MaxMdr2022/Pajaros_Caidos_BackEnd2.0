@@ -1,5 +1,5 @@
 import { Publication } from '../models/types/Publication'
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import {
   PublicationsListModel,
   UserListModel,
@@ -8,7 +8,7 @@ import {
 } from '../storages/DB'
 import { Op, Sequelize as sequelize } from 'sequelize'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class PublicationFacade {
   async countPublications(): Promise<number> {

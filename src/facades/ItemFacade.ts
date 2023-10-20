@@ -1,10 +1,10 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { Item } from '../models/types/Item'
 import { Category } from '../models/types/Category'
 import { CategoryListModel, ItemListModel } from '../storages/DB'
 import { Op } from 'sequelize'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class ItemFacade {
   async countItems(): Promise<number> {

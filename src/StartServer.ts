@@ -46,7 +46,7 @@ class StartServer extends Server {
     //   })
     // )
     this.app.use(express.urlencoded({ extended: true }))
-    this.app.use(cors({ origin: 'http://localhost:3000', credentials: true }))
+    this.app.use(cors({ origin: ['https://redpajaroscaidos.org', 'http://localhost:3000'], credentials: true }))
 
     super.addControllers([
       new UserController(),
@@ -64,7 +64,7 @@ class StartServer extends Server {
   }
 
   public start(port: number): void {
-    database.sync({ force: false }).then(() => {
+    database.sync({ force: true }).then(() => {
       this.app.listen(port, async () => {
         await bulkCreateAdmin()
         console.log(`Server listen in port: ${port}`)

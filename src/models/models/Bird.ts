@@ -19,12 +19,32 @@ export default (sequelize) => {
         allowNull: false,
       },
       image: {
-        type: DataTypes.ARRAY(DataTypes.JSON),
+        type: DataTypes.JSON,
         allowNull: false,
+        get() {
+          // Deserializa el JSON almacenado en la base de datos
+          const image = this.getDataValue('image');
+          const json = image ? JSON.parse(image) : [];
+          return JSON.parse(json.toString());
+        },
+        set(image) {
+          // Serializa el JSON antes de guardarlo en la base de datos
+          this.setDataValue('image', JSON.stringify(image));
+        },
       },
       location: {
-        type: DataTypes.ARRAY(DataTypes.STRING),
+        type: DataTypes.JSON,
         allowNull: false,
+        get() {
+          // Deserializa el JSON almacenado en la base de datos
+          const location = this.getDataValue('location');
+          const json = location ? JSON.parse(location) : [];
+          return JSON.parse(json.toString());
+        },
+        set(location) {
+          // Serializa el JSON antes de guardarlo en la base de datos
+          this.setDataValue('location', JSON.stringify(location));
+        },
       },
       size: {
         type: DataTypes.STRING,

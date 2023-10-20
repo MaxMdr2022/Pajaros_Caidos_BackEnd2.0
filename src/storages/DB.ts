@@ -30,18 +30,11 @@ const { DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME } = process.env
 
 const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   host: `${DB_HOST}`,
-  port: 5432,
-  dialect: 'postgres',
-  dialectModule: pg,
+  dialect: 'mysql', // Specify the dialect as 'mysql'
+  dialectModule: require('mysql2'),
   native: false,
   logging: false,
-  dialectOptions: {
-    ssl: {
-      require: true, // Habilitar SSL
-      rejectUnauthorized: false,
-    },
-  },
-})
+});
 
 const UserListModel = UserModel(database)
 const CommentsListModel = CommentModel(database)

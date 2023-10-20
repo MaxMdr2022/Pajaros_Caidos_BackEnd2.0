@@ -1,10 +1,10 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { Reaction } from '../models/types/Reaction'
 import { ReactionsListModel } from '../storages/DB'
 import { Publication } from '../models/types/Publication'
 import { User } from '../models/types/User'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class ReactionFacade {
   async getReactionById(id: string): Promise<Reaction> {

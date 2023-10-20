@@ -1,9 +1,9 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { Bird } from '../models/types/Bird'
 import { BirdsListModel } from '../storages/DB'
 import { Op } from 'sequelize'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class BirdFacade {
   async getBirdById(id: string): Promise<Bird> {

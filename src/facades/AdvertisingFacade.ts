@@ -1,8 +1,8 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { AdvertisingListModel } from '../storages/DB'
 import { Advertising } from '../models/types/Advertising'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class AdvertisingFacade {
   async getAdvertisingById(id: string): Promise<Advertising> {

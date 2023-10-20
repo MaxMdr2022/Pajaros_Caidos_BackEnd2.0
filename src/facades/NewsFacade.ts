@@ -1,9 +1,9 @@
-import { PostgresDBStorage } from '../storages/PostgresDBStorage'
+import { MySQLDBStorage } from '../storages/MySQLDBStorage'
 import { NewsListModel, BannerListModel } from '../storages/DB'
 import { News } from '../models/types/News'
 import { Banner } from '../models/types/Banner'
 
-const storage = new PostgresDBStorage()
+const storage = new MySQLDBStorage()
 
 export class NewsFacade {
   async countNews(): Promise<number> {
