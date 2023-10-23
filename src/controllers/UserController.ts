@@ -82,12 +82,14 @@ export class UserController {
     res.cookie('JWT', JWT, { sameSite: 'none', secure: true })
 
     if (user) {
-      return res.status(200).send(new ResponseSuccess({ user: user })) //{user: {...user}}
+      const userEncrypted = await helper.encryptDataUser(user)
+      return res.status(200).send(new ResponseSuccess({ user: userEncrypted })) //{user: {...user}}
     }
 
     const userAuth0 = await helper.createUserAuth0(data)
+    const userEncrypted = await helper.encryptDataUser(userAuth0)
 
-    res.status(200).send(new ResponseSuccess({ user: userAuth0 }))
+    res.status(200).send(new ResponseSuccess({ user: userEncrypted }))
   }
 
   @Post(':id/validate')
@@ -132,7 +134,10 @@ export class UserController {
 
     res.cookie('JWT', JWT, { sameSite: 'none', secure: true })
 
-    res.status(200).send(new ResponseSuccess({ user }))
+    //Encriptar data user y mandar asi al front.
+    const userEncrypted = await helper.encryptDataUser(user)
+
+    res.status(200).send(new ResponseSuccess({ user: userEncrypted }))
   }
 
   @Put('update/:id')
@@ -143,8 +148,9 @@ export class UserController {
     const userUpdated = await helper.updateUser(id, user, data)
 
     if (!userUpdated) return res.status(404).send('Error al actualizar usuario')
+    const userEncrypted = await helper.encryptDataUser(userUpdated)
 
-    res.status(200).send(new ResponseSuccess({ userUpdated }))
+    res.status(200).send(new ResponseSuccess({ user: userEncrypted }))
   }
 
   @Put('update-password/:id')
