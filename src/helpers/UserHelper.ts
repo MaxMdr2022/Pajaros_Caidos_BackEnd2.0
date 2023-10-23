@@ -80,6 +80,11 @@ export class UserHelper {
     return token
   }
 
+  async encryptDataUser(user: User): Promise<string> {
+    const dataEncrypted = jwt.sign({ user }, process.env.SECRET_KEY_DATA_JWT)
+    return dataEncrypted
+  }
+
   async createUserAuth0(data: any): Promise<User> {
     const userData = {
       ...data,
