@@ -122,6 +122,10 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   }
 
   res.locals.email = email
+
+  user.password = ''
+  console.log('user: ', user)
+
   res.locals.user = user
   next()
 }
