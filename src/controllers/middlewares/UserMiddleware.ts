@@ -121,6 +121,9 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserBanned))
   }
 
+  user.password = ''
+  // console.log('user: ', user)
+
   res.locals.email = email
   res.locals.user = user
   next()
