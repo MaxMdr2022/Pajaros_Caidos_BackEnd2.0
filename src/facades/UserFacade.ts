@@ -17,7 +17,11 @@ export class UserFacade {
   async getAllUsers(data?: any): Promise<User[]> {
     const { verbose, last_name, pageNumber, userPerPage, userStatus } = data
 
-    const filter: any = {}
+    const filter: any = {
+      attributes: {
+        exclude: ['password'],
+      },
+    }
 
     if (verbose) {
       filter.attributes = [
@@ -32,6 +36,20 @@ export class UserFacade {
         'description',
         'contact',
         'email',
+      ]
+    }
+
+    if (userStatus) {
+      filter.where = { [userStatus]: true }
+      filter.attributes = [
+        'id',
+        'nick_name',
+        'first_name',
+        'last_name',
+        'avatar',
+        'isVoluntary',
+        'description',
+        'contact',
       ]
     }
 
@@ -97,8 +115,14 @@ export class UserFacade {
 
     return await storage.findById(UserListModel, id, object)
   }
+
   async getUserByEmail(email: string): Promise<User> {
-    const user = await storage.find(UserListModel, { where: { email } })
+    const user = await storage.find(UserListModel, {
+      // attributes: {
+      //   exclude: ['password'],
+      // },
+      where: { email },
+    })
 
     if (!user || !user[0]) return null
 
