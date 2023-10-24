@@ -44,6 +44,21 @@ export class UserController {
     return res.status(200).send(new ResponseSuccess({ users }))
   }
 
+  @Get('voluntary')
+  @Middleware([validateFilterQuery]) //[validateToken, validateFilterQuery]
+  async getVoluntariesUsers(req: Request, res: Response) {
+    const { data } = res.locals
+    data.userStatus = 'isVoluntary'
+    const users = await helper.getAllUsers(data)
+
+    if (!users) {
+      const message = 'Users not found'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
+    }
+
+    return res.status(200).send(new ResponseSuccess({ users }))
+  }
+
   @Get('logout')
   @Middleware([])
   async logout(req: Request, res: Response) {
@@ -69,7 +84,7 @@ export class UserController {
 
     const newUser = await helper.createUser(data)
 
-    res.status(200).send(new ResponseSuccess({ newUser }))
+    res.status(200).send(new ResponseSuccess({ newUser: { id: newUser.id } }))
   }
 
   @Post('login-auth0')
