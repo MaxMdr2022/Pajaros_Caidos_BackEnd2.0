@@ -46,7 +46,7 @@ const user = (sequelize) => {
         defaultValue: '9999-12-31',
       },
       description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
       },
       contact: {
         type: DataTypes.STRING,
