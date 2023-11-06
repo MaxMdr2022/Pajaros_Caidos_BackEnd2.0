@@ -69,7 +69,7 @@ export class UserHelper {
 
     const emailMessage = mailOption(email, first_name, code)
 
-    sendEmail(emailMessage)
+    await sendEmail(emailMessage)
 
     return newUser
   }
@@ -114,7 +114,7 @@ export class UserHelper {
 
   async userEmailValidated(user: User, code: string): Promise<User> {
     const data = {
-      emailValidateCode: code,
+      // emailValidateCode: code,
       userEmailValidate: true,
     }
     const userUpdated = await facade.updateUser(user.id, data)
@@ -122,17 +122,17 @@ export class UserHelper {
     return userUpdated
   }
 
-  async createNewCode(user: User): Promise<User> {
-    const newCode = codeUserVerification()
-    const userUpdated = await facade.updateUser(user.id, { emailValidateCode: newCode })
+  async createNewCode(user: User): Promise<string> {
+    // const newCode = codeUserVerification()
+    // const userUpdated = await facade.updateUser(user.id, { emailValidateCode: newCode })
 
-    if (!userUpdated) return null
+    // if (!userUpdated) return null
 
-    const emailMessage = mailOption(user.email, user.first_name, newCode)
+    const emailMessage = mailOption(user.email, user.first_name, user.emailValidateCode)
 
-    sendEmail(emailMessage)
+    const response: string = await sendEmail(emailMessage) // esto tendria que retornar algo si es el error devuelvo el error, para saber..
 
-    return userUpdated
+    return response
   }
 
   async generateNewPassword(user: User): Promise<User> {
@@ -144,7 +144,7 @@ export class UserHelper {
 
     const emailMessage = mailOptionGeneratePassword(user.email, user.first_name, newPass)
 
-    sendEmail(emailMessage)
+    await sendEmail(emailMessage)
 
     return userUpdated
   }
