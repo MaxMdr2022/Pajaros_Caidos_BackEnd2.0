@@ -112,8 +112,11 @@ export class UserController {
   async validateUserEmail(req: Request, res: Response) {
     const { user, code } = res.locals
 
-    await helper.userEmailValidated(user, code)
+    const response = await helper.userEmailValidated(user, code)
 
+    if (!response) {
+      return res.status(400).send({ userEmailValidate: 'Error email validated.' })
+    }
     res
       .status(200)
       .send(new ResponseSuccess({ userEmailValidate: 'Email validated successfully.' }))
@@ -124,10 +127,8 @@ export class UserController {
   async createNewCodeValidateUserEmail(req: Request, res: Response) {
     const { user } = res.locals
 
-    await helper.createNewCode(user)
-    res
-      .status(200)
-      .send(new ResponseSuccess({ userEmailValidate: 'Verification code sent successfully.' }))
+    const response = await helper.createNewCode(user)
+    res.status(200).send(new ResponseSuccess({ userEmailValidate: response }))
   }
 
   @Post('generate-password')
