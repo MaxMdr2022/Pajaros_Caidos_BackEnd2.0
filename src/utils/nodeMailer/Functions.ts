@@ -66,16 +66,16 @@ export const mailOptionGeneratePassword = (email: string, first_name: string, ne
   }
 }
 
-export const sendEmail = (mailOption: any): any => {
-  transporter.sendMail(mailOption, async (err, info) => {
-    if (err) {
-      console.log('Error al enviar el email')
-
-      return 'Failed to send verification email.'
-    } else {
-      console.log('el email se envió con éxito.')
-
-      return 'Verification email sent successfully.'
-    }
+export const sendEmail = (mailOption: any): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    transporter.sendMail(mailOption, (err, info) => {
+      if (err) {
+        console.log('Error al enviar el email')
+        reject('Failed to send verification email.')
+      } else {
+        console.log('El email se envió con éxito.')
+        resolve('Verification email sent successfully.')
+      }
+    })
   })
 }
