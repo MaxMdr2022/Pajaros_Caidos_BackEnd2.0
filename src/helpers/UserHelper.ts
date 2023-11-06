@@ -72,7 +72,7 @@ export class UserHelper {
 
     const emailMessage = mailOption(email, first_name, code)
 
-    sendEmail(emailMessage)
+    await sendEmail(emailMessage)
 
     return newUser
   }
@@ -133,7 +133,7 @@ export class UserHelper {
 
     const emailMessage = mailOption(user.email, user.first_name, user.emailValidateCode)
 
-    const response: string = sendEmail(emailMessage) // esto tendria que retornar algo si es el error devuelvo el error, para saber..
+    const response: string = await sendEmail(emailMessage) // esto tendria que retornar algo si es el error devuelvo el error, para saber..
 
     return response
   }
@@ -147,7 +147,7 @@ export class UserHelper {
 
     const emailMessage = mailOptionGeneratePassword(user.email, user.first_name, newPass)
 
-    sendEmail(emailMessage)
+    await sendEmail(emailMessage)
 
     return userUpdated
   }
