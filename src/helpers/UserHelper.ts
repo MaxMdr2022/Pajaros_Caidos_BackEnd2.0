@@ -47,12 +47,15 @@ export class UserHelper {
   async createUser(data: any): Promise<User> {
     const { email, first_name } = data
 
+    //buscar nick_names y si existe otro igual agregar un numero ¡?
     const nickName = email.split('@')[0]
 
     const nameCapitalWord =
       data.last_name.charAt(0).toUpperCase() + data.last_name.slice(1).toLowerCase()
 
     const code = codeUserVerification()
+
+    console.log('code: ', code)
 
     const passHashed = await bcrypt.hash(data.password, 10)
 
@@ -65,7 +68,7 @@ export class UserHelper {
     }
 
     const newUser = await facade.createUser(userData)
-    if (!newUser) return null
+    if (!newUser) return null //lo  mismo aca
 
     const emailMessage = mailOption(email, first_name, code)
 
@@ -112,27 +115,27 @@ export class UserHelper {
     return await facade.updateUser(id, action)
   }
 
-  async userEmailValidated(user: User, code: string): Promise<User> {
+  async userEmailValidated(user: User, code: string): Promise<boolean> {
     const data = {
-      emailValidateCode: code,
+      // emailValidateCode: code,
       userEmailValidate: true,
     }
     const userUpdated = await facade.updateUser(user.id, data)
     if (!userUpdated) return null
-    return userUpdated
+    return !!userUpdated
   }
 
-  async createNewCode(user: User): Promise<User> {
-    const newCode = codeUserVerification()
-    const userUpdated = await facade.updateUser(user.id, { emailValidateCode: newCode })
+  async createNewCode(user: User): Promise<string> {
+    // const newCode = codeUserVerification()
+    // const userUpdated = await facade.updateUser(user.id, { emailValidateCode: newCode })
 
-    if (!userUpdated) return null
+    // if (!userUpdated) return null // si entra aca el email no se envia checkear
 
-    const emailMessage = mailOption(user.email, user.first_name, newCode)
+    const emailMessage = mailOption(user.email, user.first_name, user.emailValidateCode)
 
-    sendEmail(emailMessage)
+    const response: string = sendEmail(emailMessage) // esto tendria que retornar algo si es el error devuelvo el error, para saber..
 
-    return userUpdated
+    return response
   }
 
   async generateNewPassword(user: User): Promise<User> {
