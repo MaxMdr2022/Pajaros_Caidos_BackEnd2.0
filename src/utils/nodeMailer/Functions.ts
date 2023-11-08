@@ -46,21 +46,28 @@ export const mailOption = (email: string, first_name: string, code: string) => {
 }
 
 export const mailOptionGeneratePassword = (email: string, first_name: string, newPass: string) => {
+  const image =
+    'https://res.cloudinary.com/dzu7tm74o/image/upload/v1699296763/STATIC%20IMAGE/navbar-logo_ljrvgg.webp'
   return {
     from: 'ONG Pajaros Caidos', // sender address
     to: `${email}`, // list of receivers
     subject: 'Recuperación de la cuenta Pajaros Caidos', // Subject line
     html: `
-        <div>
-          <p>
-            Hola, ${first_name}
-            Se solicito generar una nueva contraseña de su cuenta en Pajaros Caidos.
-            Una vez iniciada sesión con la nueva contraseña. Diríjase a su perfil y en configuración cree una nueva.
+      <div style="text-align: center; background-color: #790595e0; padding: 20px;">
+        <p>
+          Hola, ${first_name}
+          Se solicito generar una nueva contraseña de su cuenta en Pajaros Caidos.
+          Una vez iniciada sesión con la nueva contraseña. Diríjase a su perfil y en configuración cree una nueva.
+        </p>
+          <p style="background-color: #ffffff; color: #000000;">
+            ${newPass}
           </p>
-          <p>Su nueva contraseña: </p>
-          ${newPass}
+          <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px;">
+            <img src='${image}' alt="imagen-logo-PajarosCaidos" style=" width: 300px; height: 250px; ">
+          </div>
           <p>ONG Pajaros Caidos</p>
-        </div>`,
+      </div>
+      `,
 
     // text: ``
   }
