@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @Get('all')
-  @Middleware([validateToken, validateFilterQuery]) //[ validateFilterQuery]
+  @Middleware([validateFilterQuery]) //validateToken,
   async getUsers(req: Request, res: Response) {
     const { data } = res.locals
 
