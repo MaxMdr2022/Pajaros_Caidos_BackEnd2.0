@@ -8,6 +8,7 @@ export type Publication = {
   isDeleted: boolean
   createdAt?: Date
   updatedAt?: Date
+  commentsQuantity: number
 }
 type Image = {
   public_id: string
@@ -20,4 +21,5 @@ export type PublicationAndUser = Pick<
   'id' | 'title' | 'description' | 'image' | 'isDeleted' | 'createdAt' | 'updatedAt'
 > & {
   user?: User
+  commentsQuantity: number
 }
