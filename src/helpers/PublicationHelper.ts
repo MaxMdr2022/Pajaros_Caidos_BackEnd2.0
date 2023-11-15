@@ -90,6 +90,12 @@ export class PublicationHelper {
 
       const totalPages = Math.ceil(quantity / postPerPage)
 
+      const public2: any = publications
+      for (const post of public2) {
+        const commentsQuantity = await facade.QuantityComments(post.id)
+        post.dataValues.commentsQuantity = commentsQuantity
+      }
+
       return { totalPages, publications }
     }
     return { publications }
