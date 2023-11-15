@@ -15,6 +15,12 @@ export class PublicationFacade {
     return await storage.count(PublicationsListModel)
   }
 
+  async QuantityComments(idPost: string): Promise<number> {
+    const result = await storage.count(CommentsListModel, { where: { publicationId: idPost } })
+
+    return result
+  }
+
   async createPublication(userId: string, data: any): Promise<Publication> {
     const newPublication: Publication = await storage.create(PublicationsListModel, data)
 
@@ -48,20 +54,23 @@ export class PublicationFacade {
       ]
 
       if (filter === 'likes') {
-        filterDB.include.push({
-          model: ReactionsListModel,
-          attributes: [],
-          include: [],
-        })
-
-        filterDB.order = [
+        filterDB.attributes = [
+          'id',
+          'title',
+          'description',
+          'image',
+          'isDeleted',
+          'createdAt',
+          'updatedAt',
+          'userId',
           [
             sequelize.literal(
-              '(SELECT COUNT(*) FROM "reactions" WHERE "reactions"."publicationId" = "publication"."id")'
+              '(SELECT COUNT(*) FROM `reactions` WHERE `reactions`.`publicationId` = `publication`.`id`)'
             ),
-            'DESC',
+            'reactionsCount',
           ],
         ]
+        filterDB.order = [[sequelize.literal('reactionsCount'), 'DESC']]
       } else {
         filterDB.where = {
           createdAt: {
@@ -77,21 +86,27 @@ export class PublicationFacade {
       filterDB.include = [
         {
           model: UserListModel,
-          attributes: ['id', 'avatar', 'nick_name'],
+          attributes: ['id', 'avatar', 'nick_name', 'isVoluntary', 'isAdmin'],
         },
         {
           model: CommentsListModel,
           order: [['createdAt', 'DESC']],
-          limit: limitComments ? limitComments : null,
+          limit: parseInt(limitComments, 10) ? parseInt(limitComments, 10) : null,
+          include: [
+            {
+              model: UserListModel,
+              attributes: ['nick_name', 'avatar', 'isVoluntary', 'isAdmin'],
+            },
+          ],
+        },
+        {
+          model: ReactionsListModel,
           include: [
             {
               model: UserListModel,
               attributes: ['nick_name'],
             },
           ],
-        },
-        {
-          model: ReactionsListModel,
         },
       ]
     }
@@ -112,7 +127,9 @@ export class PublicationFacade {
       filterDB.offset = skip
     }
 
-    return await storage.find(PublicationsListModel, filterDB)
+    const publications: Publication[] = await storage.find(PublicationsListModel, filterDB)
+
+    return publications
   }
 
   async getPublicationById(id: string): Promise<Publication> {
@@ -120,7 +137,7 @@ export class PublicationFacade {
       include: [
         {
           model: UserListModel,
-          attributes: ['id', 'avatar', 'nick_name'],
+          attributes: ['id', 'avatar', 'nick_name', 'isVoluntary', 'isAdmin'],
         },
         {
           model: CommentsListModel,
@@ -128,12 +145,18 @@ export class PublicationFacade {
           include: [
             {
               model: UserListModel,
-              attributes: ['nick_name'],
+              attributes: ['nick_name', 'avatar', 'isVoluntary', 'isAdmin'],
             },
           ],
         },
         {
           model: ReactionsListModel,
+          include: [
+            {
+              model: UserListModel,
+              attributes: ['nick_name'],
+            },
+          ],
         },
       ],
     }
