@@ -33,7 +33,7 @@ const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   dialect: 'mysql', // Specify the dialect as 'mysql'
   dialectModule: mysql,
   native: false,
-  logging: false,
+  logging: true,
 })
 
 const UserListModel = UserModel(database)
