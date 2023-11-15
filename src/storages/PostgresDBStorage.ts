@@ -4,8 +4,8 @@ export class PostgresDBStorage {
     return
   }
 
-  async count(model:any):Promise<number>{
-    const quantity = await model.count()
+  async count(model: any, filter?: any): Promise<number> {
+    const quantity = await model.count(filter)
 
     return quantity
   }
