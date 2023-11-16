@@ -66,8 +66,12 @@ export class PublicationHelper {
 
         const imageUrl = `data:${contentType};base64,${base64Image}`
 
-        // console.log('URL', imageUrl)
+        console.log('URL', imageUrl)
         e.image[0].imageUrl = imageUrl
+
+        const data: any = e
+        data.dataValues.image[0].imageUrl = imageUrl
+        console.log('datavalua:::', e.image[0].imageUrl)
       }
 
       if (e.user && e.user.avatar.imageUrl) {
