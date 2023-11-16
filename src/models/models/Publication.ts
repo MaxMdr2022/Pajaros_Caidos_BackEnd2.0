@@ -26,6 +26,10 @@ export default (sequelize) => {
 
           this.setDataValue('image', imageArray)
         },
+        get() {
+          const imagePost = this.getDataValue('image')
+          return imagePost ? JSON.parse(imagePost) : null
+        },
       },
       // video: {
       //     type: DataTypes.ARRAY(DataTypes.STRING),
