@@ -2,6 +2,7 @@ import { Publication, PublicationAndUser } from '../models/types/Publication'
 import { PublicationFacade } from '../facades/PublicationFacade'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
 import { getImageFromCacheOrCloudinary } from '../utils/cacheFunction/CacheFunction'
+import { UserInstance } from '../models/types/User'
 
 const facade = new PublicationFacade()
 
@@ -50,12 +51,6 @@ export class PublicationHelper {
     if (!publications) return { publications: [] }
 
     for (const e of publications) {
-      // if (typeof e.image == 'string') {
-      //   console.log('emtrp ')
-
-      //   e.image = JSON.parse(e.image)
-      // }
-
       if (e.image[0].secure_url) {
         console.log('e.image::: ', e.image)
 
@@ -76,9 +71,9 @@ export class PublicationHelper {
       }
 
       if (e.user && e.user.avatar.secure_url) {
-        // if (typeof e.user.avatar === 'string') {
-        //   e.user.avatar = JSON.parse(e.user.avatar)
-        // }
+        const userInstance: UserInstance = e.user as UserInstance
+        e.user = userInstance.get()
+
         const buffer = await getImageFromCacheOrCloudinary(e.user.avatar.secure_url)
 
         //convertir el buffer en una url para mandar al front
@@ -103,10 +98,9 @@ export class PublicationHelper {
 
       const totalPages = Math.ceil(quantity / postPerPage)
 
-      const public2: any = publications
-      for (const post of public2) {
+      for (const post of publications) {
         const commentsQuantity = await facade.QuantityComments(post.id)
-        post.dataValues.commentsQuantity = commentsQuantity
+        post.commentsQuantity = commentsQuantity
       }
 
       return { totalPages, publications }

@@ -1,4 +1,5 @@
-export type User = {
+import { Model, Optional } from 'sequelize'
+export interface User {
   id?: string
   first_name: string
   last_name: string
@@ -34,3 +35,7 @@ export type Response = {
   users: User[]
   totalPages?: number
 }
+
+export interface UserCreationAttributes extends Optional<User, 'id'> {}
+
+export interface UserInstance extends Model<User, UserCreationAttributes>, User {}

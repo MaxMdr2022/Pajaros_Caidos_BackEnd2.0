@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
+import { UserInstance } from '../types/User'
 
-const user = (sequelize) => {
+const user = (sequelize): UserInstance => {
   const User = sequelize.define(
     'user',
     {
