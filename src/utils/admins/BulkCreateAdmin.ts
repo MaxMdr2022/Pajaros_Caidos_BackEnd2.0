@@ -14,6 +14,8 @@ const bulkCreateAdmin = async () => {
       const admin = await UserListModel.findOne({ where: { email } })
       console.log(`Email: ${email}, Admin: ${admin}`)
       if (!admin) {
+        console.log('creado:: ', email, 'i:: ', i)
+
         await UserListModel.create({
           email: email,
           password: hashedPassword,
@@ -25,6 +27,8 @@ const bulkCreateAdmin = async () => {
           isPrincipalAdmin: UsersAdmins[i].isPrincipalAdmin,
           userEmailValidate: UsersAdmins[i].userEmailValidate,
         })
+      } else {
+        console.log('no se creo:: ', email)
       }
     }
   } catch (error) {
