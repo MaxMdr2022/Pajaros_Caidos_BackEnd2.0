@@ -50,24 +50,10 @@ export class PublicationHelper {
     if (!publications) return { publications: [] }
 
     for (const e of publications) {
-      const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
+      if (e.image[0].secure_url) {
+        console.log('image: ', e.image[0])
 
-      //convertir el buffer en una url para mandar al front
-
-      const base64Image = Buffer.from(buffer).toString('base64')
-
-      // tipo de imagen: .jpg, .png etc.
-      const type = e.image[0].secure_url.match(/\.([^.]+)$/)
-      if (!type) return null
-      const contentType = type[1].toLowerCase()
-
-      const imageUrl = `data:${contentType};base64,${base64Image}`
-
-      // console.log('URL', imageUrl)
-      e.image[0].imageUrl = imageUrl
-
-      if (e.user) {
-        const buffer = await getImageFromCacheOrCloudinary(e.user.avatar.secure_url)
+        const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
 
         //convertir el buffer en una url para mandar al front
 
@@ -75,6 +61,25 @@ export class PublicationHelper {
 
         // tipo de imagen: .jpg, .png etc.
         const type = e.image[0].secure_url.match(/\.([^.]+)$/)
+        if (!type) return null
+        const contentType = type[1].toLowerCase()
+
+        const imageUrl = `data:${contentType};base64,${base64Image}`
+
+        // console.log('URL', imageUrl)
+        e.image[0].imageUrl = imageUrl
+      }
+
+      if (e.user && e.user.avatar.imageUrl) {
+        const buffer = await getImageFromCacheOrCloudinary(e.user.avatar.secure_url)
+
+        //convertir el buffer en una url para mandar al front
+
+        const base64Image = Buffer.from(buffer).toString('base64')
+
+        // tipo de imagen: .jpg, .png etc.
+        // const type = e.image[0].secure_url.match(/\.([^.]+)$/)
+        const type = e.user.avatar.secure_url.match(/\.([^.]+)$/)
         if (!type) return null
         const contentType = type[1].toLowerCase()
 
