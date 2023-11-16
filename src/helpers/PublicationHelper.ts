@@ -66,12 +66,7 @@ export class PublicationHelper {
 
         const imageUrl = `data:${contentType};base64,${base64Image}`
 
-        console.log('URL', imageUrl)
         e.image[0].imageUrl = imageUrl
-
-        const data: any = e
-        data.dataValues.image[0].imageUrl = imageUrl
-        console.log('datavalua:::', e.image[0].imageUrl)
       }
 
       if (e.user && e.user.avatar.imageUrl) {
@@ -93,6 +88,7 @@ export class PublicationHelper {
         e.user.avatar.imageUrl = imageUrl
       }
     }
+    console.log('publi:::', publications)
 
     if (postPerPage) {
       const quantity = await facade.countPublications()
