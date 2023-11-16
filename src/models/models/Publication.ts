@@ -24,7 +24,7 @@ export default (sequelize) => {
         set(image) {
           const imageArray = Array.isArray(image) ? image : []
 
-          this.setDataValue('image', imageArray)
+          this.setDataValue('image', JSON.stringify(imageArray))
         },
         get() {
           const imagePost = this.getDataValue('image')
