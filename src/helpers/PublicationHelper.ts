@@ -51,10 +51,14 @@ export class PublicationHelper {
 
     for (const e of publications) {
       if (typeof e.image === 'string') {
+        console.log('emtrp ')
+
         e.image = JSON.parse(e.image)
       }
 
       if (e.image[0].secure_url) {
+        console.log('e.image::: ', e.image)
+
         const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
 
         //convertir el buffer en una url para mandar al front
@@ -91,6 +95,8 @@ export class PublicationHelper {
         e.user.avatar.imageUrl = imageUrl
       }
     }
+
+    console.log('post:::', publications)
 
     if (postPerPage) {
       const quantity = await facade.countPublications()
