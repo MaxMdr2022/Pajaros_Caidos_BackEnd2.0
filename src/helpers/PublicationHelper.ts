@@ -48,13 +48,14 @@ export class PublicationHelper {
     const publications: PublicationAndUser[] = await facade.getAllPublications(data)
 
     if (!publications) return { publications: [] }
-
-    for (const e of publications) {
-      if (typeof e.image === 'string') {
+    const publications2: any = publications
+    for (const e of publications2) {
+      if (typeof e.image == 'string') {
         console.log('emtrp ')
 
-        e.image = JSON.parse(e.image)
+        //no entro aca... pero meparece que image sigue siendo un string o lo que pasa es que hay que pisar el datavalues
       }
+      e.image = JSON.parse(e.image)
 
       if (e.image[0].secure_url) {
         console.log('e.image::: ', e.image)
