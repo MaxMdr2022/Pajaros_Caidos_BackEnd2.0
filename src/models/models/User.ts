@@ -28,6 +28,10 @@ const user = (sequelize) => {
       },
       avatar: {
         type: DataTypes.JSON,
+        get() {
+          const avatarUser = this.getDataValue('avatar')
+          return avatarUser ? JSON.parse(avatarUser) : null
+        },
       },
       country: {
         type: DataTypes.STRING,
