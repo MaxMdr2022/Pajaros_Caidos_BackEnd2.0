@@ -49,9 +49,11 @@ export class PublicationHelper {
 
     if (!publications) return { publications: [] }
 
-    // const publications2: any = publications
-
     for (const e of publications) {
+      if (typeof e.image === 'string') {
+        e.image = JSON.parse(e.image)
+      }
+
       if (e.image[0].secure_url) {
         console.log('image: ', e.image[0])
 
@@ -69,10 +71,6 @@ export class PublicationHelper {
         const imageUrl = `data:${contentType};base64,${base64Image}`
 
         e.image[0].imageUrl = imageUrl
-
-        // const post: any = e
-
-        // post.dataValues.image[0].imageUrl = imageUrl
       }
 
       if (e.user && e.user.avatar.imageUrl) {
@@ -83,14 +81,12 @@ export class PublicationHelper {
         const base64Image = Buffer.from(buffer).toString('base64')
 
         // tipo de imagen: .jpg, .png etc.
-        // const type = e.image[0].secure_url.match(/\.([^.]+)$/)
         const type = e.user.avatar.secure_url.match(/\.([^.]+)$/)
         if (!type) return null
         const contentType = type[1].toLowerCase()
 
         const imageUrl = `data:${contentType};base64,${base64Image}`
 
-        // console.log('URL', imageUrl)
         e.user.avatar.imageUrl = imageUrl
       }
     }
