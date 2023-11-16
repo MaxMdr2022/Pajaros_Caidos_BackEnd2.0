@@ -55,8 +55,6 @@ export class PublicationHelper {
       }
 
       if (e.image[0].secure_url) {
-        console.log('image: ', e.image[0])
-
         const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
 
         //convertir el buffer en una url para mandar al front
@@ -73,7 +71,10 @@ export class PublicationHelper {
         e.image[0].imageUrl = imageUrl
       }
 
-      if (e.user && e.user.avatar.imageUrl) {
+      if (e.user && e.user.avatar.secure_url) {
+        // if (typeof e.user.avatar === 'string') {
+        //   e.user.avatar = JSON.parse(e.user.avatar)
+        // }
         const buffer = await getImageFromCacheOrCloudinary(e.user.avatar.secure_url)
 
         //convertir el buffer en una url para mandar al front
@@ -90,7 +91,6 @@ export class PublicationHelper {
         e.user.avatar.imageUrl = imageUrl
       }
     }
-    console.log('publi:::', publications)
 
     if (postPerPage) {
       const quantity = await facade.countPublications()
