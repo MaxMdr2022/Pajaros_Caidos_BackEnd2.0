@@ -49,7 +49,9 @@ export class PublicationHelper {
 
     if (!publications) return { publications: [] }
 
-    for (const e of publications) {
+    const publications2: any = publications
+
+    for (const e of publications2) {
       if (e.image[0].secure_url) {
         console.log('image: ', e.image[0])
 
@@ -66,7 +68,11 @@ export class PublicationHelper {
 
         const imageUrl = `data:${contentType};base64,${base64Image}`
 
-        e.image[0].imageUrl = imageUrl
+        e.dataValues.image[0].imageUrl = imageUrl
+
+        // const post: any = e
+
+        // post.dataValues.image[0].imageUrl = imageUrl
       }
 
       if (e.user && e.user.avatar.imageUrl) {
