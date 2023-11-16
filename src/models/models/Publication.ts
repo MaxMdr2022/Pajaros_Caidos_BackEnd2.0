@@ -37,7 +37,9 @@ export default (sequelize) => {
         },
         set(image) {
           // Serializa el JSON antes de guardarlo en la base de datos
-          this.setDataValue('image', JSON.stringify(image))
+          const imageArray = Array.isArray(image) ? image : []
+
+          this.setDataValue('image', imageArray)
         },
       },
       // video: {
@@ -57,3 +59,50 @@ export default (sequelize) => {
 
   return Publication
 }
+
+/*
+
+image: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        get() {
+          // Deserializa el JSON almacenado en la base de datos
+          const image = this.getDataValue('image')
+          const json = image ? JSON.parse(image) : []
+          if (json) {
+            try {
+              return JSON.parse(json.toString())
+            } catch (error) {
+              return json
+            }
+          } else {
+            console.log('json is null or undefined')
+          }
+        },
+        set(image) {
+          // Serializa el JSON antes de guardarlo en la base de datos
+          this.setDataValue('image', JSON.stringify(image))
+        },
+      },
+---------------------------------------------------------------
+
+       image: {
+        type: DataTypes.JSON,
+        allowNull: false,
+        set(image) {
+          const imageArray = Array.isArray(image) ? image : []
+
+          this.setDataValue('image', imageArray)
+        },
+        get() {
+          const imagePost = this.getDataValue('image')
+          return imagePost ? JSON.parse(imagePost) : null
+        },
+      },
+
+
+
+
+
+
+*/
