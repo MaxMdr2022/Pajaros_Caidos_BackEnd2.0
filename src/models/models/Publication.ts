@@ -21,26 +21,26 @@ export default (sequelize) => {
       image: {
         type: DataTypes.JSON,
         allowNull: false,
-        get() {
-          // Deserializa el JSON almacenado en la base de datos
-          const image = this.getDataValue('image')
-          const json = image ? JSON.parse(image) : []
-          if (json) {
-            try {
-              return JSON.parse(json.toString())
-            } catch (error) {
-              return json
-            }
-          } else {
-            console.log('json is null or undefined')
-          }
-        },
-        set(image) {
-          // Serializa el JSON antes de guardarlo en la base de datos
-          const imageArray = Array.isArray(image) ? image : []
+        // get() {
+        //   // Deserializa el JSON almacenado en la base de datos
+        //   const image = this.getDataValue('image')
+        //   const json = image ? JSON.parse(image) : []
+        //   if (json) {
+        //     try {
+        //       return JSON.parse(json.toString())
+        //     } catch (error) {
+        //       return json
+        //     }
+        //   } else {
+        //     console.log('json is null or undefined')
+        //   }
+        // },
+        // set(image) {
+        //   // Serializa el JSON antes de guardarlo en la base de datos
+        //   const imageArray = Array.isArray(image) ? image : []
 
-          this.setDataValue('image', imageArray)
-        },
+        //   this.setDataValue('image', imageArray)
+        // },
       },
       // video: {
       //     type: DataTypes.ARRAY(DataTypes.STRING),
