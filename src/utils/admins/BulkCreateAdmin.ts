@@ -12,7 +12,7 @@ const bulkCreateAdmin = async () => {
       const hashedPassword = await bcrypt.hash(pass, 10)
 
       const admin = await UserListModel.findOne({ where: { email } })
-
+      console.log(`Email: ${email}, Admin: ${admin}`)
       if (!admin) {
         await UserListModel.create({
           email: email,
