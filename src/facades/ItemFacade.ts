@@ -28,14 +28,10 @@ export class ItemFacade {
     if (!categories || !categories[0]) return null
 
     for (const category of categories) {
-      console.log('category: ', category, 'new item: ', newItem)
-      const associationMethod = Object.keys(newItem['associations']).find(
-        (key) => newItem['associations'][key].target === category.constructor
-      )
+      console.log('cat: ', category, 'newItem: ', newItem)
 
-      if (associationMethod && newItem[associationMethod]) {
-        await newItem[associationMethod](category)
-      }
+      await storage.relationship(newItem, 'addCategory', category)
+      await storage.relationship(category, 'addItem', newItem)
     }
 
     return newItem
