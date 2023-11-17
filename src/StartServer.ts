@@ -22,10 +22,6 @@ import {
   CommentsListModel,
   ReactionsListModel,
 } from './storages/DB'
-import bcrypt from 'bcrypt'
-import UsersAdmins from './utils/admins/UsersAdmins'
-import { Op } from 'sequelize'
-import { Sequelize } from 'sequelize'
 
 const default404 = (req: Request, res: Response) =>
   res
@@ -37,11 +33,9 @@ const default404 = (req: Request, res: Response) =>
       )
     )
 
-export default class StartServer extends Server {
-  private database: Sequelize
-  constructor(database: Sequelize) {
+class StartServer extends Server {
+  constructor() {
     super()
-    this.database = database
     this.app.use(cookieParser())
     this.app.use(parserJson())
     this.app.use(express.json())
@@ -72,52 +66,13 @@ export default class StartServer extends Server {
   }
 
   public start(port: number): void {
-    this.database.sync({ force: false }).then(async () => {
-      try {
-        await bulkCreateAdmin(this.database)
-        this.app.listen(port, async () => {
-          console.log(`Server listen in port: ${port}`)
-        })
-      } catch (error) {
-        console.error('Error during initialization:', error)
-      }
+    database.sync({ force: false }).then(async () => {
+      this.app.listen(port, async () => {
+        await bulkCreateAdmin()
+        console.log(`Server listen in port: ${port}`)
+      })
     })
   }
-
-  //--------------
-  // public start(port: number): void {
-  //   database.sync({ force: false }).then(async () => {
-  //     // Verifica si al menos uno de los usuarios administrativos está presente en la base de datos
-  //     const existingAdmins = await UserListModel.findOne({
-  //       where: { [Op.or]: UsersAdmins.map((admin) => ({ nick_name: admin.nick_name })) },
-  //     });
-
-  //     // Si no se encuentra al menos uno de los usuarios administrativos, crea los usuarios predeterminados
-  //     if (!existingAdmins) {
-  //       for (const adminData of UsersAdmins) {
-  //         const { nick_name, first_name, last_name, avatar, isAdmin, isPrincipalAdmin, userEmailValidate } = adminData;
-  //         const hashedPassword = await bcrypt.hash(process.env.ADMIN_DEFAULT_PASS, 10);
-
-  //         await UserListModel.create({
-  //           nick_name,
-  //           first_name,
-  //           last_name,
-  //           avatar,
-  //           password: hashedPassword,
-  //           isAdmin,
-  //           isPrincipalAdmin,
-  //           userEmailValidate,
-  //           // Agrega otras propiedades según sea necesario
-  //         });
-  //       }
-  //     }
-
-  //     // Inicia el servidor después de la inicialización
-  //     this.app.listen(port, () => {
-  //       console.log(`Server listen in port: ${port}`);
-  //     });
-  //   });
-  // }
 
   //-------------------- DELETE USER BY ID --------------------------------
   // public start(port: number): void {
@@ -136,3 +91,4 @@ export default class StartServer extends Server {
   //   })
   // }
 }
+export default StartServer
