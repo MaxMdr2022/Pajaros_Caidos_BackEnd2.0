@@ -22,6 +22,9 @@ import {
   CommentsListModel,
   ReactionsListModel,
 } from './storages/DB'
+import bcrypt from 'bcrypt'
+import UsersAdmins from './utils/admins/UsersAdmins'
+import { Op } from 'sequelize'
 
 const default404 = (req: Request, res: Response) =>
   res
@@ -65,14 +68,49 @@ class StartServer extends Server {
     this.app.use(errorHandler)
   }
 
-  public async start(port: number) {
-    await bulkCreateAdmin()
-    database.sync({ force: false }).then(async () => {
+  public start(port: number): void {
+    database.sync({ force: true }).then(() => {
       this.app.listen(port, async () => {
+        await bulkCreateAdmin()
         console.log(`Server listen in port: ${port}`)
       })
     })
   }
+
+  //--------------
+  // public start(port: number): void {
+  //   database.sync({ force: false }).then(async () => {
+  //     // Verifica si al menos uno de los usuarios administrativos está presente en la base de datos
+  //     const existingAdmins = await UserListModel.findOne({
+  //       where: { [Op.or]: UsersAdmins.map((admin) => ({ nick_name: admin.nick_name })) },
+  //     });
+
+  //     // Si no se encuentra al menos uno de los usuarios administrativos, crea los usuarios predeterminados
+  //     if (!existingAdmins) {
+  //       for (const adminData of UsersAdmins) {
+  //         const { nick_name, first_name, last_name, avatar, isAdmin, isPrincipalAdmin, userEmailValidate } = adminData;
+  //         const hashedPassword = await bcrypt.hash(process.env.ADMIN_DEFAULT_PASS, 10);
+
+  //         await UserListModel.create({
+  //           nick_name,
+  //           first_name,
+  //           last_name,
+  //           avatar,
+  //           password: hashedPassword,
+  //           isAdmin,
+  //           isPrincipalAdmin,
+  //           userEmailValidate,
+  //           // Agrega otras propiedades según sea necesario
+  //         });
+  //       }
+  //     }
+
+  //     // Inicia el servidor después de la inicialización
+  //     this.app.listen(port, () => {
+  //       console.log(`Server listen in port: ${port}`);
+  //     });
+  //   });
+  // }
 
   //-------------------- DELETE USER BY ID --------------------------------
   // public start(port: number): void {
