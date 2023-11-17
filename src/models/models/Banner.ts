@@ -17,11 +17,11 @@ export default (sequelize) => {
       image: {
         type: DataTypes.JSON,
         get() {
-          const image = this.getDataValue('avatar')
+          const image = this.getDataValue('image')
           if (image && typeof image === 'string') {
             return JSON.parse(image)
           }
-          return image
+          return null
         },
       },
     },
