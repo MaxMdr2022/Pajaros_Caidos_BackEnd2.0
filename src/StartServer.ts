@@ -25,6 +25,7 @@ import {
 import bcrypt from 'bcrypt'
 import UsersAdmins from './utils/admins/UsersAdmins'
 import { Op } from 'sequelize'
+import { Sequelize } from 'sequelize'
 
 const default404 = (req: Request, res: Response) =>
   res
@@ -37,8 +38,10 @@ const default404 = (req: Request, res: Response) =>
     )
 
 class StartServer extends Server {
-  constructor() {
+  private database: Sequelize
+  constructor(database: Sequelize) {
     super()
+    this.database = database
     this.app.use(cookieParser())
     this.app.use(parserJson())
     this.app.use(express.json())
@@ -69,10 +72,10 @@ class StartServer extends Server {
   }
 
   public start(port: number): void {
-    database.sync({ force: false }).then(async () => {
+    this.database.sync({ force: false }).then(async () => {
       try {
         this.app.listen(port, async () => {
-          await bulkCreateAdmin()
+          await bulkCreateAdmin(this.database) // Pasa la instancia de la base de datos a la función
           console.log(`Server listen in port: ${port}`)
         })
       } catch (error) {

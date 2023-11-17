@@ -1,8 +1,9 @@
 import { UserListModel } from '../../storages/DB'
 import bcrypt from 'bcrypt'
 import UsersAdmins from '../admins/UsersAdmins'
+import { Sequelize } from 'sequelize'
 
-const bulkCreateAdmin = async () => {
+const bulkCreateAdmin = async (database: Sequelize): Promise<void> => {
   try {
     for (let i = 0; i < UsersAdmins.length; i++) {
       const passEnv = `ADMIN_${i + 1}_PASS`
@@ -18,12 +19,9 @@ const bulkCreateAdmin = async () => {
 
       const hashedPassword = await bcrypt.hash(pass, 10)
 
-      const existingAdmin = await UserListModel.findOne({
+      await UserListModel.findOrCreate({
         where: { email },
-      })
-
-      if (!existingAdmin) {
-        await UserListModel.create({
+        defaults: {
           email,
           password: hashedPassword,
           first_name: UsersAdmins[i].first_name,
@@ -33,16 +31,16 @@ const bulkCreateAdmin = async () => {
           isAdmin: UsersAdmins[i].isAdmin,
           isPrincipalAdmin: UsersAdmins[i].isPrincipalAdmin,
           userEmailValidate: UsersAdmins[i].userEmailValidate,
-        })
-      }
+        },
+      })
     }
   } catch (error) {
-    console.error('Error creando usuarios administrativos:', error)
-    throw error
+    console.log('Error create User Admin', error)
   }
 }
 
 export default bulkCreateAdmin
+
 /*
 const admin = await UserListModel.findOne({ where: { email } })
       console.log(`Email: ${email}, Admin: ${admin}`)
