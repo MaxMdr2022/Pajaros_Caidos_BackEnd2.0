@@ -31,7 +31,7 @@ export class ItemFacade {
       console.log('cat: ', category, 'newItem: ', newItem)
 
       await storage.relationship(newItem, 'addCategory', category)
-      await storage.relationship(category, 'addItem', newItem)
+      // await storage.relationship(category, 'addItem', newItem)
     }
 
     return newItem

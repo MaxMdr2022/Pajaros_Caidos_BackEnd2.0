@@ -63,8 +63,8 @@ CommentsListModel.belongsTo(PublicationsListModel)
 PublicationsListModel.hasMany(ReactionsListModel)
 ReactionsListModel.belongsTo(PublicationsListModel)
 
-ItemListModel.belongsToMany(CategoryListModel, { through: 'item_category' })
-CategoryListModel.belongsToMany(ItemListModel, { through: 'item_category' })
+ItemListModel.hasMany(CategoryListModel, { through: 'item_category' })
+CategoryListModel.belongsTo(ItemListModel, { through: 'item_category' })
 
 export {
   UserListModel,
