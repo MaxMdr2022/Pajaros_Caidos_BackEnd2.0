@@ -22,10 +22,11 @@ export default (sequelize) => {
         type: DataTypes.JSON,
         allowNull: false,
         get() {
-          // Deserializa el JSON almacenado en la base de datos
           const image = this.getDataValue('image')
-          const json = image ? JSON.parse(image) : []
-          return json
+          if (image && typeof image === 'string') {
+            return JSON.parse(image)
+          }
+          return []
         },
         // set(image) {
         //   // Serializa el JSON antes de guardarlo en la base de datos
