@@ -12,6 +12,8 @@ export class ItemFacade {
   }
 
   async createItem(data: any): Promise<Item> {
+    console.log('data_ ', data)
+
     const newItem: Item = await storage.create(ItemListModel, data)
 
     const filter = {
@@ -26,6 +28,8 @@ export class ItemFacade {
     if (!categories || !categories[0]) return null
 
     for (const category of categories) {
+      console.log('cat: ', category, 'newItem: ', newItem)
+
       await storage.relationship(newItem, 'addCategory', category)
     }
 
