@@ -1,3 +1,4 @@
+import 'dotenv/config'
 import StartServer from './StartServer'
 import { database } from './storages/DB'
 

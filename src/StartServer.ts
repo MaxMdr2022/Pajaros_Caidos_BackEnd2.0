@@ -74,8 +74,8 @@ class StartServer extends Server {
   public start(port: number): void {
     this.database.sync({ force: false }).then(async () => {
       try {
+        await bulkCreateAdmin(this.database)
         this.app.listen(port, async () => {
-          await bulkCreateAdmin(this.database) // Pasa la instancia de la base de datos a la función
           console.log(`Server listen in port: ${port}`)
         })
       } catch (error) {
