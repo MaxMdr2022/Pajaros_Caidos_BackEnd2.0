@@ -37,7 +37,7 @@ const default404 = (req: Request, res: Response) =>
       )
     )
 
-class StartServer extends Server {
+export default class StartServer extends Server {
   private database: Sequelize
   constructor(database: Sequelize) {
     super()
@@ -136,4 +136,3 @@ class StartServer extends Server {
   //   })
   // }
 }
-export default StartServer
