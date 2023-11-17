@@ -21,7 +21,7 @@ export default (sequelize) => {
           if (image && typeof image === 'string') {
             return JSON.parse(image)
           }
-          return null
+          return image
         },
       },
     },
