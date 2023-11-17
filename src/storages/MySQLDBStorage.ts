@@ -1,7 +1,6 @@
 export class MySQLDBStorage {
   async relationship<T>(list1: any, relationMethod: string, list2: any): Promise<T> {
-    await list1[relationMethod](list2)
-    return
+    return list1[relationMethod](list2)
   }
 
   async count(model: any, filter?: any): Promise<number> {
