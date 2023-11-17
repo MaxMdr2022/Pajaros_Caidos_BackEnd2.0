@@ -29,12 +29,11 @@ export class ItemFacade {
 
     for (const category of categories) {
       console.log('category: ', category, 'new item: ', newItem)
-
       const associationMethod = Object.keys(newItem['associations']).find(
         (key) => newItem['associations'][key].target === category.constructor
       )
 
-      if (associationMethod) {
+      if (associationMethod && newItem[associationMethod]) {
         await newItem[associationMethod](category)
       }
     }
