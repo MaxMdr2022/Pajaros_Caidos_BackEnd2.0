@@ -18,11 +18,13 @@ const bulkCreateAdmin = async () => {
 
       const hashedPassword = await bcrypt.hash(pass, 10)
 
-      await UserListModel.findOrCreate({
+      const existingAdmin = await UserListModel.findOne({
         where: { email },
+      })
 
-        defaults: {
-          email: email,
+      if (!existingAdmin) {
+        await UserListModel.create({
+          email,
           password: hashedPassword,
           first_name: UsersAdmins[i].first_name,
           last_name: UsersAdmins[i].last_name,
@@ -31,11 +33,12 @@ const bulkCreateAdmin = async () => {
           isAdmin: UsersAdmins[i].isAdmin,
           isPrincipalAdmin: UsersAdmins[i].isPrincipalAdmin,
           userEmailValidate: UsersAdmins[i].userEmailValidate,
-        },
-      })
+        })
+      }
     }
   } catch (error) {
-    console.log('Error create User Admin')
+    console.error('Error creando usuarios administrativos:', error)
+    throw error
   }
 }
 
