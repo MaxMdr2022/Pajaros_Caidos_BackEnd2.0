@@ -22,21 +22,22 @@ export class ItemHelper {
 
     for (const e of items) {
       for (const i of e.image) {
-        const buffer = await getImageFromCacheOrCloudinary(i.secure_url)
+        if (i.secure_url) {
+          const buffer = await getImageFromCacheOrCloudinary(i.secure_url)
 
-        //convertir el buffer en una url para mandar al front
+          //convertir el buffer en una url para mandar al front
 
-        const base64Image = Buffer.from(buffer).toString('base64')
+          const base64Image = Buffer.from(buffer).toString('base64')
 
-        // tipo de imagen: .jpg, .png etc.
-        const type = i.secure_url.match(/\.([^.]+)$/)
-        if (!type) return null
-        const contentType = type[1].toLowerCase()
+          // tipo de imagen: .jpg, .png etc.
+          const type = i.secure_url.match(/\.([^.]+)$/)
+          if (!type) return null
+          const contentType = type[1].toLowerCase()
 
-        const imageUrl = `data:${contentType};base64,${base64Image}`
+          const imageUrl = `data:${contentType};base64,${base64Image}`
 
-        // console.log('URL', imageUrl)
-        i.imageUrl = imageUrl
+          i.imageUrl = imageUrl
+        }
       }
     }
 

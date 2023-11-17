@@ -16,7 +16,10 @@ export default (sequelize) => {
       },
       image: {
         type: DataTypes.JSON,
-        allowNull: false,
+        get() {
+          const avatarUser = this.getDataValue('avatar')
+          return avatarUser ? JSON.parse(avatarUser) : null
+        },
       },
     },
     {
