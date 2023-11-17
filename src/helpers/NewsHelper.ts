@@ -101,6 +101,8 @@ export class NewsHelper {
     if (!banners || !banners[0]) return { banners: [] }
 
     for (const e of banners) {
+      console.log('eeo: ', e)
+
       if (e.image.secure_url) {
         const buffer = await getImageFromCacheOrCloudinary(e.image.secure_url)
 
