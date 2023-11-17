@@ -31,7 +31,10 @@ const user = (sequelize) => {
         type: DataTypes.JSON,
         get() {
           const avatarUser = this.getDataValue('avatar')
-          return avatarUser ? JSON.parse(avatarUser) : null
+          if (avatarUser && typeof avatarUser === 'string') {
+            return JSON.parse(avatarUser)
+          }
+          return null
         },
       },
       country: {
