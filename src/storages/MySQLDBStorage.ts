@@ -33,7 +33,9 @@ export class MySQLDBStorage {
 
     if (!document) return null
 
-    return document as unknown as T
+    const result = document.get()
+
+    return result as unknown as T
   }
 
   async update<T>(model: any, data: any, filter: any): Promise<T> {
