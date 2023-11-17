@@ -69,7 +69,7 @@ class StartServer extends Server {
   }
 
   public start(port: number): void {
-    database.sync({ force: true }).then(async () => {
+    database.sync({ force: false }).then(async () => {
       try {
         this.app.listen(port, async () => {
           await bulkCreateAdmin()
