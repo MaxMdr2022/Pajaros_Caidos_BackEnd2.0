@@ -28,17 +28,9 @@ export class ItemFacade {
     if (!categories || !categories[0]) return null
     console.log('cat: ', categories, 'newItem: ', newItem)
 
-    const item: any = newItem
-
-    // await item.addCategories(categories)
-    await item.addCategory(categories)
-    // await storage.relationship(newItem, 'addCategory', categories)
-    // await storage.relationship(newItem, 'addCategories', categories)
-    // for (const category of categories) {
-
-    //   await storage.relationship(newItem, 'addCategory', category)
-    //   await storage.relationship(category, 'addItem', newItem)
-    // }
+    for (const category of categories) {
+      await storage.relationship(newItem, 'addCategory', category)
+    }
 
     return newItem
   }
