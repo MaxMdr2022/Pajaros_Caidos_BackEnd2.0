@@ -11,7 +11,7 @@ const helper = new ItemHelper()
 export async function validateItemCreation(req: Request, res: Response, next: NextFunction) {
   let { title, description, price, category } = req.body
 
-  category = Array.isArray(category) ? category : [category]
+  category = Array.isArray(category) ? category : category.split(',')
 
   // category = JSON.parse(category) // sacar este y cambiar let por const ----------<<<<
 
@@ -98,7 +98,7 @@ export async function validateDataItemUpdate(req: Request, res: Response, next: 
   let { title, description, price, category, deleteImages } = req.body
   console.log('cat1: ', category)
 
-  category = Array.isArray(category) ? category : [category]
+  category = Array.isArray(category) ? category : category.split(',')
   console.log('cat2: ', category)
 
   // if (deleteImages || category) {
