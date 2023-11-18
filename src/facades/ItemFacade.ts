@@ -30,7 +30,8 @@ export class ItemFacade {
 
     const item: any = newItem
 
-    await item.addCategories(categories)
+    // await item.addCategories(categories)
+    await item.addCategory(categories)
     // await storage.relationship(newItem, 'addCategory', categories)
     // await storage.relationship(newItem, 'addCategories', categories)
     // for (const category of categories) {
