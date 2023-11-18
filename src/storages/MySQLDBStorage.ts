@@ -9,14 +9,17 @@ export class MySQLDBStorage {
     return quantity
   }
 
-  async find<T>(model: any, filter?: any): Promise<T> {
+  async find<T>(model: any, filter?: any, get?: boolean): Promise<T> {
     const document = await model.findAll(filter)
 
     if (!document || !document[0]) return null
 
-    // const result = document.map((e) => e.get())
+    if (get) {
+      const result = document.map((e) => e.get())
 
-    // return result as unknown as T
+      return result as unknown as T
+    }
+
     return document as unknown as T
   }
 

@@ -31,7 +31,7 @@ export class PublicationFacade {
     return newPublication
   }
 
-  async getAllPublications(data?: any): Promise<Publication[]> {
+  async getAllPublications(data?: any, get?: boolean): Promise<Publication[]> {
     const {
       limit,
       title,
@@ -127,7 +127,7 @@ export class PublicationFacade {
       filterDB.offset = skip
     }
 
-    const publications: Publication[] = await storage.find(PublicationsListModel, filterDB)
+    const publications: Publication[] = await storage.find(PublicationsListModel, filterDB, get)
 
     return publications
   }

@@ -14,7 +14,7 @@ export class NewsFacade {
     return await storage.findById(NewsListModel, id)
   }
 
-  async getAllNews(filters?: any): Promise<News[]> {
+  async getAllNews(filters?: any, get?: boolean): Promise<News[]> {
     const { pageNumber, newsPerPage } = filters
 
     const filter: any = {}
@@ -26,7 +26,7 @@ export class NewsFacade {
       filter.offset = skip
     }
 
-    return await storage.find(NewsListModel, filter)
+    return await storage.find(NewsListModel, filter, get)
   }
 
   async createNews(data: News): Promise<News> {
@@ -50,7 +50,7 @@ export class NewsFacade {
   async getBannerImageById(id: string): Promise<Banner> {
     return await storage.findById(BannerListModel, id)
   }
-  async getAllBannerImages(filters?: any): Promise<Banner[]> {
+  async getAllBannerImages(filters?: any, get?: boolean): Promise<Banner[]> {
     const { pageNumber, bannerPerPage } = filters
 
     const filter: any = {}
@@ -62,7 +62,7 @@ export class NewsFacade {
       filter.offset = skip
     }
 
-    return await storage.find(BannerListModel, filter)
+    return await storage.find(BannerListModel, filter, get)
   }
 
   async addBannerImage(data: Banner): Promise<Banner> {

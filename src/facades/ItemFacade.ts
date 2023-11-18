@@ -12,8 +12,6 @@ export class ItemFacade {
   }
 
   async createItem(data: any): Promise<Item> {
-    console.log('data_ ', data)
-
     const newItem: Item = await storage.create(ItemListModel, data)
 
     const filter = {
@@ -26,7 +24,6 @@ export class ItemFacade {
     const categories: Category[] = await storage.find(CategoryListModel, filter)
 
     if (!categories || !categories[0]) return null
-    console.log('cat: ', categories, 'newItem: ', newItem)
 
     for (const category of categories) {
       await storage.relationship(newItem, 'addCategory', category)
@@ -40,7 +37,7 @@ export class ItemFacade {
       include: [
         {
           model: CategoryListModel,
-          // through: { attributes: [] },
+          through: { attributes: [] },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
@@ -51,7 +48,7 @@ export class ItemFacade {
     return item
   }
 
-  async getItems(data?: any): Promise<Item[]> {
+  async getItems(data?: any, get?: boolean): Promise<Item[]> {
     const {
       categoriesArray,
       name,
@@ -69,7 +66,7 @@ export class ItemFacade {
       include: [
         {
           model: CategoryListModel,
-          // through: { attributes: [] },
+          through: { attributes: [] },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
@@ -119,7 +116,7 @@ export class ItemFacade {
       filter.offset = skip
     }
 
-    const items: Item[] = await storage.find(ItemListModel, filter)
+    const items: Item[] = await storage.find(ItemListModel, filter, get)
     return items
   }
 
@@ -166,7 +163,7 @@ export class ItemFacade {
       include: [
         {
           model: CategoryListModel,
-          // through: { attributes: [] },
+          through: { attributes: [] },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],

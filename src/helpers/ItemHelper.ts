@@ -16,7 +16,7 @@ export class ItemHelper {
   async getAllItems(data?: any): Promise<Response> {
     const { itemPerPage } = data
 
-    const items: Item[] = await facade.getItems(data)
+    const items: Item[] = await facade.getItems(data, true)
 
     if (!items || !items[0]) return { items: [] }
 

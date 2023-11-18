@@ -14,7 +14,7 @@ export class NewsHelper {
   async getAllNews(data?: any): Promise<Response> {
     const { newsPerPage } = data
 
-    const news: News[] = await facade.getAllNews(data)
+    const news: News[] = await facade.getAllNews(data, true)
 
     if (!news || !news[0]) return { news: [] }
 
@@ -97,12 +97,10 @@ export class NewsHelper {
   async getAllBannerImages(data?: any): Promise<ResponseBanner> {
     const { bannerPerPage } = data
 
-    const banners: Banner[] = await facade.getAllBannerImages(data)
+    const banners: Banner[] = await facade.getAllBannerImages(data, true)
     if (!banners || !banners[0]) return { banners: [] }
 
     for (const e of banners) {
-      console.log('eeo: ', e)
-
       if (e.image.secure_url) {
         const buffer = await getImageFromCacheOrCloudinary(e.image.secure_url)
 

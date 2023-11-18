@@ -46,14 +46,12 @@ export class PublicationHelper {
       data.filter = oneMonthAgo
     }
 
-    const publications: PublicationAndUser[] = await facade.getAllPublications(data)
+    const publications: PublicationAndUser[] = await facade.getAllPublications(data, true)
 
     if (!publications) return { publications: [] }
 
     for (const e of publications) {
       if (e.image[0].secure_url) {
-        console.log('e.image::: ', e.image)
-
         const buffer = await getImageFromCacheOrCloudinary(e.image[0].secure_url)
 
         //convertir el buffer en una url para mandar al front
@@ -90,8 +88,6 @@ export class PublicationHelper {
         e.user.avatar.imageUrl = imageUrl
       }
     }
-
-    console.log('post:::', publications)
 
     if (postPerPage) {
       const quantity = await facade.countPublications()
