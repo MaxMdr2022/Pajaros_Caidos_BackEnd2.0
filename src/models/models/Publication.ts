@@ -28,12 +28,6 @@ export default (sequelize) => {
           }
           return []
         },
-        // set(image) {
-        //   // Serializa el JSON antes de guardarlo en la base de datos
-        //   const imageArray = Array.isArray(image) ? image : []
-
-        //   this.setDataValue('image', imageArray)
-        // },
       },
       // video: {
       //     type: DataTypes.ARRAY(DataTypes.STRING),

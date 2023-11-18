@@ -78,7 +78,7 @@ export async function validateDataCreate(req: Request, res: Response, next: Next
       {
         public_id: null,
         secure_url:
-          'https://res.cloudinary.com/dzu7tm74o/image/upload/v1694024754/STATIC%20IMAGE/default-featured-image_ordz8y.png',
+          'https://res.cloudinary.com/de5xjegp3/image/upload/v1700157241/Assets/default-featured-image_ordz8y_ndnq44.png',
       },
     ]
   }

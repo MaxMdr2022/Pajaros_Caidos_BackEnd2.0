@@ -63,7 +63,7 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
     last_name,
     avatar: {
       secure_url:
-        'https://res.cloudinary.com/dzu7tm74o/image/upload/v1696514389/STATIC%20IMAGE/456212_yncwde_f2kzcg.png',
+        'https://res.cloudinary.com/de5xjegp3/image/upload/v1700157241/Assets/456212_yncwde_f2kzcg_bcdjkv.png',
     },
     phone_number,
     province,
@@ -134,7 +134,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
   const { email, avatar, nick_name } = req.body
 
   const data: any = {}
-  // AGARAR EL AVATAR Y GUARDAR EN CLOUD
+
   if (!email) {
     const message = `No user email received when logging in with Auth0.`
 
@@ -153,7 +153,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
   data.nick_name = nick_name
   data.avatar = {
     secure_url:
-      'https://res.cloudinary.com/dzu7tm74o/image/upload/v1696514389/STATIC%20IMAGE/456212_yncwde_f2kzcg.png',
+      'https://res.cloudinary.com/de5xjegp3/image/upload/v1700157241/Assets/456212_yncwde_f2kzcg_bcdjkv.png',
   }
 
   res.locals.user = user

@@ -130,7 +130,7 @@ export class UserHelper {
 
     const emailMessage = mailOption(user.email, user.first_name, user.emailValidateCode)
 
-    const response: string = await sendEmail(emailMessage) // esto tendria que retornar algo si es el error devuelvo el error, para saber..
+    const response: string = await sendEmail(emailMessage)
 
     return response
   }
