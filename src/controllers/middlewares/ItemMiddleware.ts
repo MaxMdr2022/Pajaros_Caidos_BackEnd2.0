@@ -96,8 +96,11 @@ export async function validateItemId(req: Request, res: Response, next: NextFunc
 
 export async function validateDataItemUpdate(req: Request, res: Response, next: NextFunction) {
   let { title, description, price, category, deleteImages } = req.body
+  console.log('cat1: ', category)
 
   category = Array.isArray(category) ? category : [category]
+  console.log('cat2: ', category)
+
   // if (deleteImages || category) {
   //   deleteImages = JSON.parse(deleteImages) // sacar este y cambiar let por const ----------<<<<
   //   category = JSON.parse(category) // sacar este y cambiar let por const ----------<<<<
