@@ -14,10 +14,10 @@ export class MySQLDBStorage {
 
     if (!document || !document[0]) return null
 
-    // const result = document.map((e) => e.get())
+    const result = document.map((e) => e.get())
 
-    // return result as unknown as T
-    return document as unknown as T
+    return result as unknown as T
+    // return document as unknown as T
   }
 
   async findById<T>(model: any, id: string, filter?: any): Promise<T> {
