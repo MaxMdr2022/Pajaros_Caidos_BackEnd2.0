@@ -11,7 +11,7 @@ const helper = new ItemHelper()
 export async function validateItemCreation(req: Request, res: Response, next: NextFunction) {
   let { title, description, price, category } = req.body
 
-  category = Array.isArray(category) ? category : category.split(',')
+  category = Array.isArray(category) ? category : category?.split(',')
 
   // category = JSON.parse(category) // sacar este y cambiar let por const ----------<<<<
 
@@ -97,7 +97,7 @@ export async function validateItemId(req: Request, res: Response, next: NextFunc
 export async function validateDataItemUpdate(req: Request, res: Response, next: NextFunction) {
   let { title, description, price, category, deleteImages } = req.body
 
-  category = Array.isArray(category) ? category : category.split(',')
+  category = Array.isArray(category) ? category : category?.split(',')
 
   // if (deleteImages || category) {
   //   deleteImages = JSON.parse(deleteImages) // sacar este y cambiar let por const ----------<<<<
@@ -121,7 +121,7 @@ export async function validateDataItemUpdate(req: Request, res: Response, next: 
 
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
-  if (category) {
+  if (category && category[0]) {
     if (!Array.isArray(category)) {
       const message = `The category has to be an array of strings`
       return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
