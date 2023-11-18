@@ -42,7 +42,7 @@ export class ItemFacade {
       include: [
         {
           model: CategoryListModel,
-          through: { attributes: [] },
+          // through: { attributes: [] },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
@@ -71,7 +71,7 @@ export class ItemFacade {
       include: [
         {
           model: CategoryListModel,
-          through: { attributes: [] },
+          // through: { attributes: [] },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
@@ -168,7 +168,7 @@ export class ItemFacade {
       include: [
         {
           model: CategoryListModel,
-          through: { attributes: [] },
+          // through: { attributes: [] },
           attributes: { exclude: ['createdAt', 'updatedAt'] },
         },
       ],
