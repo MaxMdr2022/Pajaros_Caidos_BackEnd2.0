@@ -50,7 +50,7 @@ const user = (sequelize) => {
       },
       birth_date: {
         type: DataTypes.DATEONLY,
-        defaultValue: '9999-12-31',
+        defaultValue: new Date(),
       },
       description: {
         type: DataTypes.TEXT,
