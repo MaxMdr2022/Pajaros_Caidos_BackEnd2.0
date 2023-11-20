@@ -45,7 +45,7 @@ export class UserController {
   }
 
   @Get('voluntary')
-  @Middleware([validateToken, validateFilterQuery]) //[ validateFilterQuery]
+  @Middleware([validateFilterQuery]) //[ validateFilterQuery]
   async getVoluntariesUsers(req: Request, res: Response) {
     const { data } = res.locals
     data.userStatus = 'isVoluntary'
