@@ -1,5 +1,5 @@
 import { Controller, Get, Middleware, Post, Put, Patch } from '@overnightjs/core'
-import { Request, Response } from 'express'
+import { Request, Response, response } from 'express'
 import { UserHelper } from '../helpers/UserHelper'
 import { ResponseSuccess } from '../models/responses/ResponseSuccess'
 import { ErrorResponse, ErrorCodeType } from '../models/responses/ErrorResponse'
@@ -65,6 +65,14 @@ export class UserController {
     res.clearCookie('JWT', { sameSite: 'none', secure: true })
 
     res.status(200).send(new ResponseSuccess({ message: 'Logged out successfully' }))
+  }
+
+  @Get('voluntary-types')
+  @Middleware([])
+  async voluntaryTypes(req: Request, res: Response) {
+    const types = await helper.voluntaryTypes()
+
+    res.status(200).send(new ResponseSuccess({ types }))
   }
 
   @Get(':id')

@@ -196,7 +196,18 @@ export async function validateEmail(req: Request, res: Response, next: NextFunct
 }
 
 export async function validateFilterQuery(req: Request, res: Response, next: NextFunction) {
-  const { verbose, last_name, pageNumber, userPerPage, userStatus } = req.query
+  const { verbose, last_name, pageNumber, userPerPage, userStatus, voluntaryType } = req.query
+
+  const types = [
+    'General',
+    'Redes',
+    'Marketing',
+    'Presencial',
+    'Online',
+    'Transito',
+    'Programador',
+    'Profesional',
+  ]
 
   if (verbose !== undefined && String(verbose) !== 'simple') {
     const message = `The value entered: ${String(
@@ -217,6 +228,13 @@ export async function validateFilterQuery(req: Request, res: Response, next: Nex
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
   }
 
+  if (voluntaryType && !types.find((e) => e === String(voluntaryType))) {
+    const message = `The value entered: ${String(
+      voluntaryType
+    )} for filter is invalid. Only ${types.join('|')} is supported.`
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
+  }
+
   if ((pageNumber && !userPerPage) || (userPerPage && !pageNumber)) {
     const message = `To paginate, you must provide both pageNumber and birdPerPage.`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
@@ -231,7 +249,7 @@ export async function validateFilterQuery(req: Request, res: Response, next: Nex
     }
   }
 
-  const data = { verbose, last_name, pageNumber, userPerPage, userStatus }
+  const data = { verbose, last_name, pageNumber, userPerPage, userStatus, voluntaryType }
   res.locals.data = data
   next()
 }
@@ -309,7 +327,6 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
       (city && typeof city !== 'string') ||
       (birth_date && typeof birth_date !== 'string') ||
       (last_name && typeof last_name !== 'string') ||
-      (description && typeof description !== 'string') ||
       (province && typeof province !== 'string') ||
       (phone_number && typeof phone_number !== 'string') ||
       (contact && typeof contact !== 'string'),
@@ -432,18 +449,32 @@ export async function validateNewPassword(req: Request, res: Response, next: Nex
 }
 
 export async function validateAdminAction(req: Request, res: Response, next: NextFunction) {
-  const { isAdmin, isBanned, isVoluntary } = req.body
+  const { isAdmin, isBanned, isVoluntary, voluntaryType } = req.body
+
+  const types = [
+    'General',
+    'Redes',
+    'Marketing',
+    'Presencial',
+    'Online',
+    'Transito',
+    'Programador',
+    'Profesional',
+  ]
 
   const validate = {
-    reqProps: !!isAdmin && !!isBanned && !!isVoluntary,
+    reqProps: !!isAdmin && !!isBanned && !!isVoluntary && !voluntaryType,
     isBoolean:
       (!!isAdmin && typeof isAdmin !== 'boolean') ||
       (!!isBanned && typeof isBanned !== 'boolean') ||
       (!!isVoluntary && typeof isVoluntary !== 'boolean'),
+    type: voluntaryType && !types.find((e) => e === voluntaryType),
   }
   const errorMsg = {
-    reqProps: 'You must enter the property you want to modify. isAdmin - isBanned - isVoluntary',
+    reqProps:
+      'You must enter the property you want to modify. isAdmin - isBanned - isVoluntary - voluntaryType',
     isBoolean: 'Values have to be booleans.',
+    type: `value incorrect, voluntaryType: ${voluntaryType}. Try ${types.join(' | ')}`,
   }
   const error = Object.keys(validate).some((key) => validate[key])
 
@@ -455,6 +486,6 @@ export async function validateAdminAction(req: Request, res: Response, next: Nex
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  res.locals.action = { isAdmin, isBanned, isVoluntary }
+  res.locals.action = { isAdmin, isBanned, isVoluntary, voluntaryType }
   next()
 }

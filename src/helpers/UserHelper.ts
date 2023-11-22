@@ -154,4 +154,18 @@ export class UserHelper {
 
     return await facade.updateUser(id, { password: passHashed })
   }
+
+  async voluntaryTypes(): Promise<string[]> {
+    const types = [
+      'Presencial',
+      'Online',
+      'Transito',
+      'Programador',
+      'Profesional',
+      'Marketing',
+      'Redes',
+      'General',
+    ]
+    return types
+  }
 }

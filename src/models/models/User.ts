@@ -53,13 +53,32 @@ const user = (sequelize) => {
         defaultValue: new Date(),
       },
       description: {
-        type: DataTypes.TEXT,
+        type: DataTypes.JSON,
       },
       contact: {
         type: DataTypes.STRING,
       },
       emailValidateCode: {
         type: DataTypes.STRING,
+      },
+      voluntaryType: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: 'General',
+        validate: {
+          isIn: [
+            [
+              'Presencial',
+              'Online',
+              'Transito',
+              'Programador',
+              'Profesional',
+              'Marketing',
+              'Redes',
+              'General',
+            ],
+          ],
+        },
       },
       isVoluntary: {
         type: DataTypes.BOOLEAN,

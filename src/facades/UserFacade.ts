@@ -15,7 +15,7 @@ export class UserFacade {
   }
 
   async getAllUsers(data?: any): Promise<User[]> {
-    const { verbose, last_name, pageNumber, userPerPage, userStatus } = data
+    const { verbose, last_name, pageNumber, userPerPage, userStatus, voluntaryType } = data
 
     const filter: any = {
       attributes: {
@@ -32,6 +32,7 @@ export class UserFacade {
         'avatar',
         'isAdmin',
         'isVoluntary',
+        'voluntaryType',
         'isBanned',
         'description',
         'contact',
@@ -47,10 +48,15 @@ export class UserFacade {
         'first_name',
         'last_name',
         'avatar',
+        'voluntaryType',
         'isVoluntary',
         'description',
         'contact',
       ]
+    }
+
+    if (voluntaryType) {
+      filter.where.voluntaryType = voluntaryType
     }
 
     if (last_name) {
