@@ -220,11 +220,12 @@ export async function validateFilterQuery(req: Request, res: Response, next: Nex
     userStatus &&
     String(userStatus) !== 'isAdmin' &&
     String(userStatus) !== 'isVoluntary' &&
+    String(userStatus) !== 'isDeveloper' &&
     String(userStatus) !== 'isBanned'
   ) {
     const message = `The value entered: ${String(
       userStatus
-    )} for filter is invalid. Only 'isAdmin', 'isVoluntary' or 'isBanned' is supported.`
+    )} for filter is invalid. Only 'isAdmin', 'isDeveloper', 'isVoluntary' or 'isBanned' is supported.`
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidParameter))
   }
 
@@ -449,7 +450,7 @@ export async function validateNewPassword(req: Request, res: Response, next: Nex
 }
 
 export async function validateAdminAction(req: Request, res: Response, next: NextFunction) {
-  const { isAdmin, isBanned, isVoluntary, voluntaryType } = req.body
+  const { isAdmin, isBanned, isVoluntary, voluntaryType, isDeveloper } = req.body
 
   const types = [
     'General',
@@ -463,16 +464,17 @@ export async function validateAdminAction(req: Request, res: Response, next: Nex
   ]
 
   const validate = {
-    reqProps: !!isAdmin && !!isBanned && !!isVoluntary && !voluntaryType,
+    reqProps: !!isAdmin && !!isBanned && !!isVoluntary && !voluntaryType && !!isDeveloper,
     isBoolean:
       (!!isAdmin && typeof isAdmin !== 'boolean') ||
       (!!isBanned && typeof isBanned !== 'boolean') ||
-      (!!isVoluntary && typeof isVoluntary !== 'boolean'),
+      (!!isVoluntary && typeof isVoluntary !== 'boolean') ||
+      (!!isDeveloper && typeof isDeveloper !== 'boolean'),
     type: voluntaryType && !types.find((e) => e === voluntaryType),
   }
   const errorMsg = {
     reqProps:
-      'You must enter the property you want to modify. isAdmin - isBanned - isVoluntary - voluntaryType',
+      'You must enter the property you want to modify. isAdmin - isBanned - isVoluntary - voluntaryType - isDeveloper',
     isBoolean: 'Values have to be booleans.',
     type: `value incorrect, voluntaryType: ${voluntaryType}. Try ${types.join(' | ')}`,
   }
@@ -486,6 +488,6 @@ export async function validateAdminAction(req: Request, res: Response, next: Nex
     return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
   }
 
-  res.locals.action = { isAdmin, isBanned, isVoluntary, voluntaryType }
+  res.locals.action = { isAdmin, isBanned, isVoluntary, voluntaryType, isDeveloper }
   next()
 }

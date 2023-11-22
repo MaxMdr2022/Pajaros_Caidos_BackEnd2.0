@@ -49,6 +49,7 @@ export class UserFacade {
         'last_name',
         'avatar',
         'voluntaryType',
+        'isDeveloper',
         'isVoluntary',
         'description',
         'contact',

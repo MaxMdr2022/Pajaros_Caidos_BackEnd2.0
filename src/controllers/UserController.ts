@@ -58,6 +58,20 @@ export class UserController {
 
     return res.status(200).send(new ResponseSuccess({ users }))
   }
+  @Get('developers')
+  @Middleware([validateFilterQuery])
+  async getDevelopersUsers(req: Request, res: Response) {
+    const { data } = res.locals
+    data.userStatus = 'isDeveloper'
+    const users = await helper.getAllUsers(data)
+
+    if (!users) {
+      const message = 'Users not found'
+      return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserNotFound))
+    }
+
+    return res.status(200).send(new ResponseSuccess({ users }))
+  }
 
   @Get('logout')
   @Middleware([])

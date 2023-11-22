@@ -107,6 +107,11 @@ const user = (sequelize) => {
         allowNull: false,
         defaultValue: false,
       },
+      isDeveloper: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false,
+      },
       formComplete: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
