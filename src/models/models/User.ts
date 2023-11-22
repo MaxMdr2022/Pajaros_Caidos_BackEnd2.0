@@ -54,6 +54,13 @@ const user = (sequelize) => {
       },
       description: {
         type: DataTypes.JSON,
+        get() {
+          const desc = this.getDataValue('description')
+          if (desc && typeof desc === 'string') {
+            return JSON.parse(desc)
+          }
+          return null
+        },
       },
       contact: {
         type: DataTypes.STRING,
