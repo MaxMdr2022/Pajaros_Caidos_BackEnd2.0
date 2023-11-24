@@ -19,7 +19,7 @@ export class UserHelper {
   async getAllUsers(data?: any): Promise<Response | User[]> {
     const { userPerPage, userStatus } = data
 
-    const users: User[] = await facade.getAllUsers(data)
+    const users: User[] = await facade.getAllUsers(data, true)
 
     if (!users || !users[0]) return { users: [] }
 

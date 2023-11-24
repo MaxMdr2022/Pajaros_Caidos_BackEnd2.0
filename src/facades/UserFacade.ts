@@ -14,7 +14,7 @@ export class UserFacade {
     return await storage.count(UserListModel)
   }
 
-  async getAllUsers(data?: any): Promise<User[]> {
+  async getAllUsers(data?: any, get?: boolean): Promise<User[]> {
     const { verbose, last_name, pageNumber, userPerPage, userStatus, voluntaryType } = data
 
     const filter: any = {
@@ -72,7 +72,7 @@ export class UserFacade {
       filter.offset = skip
     }
 
-    return await storage.find(UserListModel, filter)
+    return await storage.find(UserListModel, filter, get)
   }
 
   async getUserById(id: string, filter?: string): Promise<User> {
