@@ -18,10 +18,6 @@ const database = new Sequelize(`${DB_NAME}`, `${DB_USER}`, `${DB_PASSWORD}`, {
   host: `${DB_HOST}`,
   dialect: 'mysql', // Specify the dialect as 'mysql'
   dialectModule: mysql,
-  define: {
-    charset: 'utf8mb4', //  especifica el conjunto de caracteres
-    collate: 'utf8mb4_unicode_ci', //  la colación (collation)
-  },
   native: false,
   logging: false,
 })
