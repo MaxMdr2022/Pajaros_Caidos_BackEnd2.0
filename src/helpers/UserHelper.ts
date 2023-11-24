@@ -11,16 +11,38 @@ import {
 import { QueryResponse } from '../models/responses/UserResponse'
 import jwt from 'jsonwebtoken'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
+import { getImageFromCacheOrCloudinary } from 'src/utils/cacheFunction/CacheFunction'
 
 const facade = new UserFacade()
 
 export class UserHelper {
   async getAllUsers(data?: any): Promise<Response | User[]> {
-    const { userPerPage } = data
+    const { userPerPage, userStatus } = data
 
     const users: User[] = await facade.getAllUsers(data)
 
     if (!users || !users[0]) return { users: [] }
+
+    if (userStatus === 'isVoluntary') {
+      for (const e of users) {
+        if (e.avatar.secure_url) {
+          const buffer = await getImageFromCacheOrCloudinary(e.avatar.secure_url)
+
+          //convertir el buffer en una url para mandar al front
+
+          const base64Image = Buffer.from(buffer).toString('base64')
+
+          // tipo de imagen: .jpg, .png etc.
+          const type = e.avatar.secure_url.match(/\.([^.]+)$/)
+          if (!type) return null
+          const contentType = type[1].toLowerCase()
+
+          const imageUrl = `data:${contentType};base64,${base64Image}`
+
+          e.avatar.imageUrl = imageUrl
+        }
+      }
+    }
 
     if (userPerPage) {
       const quantity = await facade.countUsers()
