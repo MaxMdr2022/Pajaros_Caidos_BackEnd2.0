@@ -21,10 +21,12 @@ export default (sequelize) => {
       image: {
         type: DataTypes.JSON,
         allowNull: false,
-        set(image) {
-          const imageArray = Array.isArray(image) ? image : []
-
-          this.setDataValue('image', imageArray)
+        get() {
+          const image = this.getDataValue('image')
+          if (image && typeof image === 'string') {
+            return JSON.parse(image)
+          }
+          return []
         },
       },
     },
