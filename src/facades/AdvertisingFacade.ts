@@ -9,7 +9,7 @@ export class AdvertisingFacade {
     return await storage.findById(AdvertisingListModel, id)
   }
 
-  async getAllAdvertising(filters?: any): Promise<Advertising> {
+  async getAllAdvertising(filters?: any): Promise<Advertising[]> {
     const { pageNumber, advertisingPerPage } = filters
 
     const filter: any = {}
