@@ -9,8 +9,11 @@ export class AdvertisingHelper {
     return await facade.getAdvertisingById(id)
   }
 
-  async getAllAdvertising(data?: any): Promise<Advertising> {
-    return await facade.getAllAdvertising(data)
+  async getAllAdvertising(data?: any): Promise<Advertising[]> {
+    const advertising: Advertising[] = await facade.getAllAdvertising(data)
+    if (!advertising || !advertising[0]) return []
+
+    return advertising
   }
 
   async createAdvertising(data: Advertising): Promise<Advertising> {
