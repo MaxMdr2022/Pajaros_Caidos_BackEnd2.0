@@ -12,7 +12,7 @@ import { fileUploadMiddleware } from './middlewares/FileUploadMiddleware'
 
 const helper = new AdvertisingHelper()
 
-@Controller('Advertising')
+@Controller('advertising')
 export class AdvertisingController {
   @Get()
   @Middleware([validateQuery])
