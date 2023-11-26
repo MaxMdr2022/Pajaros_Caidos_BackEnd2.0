@@ -10,3 +10,8 @@ type Image = {
   public_id: string
   secure_url: string
 }
+
+export type ResponseAd = {
+  advertising: Advertising[]
+  totalPages?: number
+}

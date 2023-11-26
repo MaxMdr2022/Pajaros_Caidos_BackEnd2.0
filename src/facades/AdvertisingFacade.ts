@@ -5,6 +5,10 @@ import { Advertising } from '../models/types/Advertising'
 const storage = new MySQLDBStorage()
 
 export class AdvertisingFacade {
+  async countAd(): Promise<number> {
+    return await storage.count(AdvertisingListModel)
+  }
+
   async getAdvertisingById(id: string): Promise<Advertising> {
     return await storage.findById(AdvertisingListModel, id)
   }

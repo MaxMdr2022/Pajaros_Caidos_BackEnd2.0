@@ -1,5 +1,5 @@
 import { AdvertisingFacade } from '../facades/AdvertisingFacade'
-import { Advertising } from '../models/types/Advertising'
+import { Advertising, ResponseAd } from '../models/types/Advertising'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
 
 const facade = new AdvertisingFacade()
@@ -9,11 +9,20 @@ export class AdvertisingHelper {
     return await facade.getAdvertisingById(id)
   }
 
-  async getAllAdvertising(data?: any): Promise<Advertising[]> {
+  async getAllAdvertising(data?: any): Promise<ResponseAd> {
+    const { advertisingPerPage } = data
     const advertising: Advertising[] = await facade.getAllAdvertising(data)
-    if (!advertising || !advertising[0]) return []
+    if (!advertising || !advertising[0]) return { advertising: [] }
 
-    return advertising
+    if (advertisingPerPage) {
+      const quantity = await facade.countAd()
+
+      const totalPages = Math.ceil(quantity / advertisingPerPage)
+
+      return { totalPages, advertising }
+    }
+
+    return { advertising }
   }
 
   async createAdvertising(data: Advertising): Promise<Advertising> {
