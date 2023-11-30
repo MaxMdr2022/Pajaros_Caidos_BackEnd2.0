@@ -20,7 +20,7 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
           .jpeg({ quality: 60 })
           .toBuffer()
 
-        return outputImageBuffer
+        return outputImageBuffer.toString('utf-8')
       } else {
         return image
       }
