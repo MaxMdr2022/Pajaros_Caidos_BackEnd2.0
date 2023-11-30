@@ -1,5 +1,6 @@
 import sharp from 'sharp'
 import { UploadedFile } from 'express-fileupload'
+import fs from 'fs'
 
 export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | undefined) => {
   const MAX_IMAGE_SIZE_BYTES = 550 * 1024 // 550kb
@@ -15,17 +16,19 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
       if (true) {
         console.log('entro not a')
 
-        const outputImageBuffer: Buffer | UploadedFile = await sharp(image.tempFilePath)
+        const outputImageBuffer = await sharp(image.tempFilePath)
           .resize({ width: 800 })
           .jpeg({ quality: 60 })
           .toBuffer()
 
-        return outputImageBuffer.toString('utf-8')
+        fs.writeFileSync(image.tempFilePath, outputImageBuffer)
+
+        return image
       } else {
         return image
       }
     } else {
-      const compressedImages: (Buffer | UploadedFile)[] = await Promise.all(
+      const compressedImages = await Promise.all(
         image.map(async (img) => {
           const imageInfo = await sharp(img.tempFilePath).metadata()
           console.log('array size: ', imageInfo.size)
@@ -38,14 +41,14 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
               .jpeg({ quality: 60 })
               .toBuffer()
 
-            return outputImageBuffer
+            fs.writeFileSync(img.tempFilePath, outputImageBuffer)
           } else {
             return img
           }
         })
       )
 
-      return compressedImages
+      return image
     }
   } catch (error) {
     console.error(error)
