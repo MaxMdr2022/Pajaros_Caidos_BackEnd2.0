@@ -12,7 +12,7 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
 
       console.log('not array size: ', imageInfo.size)
 
-      if (imageInfo.size > MAX_IMAGE_SIZE_BYTES) {
+      if (true) {
         console.log('entro not a')
 
         const outputImageBuffer: Buffer | UploadedFile = await sharp(image.tempFilePath)
