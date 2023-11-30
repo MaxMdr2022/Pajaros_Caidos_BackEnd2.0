@@ -4,14 +4,12 @@
   "description": "The back-end of this project is the backbone of a multifunctional and versatile social media platform. It provides the capabilities necessary to create, search, update and delete users, manage posts that may include images, comments and reactions, as well as manage an online store for the sale of products. Additionally, the back-end offers functionality to publish news related to your activities. This server is based on technologies such as Express.js and Sequelize and uses PostgreSQL databases to securely store critical user, post, product, and news data. It also includes security features such as user authentication, session management, and JWT token authentication to ensure data privacy and integrity. With this back-end, users can register, share content, interact with other publications, purchase products and stay up to date with the latest news from around the web, providing a comprehensive experience on the platform.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --config \"./nodemon.json\"/",
-    "postinstall": "npm install --os=linux --cpu=x64 sharp"
+    "dev": "nodemon --config \"./nodemon.json\"/"
   },
   "keywords": [],
   "author": "Maximiliano Meder",
   "license": "CC BY-NC-ND",
   "dependencies": {
-    "@img/sharp-linux-x64": "^0.33.0",
     "@overnightjs/core": "^1.7.6",
     "axios": "^1.5.0",
     "bcrypt": "^5.1.0",
@@ -31,7 +29,7 @@
     "pg": "^8.11.1",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.32.1",
-    "sharp": "^0.33.0"
+    "sharp": "0.32.6"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
