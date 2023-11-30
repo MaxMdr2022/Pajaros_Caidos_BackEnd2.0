@@ -11,7 +11,7 @@ import {
 import { QueryResponse } from '../models/responses/UserResponse'
 import jwt from 'jsonwebtoken'
 import { deleteImage } from '../utils/cloudinary/Cloudinary'
-import { getImageFromCacheOrCloudinary } from 'src/utils/cacheFunction/CacheFunction'
+import { getImageFromCacheOrCloudinary } from '../utils/cacheFunction/CacheFunction'
 
 const facade = new UserFacade()
 
@@ -177,17 +177,50 @@ export class UserHelper {
     return await facade.updateUser(id, { password: passHashed })
   }
 
-  async voluntaryTypes(): Promise<string[]> {
+  async voluntaryTypes(): Promise<object[]> {
     const types = [
-      'Presencial',
-      'Online',
-      'Transito',
-      'Programador',
-      'Profesional',
-      'Marketing',
-      'Redes',
-      'General',
+      {
+        name: 'Presencial',
+        formUrl: 'https://forms.gle/nUPgJCdNUauw4Prb6 ',
+        image: '',
+      },
+      {
+        name: 'Online',
+        formUrl: 'https://forms.gle/3s4i2z9RUKEMjPN76',
+        image: '',
+      },
+      {
+        name: 'Transito',
+        formUrl: 'https://forms.gle/Py6i7Fnf9GS4W7rq7',
+        image: '',
+      },
+      {
+        name: 'Programador',
+        formUrl: 'https://forms.gle/BJJZeHApJ18mJ2ZW7 ',
+        image: '',
+      },
+      {
+        name: 'Profesional',
+        formUrl: 'https://forms.gle/EsWDbhifPceMhDqN7',
+        image: '',
+      },
+      {
+        name: 'Marketing',
+        formUrl: 'https://forms.gle/rFPDPTedLudMebWR6',
+        image: '',
+      },
+      {
+        name: 'Redes',
+        formUrl: 'https://forms.gle/JP3pHARF3hWXSuZV6',
+        image: '',
+      },
+      {
+        name: 'General',
+        formUrl: 'https://forms.gle/kuJcvbzswNv2grBx7 ',
+        image: '',
+      },
     ]
+
     return types
   }
 }
