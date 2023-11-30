@@ -6,6 +6,8 @@ import { UUIDRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 import { File } from '../../utils/cloudinary/Files'
 import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
+import { reducerImageSize } from '../../utils/ReducerImageSize/ReducerImageFunction'
+import { UploadedFile } from 'express-fileupload'
 
 const helperPublication = new PublicationHelper()
 const helperUser = new UserHelper()
@@ -60,12 +62,10 @@ export async function validateDataCreate(req: Request, res: Response, next: Next
   data.image = []
 
   if (req.files?.image) {
-    // const message = 'To create a post you need a image'
-    // return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    const image = req.files.image
+    const compactImage: any = await reducerImageSize(image)
 
-    const { image } = req.files
-
-    const response = await uploadImg(image, File.PUBLICATIONS)
+    const response = await uploadImg(compactImage, File.PUBLICATIONS)
 
     if (typeof response === 'string') {
       const message = 'Error Cloudinary response'
