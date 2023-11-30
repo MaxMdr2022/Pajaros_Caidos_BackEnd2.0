@@ -2,7 +2,7 @@ import sharp from 'sharp'
 import { UploadedFile } from 'express-fileupload'
 
 export const reducerImageSize = async (imagePaths: UploadedFile | UploadedFile[] | undefined) => {
-  const MAX_IMAGE_SIZE_BYTES = 3 * 1024 * 1024 // 3 MB
+  const MAX_IMAGE_SIZE_BYTES = 550 * 1024 // 550kb
 
   try {
     if (!Array.isArray(imagePaths)) {
