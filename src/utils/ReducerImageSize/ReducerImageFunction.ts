@@ -13,7 +13,16 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
 
       console.log('not array size: ', imageInfo.size)
 
-      if (true) {
+      let imageSize = 0
+      if (imageInfo && imageInfo.size === undefined) {
+        imageSize = await getFileSize(image.tempFilePath)
+        console.log('image size: ', imageSize)
+      }
+
+      if (
+        (imageInfo && imageInfo.size > MAX_IMAGE_SIZE_BYTES) ||
+        imageSize > MAX_IMAGE_SIZE_BYTES
+      ) {
         console.log('entro not a')
 
         const outputImageBuffer = await sharp(image.tempFilePath)
@@ -52,6 +61,18 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
     }
   } catch (error) {
     console.error(error)
+    return null
+  }
+}
+
+const getFileSize = async (filePath) => {
+  try {
+    const stats = await fs.promises.stat(filePath)
+    console.log('stats: ', stats)
+
+    return stats.size
+  } catch (error) {
+    console.error('Error getting file size:', error)
     return null
   }
 }
