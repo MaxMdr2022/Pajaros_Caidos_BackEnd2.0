@@ -34,7 +34,7 @@ export const mailOption = (email: string, first_name: string, code: string) => {
         <p style="background-color: #ffffff; color: #000000;">
             ${code}
         </p>
-        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px; overflow: hidden;">
+        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000; width: 300px; height: 300px; overflow: hidden;">
             <img src='${image}' alt="imagen-logo-PajarosCaidos" style="width: 100%; height: auto;">
         </div>
         <p style="color: #ffffff;">ONG Pajaros Caidos</p>
@@ -62,7 +62,7 @@ export const mailOptionGeneratePassword = (email: string, first_name: string, ne
         <p style="background-color: #ffffff; color: #000000;">
           ${newPass}
         </p>
-        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px; overflow: hidden;">
+        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000; width: 300px; height: 300px; overflow: hidden;">
           <img src='${image}' alt="imagen-logo-PajarosCaidos" style="width: 100%; height: auto;">
         </div>
         <p style="color: #ffffff;">ONG Pajaros Caidos</p>
