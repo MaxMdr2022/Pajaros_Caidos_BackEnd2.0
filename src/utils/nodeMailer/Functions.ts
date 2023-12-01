@@ -28,16 +28,16 @@ export const mailOption = (email: string, first_name: string, code: string) => {
     subject: 'Active su cuenta Pájaros Caídos ahora', // Subject line
     html: `
       <div style="text-align: center; background-color: #790595e0; padding: 20px;">
-        <p>
-          Hola, ${first_name} Gracias por registrarte en Pájaros Caídos. Copie el siguiente código para verificar su correo electrónico. :D
+        <p style="color: #ffffff;">
+            Hola, ${first_name} Gracias por registrarte en Pájaros Caídos. Copie el siguiente código para verificar su correo electrónico. :D
         </p>
         <p style="background-color: #ffffff; color: #000000;">
-          ${code}
+            ${code}
         </p>
-        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px;">
-          <img src='${image}' alt="imagen-logo-PajarosCaidos" style=" width: 300px; height: 250px; ">
+        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px; overflow: hidden;">
+            <img src='${image}' alt="imagen-logo-PajarosCaidos" style="width: 100%; height: auto;">
         </div>
-        <p>ONG Pajaros Caidos</p>
+        <p style="color: #ffffff;">ONG Pajaros Caidos</p>
     </div>
     `,
 
@@ -54,7 +54,7 @@ export const mailOptionGeneratePassword = (email: string, first_name: string, ne
     subject: 'Recuperación de la cuenta Pajaros Caidos', // Subject line
     html: `
     <div style="text-align: center; background-color: #790595e0; padding: 20px;">
-      <p>
+      <p style="color: #ffffff;">
         Hola, ${first_name}
         Se solicito generar una nueva contraseña de su cuenta en Pajaros Caidos.
         Una vez iniciada sesión con la nueva contraseña. Diríjase a su perfil y en configuración cree una nueva.
@@ -62,10 +62,10 @@ export const mailOptionGeneratePassword = (email: string, first_name: string, ne
         <p style="background-color: #ffffff; color: #000000;">
           ${newPass}
         </p>
-        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px;">
-          <img src='${image}' alt="imagen-logo-PajarosCaidos" style=" width: 300px; height: 250px; ">
+        <div style="border:solid white; display: inline-block; border-radius: 50%; background-color:#000000bf; width: 300px; height: 300px; overflow: hidden;">
+          <img src='${image}' alt="imagen-logo-PajarosCaidos" style="width: 100%; height: auto;">
         </div>
-        <p>ONG Pajaros Caidos</p>
+        <p style="color: #ffffff;">ONG Pajaros Caidos</p>
     </div>
     `,
 

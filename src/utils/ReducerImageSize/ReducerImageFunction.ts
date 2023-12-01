@@ -8,24 +8,17 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
   try {
     if (!Array.isArray(image)) {
       const imageInfo = await sharp(image.tempFilePath).metadata()
-      console.log('image: ', image.tempFilePath)
-      console.log('image info; ', imageInfo)
-
-      console.log('not array size: ', imageInfo.size)
 
       //si metadata() no consigue el tamaño de la imagen la busco con la sig func
       let imageSize = 0
       if (imageInfo && imageInfo.size === undefined) {
         imageSize = await getFileSize(image.tempFilePath)
-        console.log('image size: ', imageSize)
       }
 
       if (
         (imageInfo && imageInfo.size > MAX_IMAGE_SIZE_BYTES) ||
         imageSize > MAX_IMAGE_SIZE_BYTES
       ) {
-        console.log('entro not a')
-
         const outputImageBuffer = await sharp(image.tempFilePath)
           .resize({ width: 800 })
           .jpeg({ quality: 60 })
@@ -45,20 +38,16 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
       const compressedImages = await Promise.all(
         image.map(async (img) => {
           const imageInfo = await sharp(img.tempFilePath).metadata()
-          console.log('array size: ', imageInfo.size)
 
           let imageSize = 0
           if (imageInfo && imageInfo.size === undefined) {
             imageSize = await getFileSize(img.tempFilePath)
-            console.log('image size: ', imageSize)
           }
 
           if (
             (imageInfo && imageInfo.size > MAX_IMAGE_SIZE_BYTES) ||
             imageSize > MAX_IMAGE_SIZE_BYTES
           ) {
-            console.log('entro a')
-
             const outputImageBuffer = await sharp(img.tempFilePath)
               .resize({ width: 800 })
               .jpeg({ quality: 60 })
@@ -82,7 +71,6 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
 const getFileSize = async (filePath) => {
   try {
     const stats = await fs.promises.stat(filePath)
-    console.log('stats: ', stats)
 
     return stats.size
   } catch (error) {
