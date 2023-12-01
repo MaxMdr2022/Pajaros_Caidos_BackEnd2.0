@@ -47,7 +47,16 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
           const imageInfo = await sharp(img.tempFilePath).metadata()
           console.log('array size: ', imageInfo.size)
 
-          if (imageInfo.size > MAX_IMAGE_SIZE_BYTES) {
+          let imageSize = 0
+          if (imageInfo && imageInfo.size === undefined) {
+            imageSize = await getFileSize(img.tempFilePath)
+            console.log('image size: ', imageSize)
+          }
+
+          if (
+            (imageInfo && imageInfo.size > MAX_IMAGE_SIZE_BYTES) ||
+            imageSize > MAX_IMAGE_SIZE_BYTES
+          ) {
             console.log('entro a')
 
             const outputImageBuffer = await sharp(img.tempFilePath)
