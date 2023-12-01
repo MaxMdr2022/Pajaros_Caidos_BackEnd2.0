@@ -6,6 +6,7 @@ import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 import bcrypt from 'bcrypt'
 import { File } from '../../utils/cloudinary/Files'
 import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
+import { reducerImageSize } from '../../utils/ReducerImageSize/ReducerImageFunction'
 
 const helper = new UserHelper()
 
@@ -368,7 +369,9 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     }
     const { avatar } = req.files
 
-    const response = await uploadImg(avatar, File.USER)
+    const compactImage: any = await reducerImageSize(avatar)
+
+    const response = await uploadImg(compactImage, File.USER)
 
     if (typeof response === 'string') {
       const message = 'Error Cloudinary response'

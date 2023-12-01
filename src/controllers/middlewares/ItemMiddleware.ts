@@ -5,6 +5,7 @@ import { UUIDRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber, isValidOrder, isStringOrNumber } from '../../utils/AuxiliaryFunctions'
 import { File } from '../../utils/cloudinary/Files'
 import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
+import { reducerImageSize } from '../../utils/ReducerImageSize/ReducerImageFunction'
 
 const helper = new ItemHelper()
 
@@ -58,7 +59,9 @@ export async function validateItemCreation(req: Request, res: Response, next: Ne
   }
   const { image } = req.files
 
-  const response = await uploadImg(image, File.SHOP)
+  const compactImage: any = await reducerImageSize(image)
+
+  const response = await uploadImg(compactImage, File.SHOP)
 
   if (typeof response === 'string') {
     const message = 'Error Cloudinary response'
@@ -175,7 +178,9 @@ export async function validateDataItemUpdate(req: Request, res: Response, next: 
     }
     const { newImage } = req.files
 
-    const response = await uploadImg(newImage, File.SHOP)
+    const compactImage: any = await reducerImageSize(newImage)
+
+    const response = await uploadImg(compactImage, File.SHOP)
 
     if (typeof response === 'string') {
       const message = 'Error Cloudinary response'

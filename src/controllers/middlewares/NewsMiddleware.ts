@@ -6,6 +6,7 @@ import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 
 import { File } from '../../utils/cloudinary/Files'
 import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
+import { reducerImageSize } from '../../utils/ReducerImageSize/ReducerImageFunction'
 
 const helper = new NewsHelper()
 
@@ -52,7 +53,9 @@ export async function validateDataCreateNews(req: Request, res: Response, next: 
   }
   const { image } = req.files
 
-  const response = await uploadImg(image, File.NEWS)
+  const compactImage: any = await reducerImageSize(image)
+
+  const response = await uploadImg(compactImage, File.NEWS)
 
   if (typeof response === 'string') {
     const message = 'Error Cloudinary response'
@@ -130,7 +133,9 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     }
     const { newImage } = req.files
 
-    const response = await uploadImg(newImage, File.NEWS)
+    const compactImage: any = await reducerImageSize(newImage)
+
+    const response = await uploadImg(compactImage, File.NEWS)
 
     if (typeof response === 'string') {
       const message = 'Error Cloudinary response'
@@ -188,7 +193,9 @@ export async function validateDataCreateBanner(req: Request, res: Response, next
   }
   const { image } = req.files
 
-  const response = await uploadImg(image, File.BANNER)
+  const compactImage: any = await reducerImageSize(image)
+
+  const response = await uploadImg(compactImage, File.BANNER)
 
   if (typeof response === 'string') {
     const message = 'Error Cloudinary response'

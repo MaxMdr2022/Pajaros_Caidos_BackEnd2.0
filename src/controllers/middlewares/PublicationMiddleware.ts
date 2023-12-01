@@ -7,7 +7,6 @@ import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 import { File } from '../../utils/cloudinary/Files'
 import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
 import { reducerImageSize } from '../../utils/ReducerImageSize/ReducerImageFunction'
-import { UploadedFile } from 'express-fileupload'
 
 const helperPublication = new PublicationHelper()
 const helperUser = new UserHelper()
@@ -123,7 +122,9 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     }
     const { newImage } = req.files
 
-    const response = await uploadImg(newImage, File.PUBLICATIONS)
+    const compactImage: any = await reducerImageSize(newImage)
+
+    const response = await uploadImg(compactImage, File.PUBLICATIONS)
 
     if (typeof response === 'string') {
       const message = 'Error Cloudinary response'

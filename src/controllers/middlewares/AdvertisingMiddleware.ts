@@ -5,6 +5,7 @@ import { UUIDRegex } from '../../utils/RegularsExpressions'
 import { isValidNumber } from '../../utils/AuxiliaryFunctions'
 import { File } from '../../utils/cloudinary/Files'
 import { uploadImg } from '../../utils/cloudinary/AuxFunctions'
+import { reducerImageSize } from '../../utils/ReducerImageSize/ReducerImageFunction'
 
 const helper = new AdvertisingHelper()
 
@@ -55,7 +56,9 @@ export async function validateDataCreateAdvertising(
   }
   const { image } = req.files
 
-  const response = await uploadImg(image, File.ADVERTISING)
+  const compactImage: any = await reducerImageSize(image)
+
+  const response = await uploadImg(compactImage, File.ADVERTISING)
 
   if (typeof response === 'string') {
     const message = 'Error Cloudinary response'
@@ -133,7 +136,9 @@ export async function validateDataUpdate(req: Request, res: Response, next: Next
     }
     const { newImage } = req.files
 
-    const response = await uploadImg(newImage, File.ADVERTISING)
+    const compactImage: any = await reducerImageSize(newImage)
+
+    const response = await uploadImg(compactImage, File.ADVERTISING)
 
     if (typeof response === 'string') {
       const message = 'Error Cloudinary response'
