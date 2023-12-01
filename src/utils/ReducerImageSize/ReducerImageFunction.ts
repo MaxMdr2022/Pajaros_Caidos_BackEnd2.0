@@ -3,7 +3,7 @@ import { UploadedFile } from 'express-fileupload'
 import fs from 'fs'
 
 export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | undefined) => {
-  const MAX_IMAGE_SIZE_BYTES = 550 * 1024 // 550kb
+  const MAX_IMAGE_SIZE_BYTES = 250 * 1024 // 250kb
 
   try {
     if (!Array.isArray(image)) {
