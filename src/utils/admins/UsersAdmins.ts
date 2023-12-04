@@ -1,5 +1,5 @@
 const adminImage =
-  'https://res.cloudinary.com/de5xjegp3/image/upload/v1700157241/Assets/76795-200_kefpm3_e5oc8j.png'
+  'https://res.cloudinary.com/de5xjegp3/image/upload/v1701653397/STATIC%20IMAGE/76795-200_kefpm3_lunp5a.png'
 
 const UsersAdmins = [
   //----------------Usuario de prueba----------------------------------

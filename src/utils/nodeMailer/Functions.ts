@@ -21,7 +21,7 @@ export const transporter = nodemailer.createTransport({
 
 export const mailOption = (email: string, first_name: string, code: string) => {
   const image =
-    'https://res.cloudinary.com/de5xjegp3/image/upload/v1700346206/Assets/navbar-logo_ljrvgg_credjd.webp'
+    'https://res.cloudinary.com/de5xjegp3/image/upload/v1701653472/STATIC%20IMAGE/navbar-logo_ljrvgg_fepqsr.webp'
   return {
     from: 'ONG Pajaros Caidos', // sender address
     to: `${email}`, // list of receivers
@@ -47,7 +47,7 @@ export const mailOption = (email: string, first_name: string, code: string) => {
 
 export const mailOptionGeneratePassword = (email: string, first_name: string, newPass: string) => {
   const image =
-    'https://res.cloudinary.com/de5xjegp3/image/upload/v1700346206/Assets/navbar-logo_ljrvgg_credjd.webp'
+    'https://res.cloudinary.com/de5xjegp3/image/upload/v1701653472/STATIC%20IMAGE/navbar-logo_ljrvgg_fepqsr.webp'
   return {
     from: 'ONG Pajaros Caidos', // sender address
     to: `${email}`, // list of receivers
