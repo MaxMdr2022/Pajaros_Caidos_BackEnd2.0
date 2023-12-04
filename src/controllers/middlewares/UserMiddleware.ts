@@ -64,7 +64,7 @@ export async function validateCreateUser(req: Request, res: Response, next: Next
     last_name,
     avatar: {
       secure_url:
-        'https://res.cloudinary.com/de5xjegp3/image/upload/v1700157241/Assets/456212_yncwde_f2kzcg_bcdjkv.png',
+        'https://res.cloudinary.com/de5xjegp3/image/upload/v1701653395/STATIC%20IMAGE/456212_yncwde_f2kzcg_lbzj0z.png',
     },
     phone_number,
     province,
@@ -154,7 +154,7 @@ export async function validateDataUserAuth0(req: Request, res: Response, next: N
   data.nick_name = nick_name
   data.avatar = {
     secure_url:
-      'https://res.cloudinary.com/de5xjegp3/image/upload/v1700157241/Assets/456212_yncwde_f2kzcg_bcdjkv.png',
+      'https://res.cloudinary.com/de5xjegp3/image/upload/v1701653395/STATIC%20IMAGE/456212_yncwde_f2kzcg_lbzj0z.png',
   }
 
   res.locals.user = user
