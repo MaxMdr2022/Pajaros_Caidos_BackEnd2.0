@@ -100,7 +100,7 @@ export async function validateDataLogIn(req: Request, res: Response, next: NextF
   if (user.registerWithAuth0) {
     const message = `This user must log in with google.`
 
-    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.InvalidBody))
+    return res.status(404).send(new ErrorResponse(message, ErrorCodeType.UserGoogle))
   }
   // if(!user.emailValidateCode){
   //   const message = `The user must validate the email.`

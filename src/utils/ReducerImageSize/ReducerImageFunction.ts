@@ -20,7 +20,7 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
         imageSize > MAX_IMAGE_SIZE_BYTES
       ) {
         const outputImageBuffer = await sharp(image.tempFilePath)
-          .resize({ width: 800 })
+          // .resize({ width: 800 })
           .jpeg({ quality: 60 })
           .toBuffer()
 
@@ -49,7 +49,7 @@ export const reducerImageSize = async (image: UploadedFile | UploadedFile[] | un
             imageSize > MAX_IMAGE_SIZE_BYTES
           ) {
             const outputImageBuffer = await sharp(img.tempFilePath)
-              .resize({ width: 800 })
+              // .resize({ width: 800 })
               .jpeg({ quality: 60 })
               .toBuffer()
 

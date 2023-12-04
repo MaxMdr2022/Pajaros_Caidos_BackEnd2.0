@@ -24,6 +24,7 @@ export enum ErrorCodeType {
   ValidateEmailCode = 'VALIDATE_EMAIL_CODE',
   InvalidCode = 'INVALID_CODE',
   UserBanned = 'USER_BANNED',
+  UserGoogle = 'USER_GOOGLE',
 }
 
 export class ErrorResponse {
