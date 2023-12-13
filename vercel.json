@@ -1,26 +1,15 @@
 {
-  "version": 2,
-  "devCommand": "npm run dev",
-  "builds": [
-    {
-      "src": "src/Start.ts",
-      "use": "@vercel/node"
-    }
-  ],
-  "rewrites": [
-    {
-      "source":"/(.*)",
-      "destination":  "/src/Start.ts"
-    }
-  ],
-  "headers": [
-    {
-      "source": "/(.*)",
-      "headers": [
-        { "key": "Access-Control-Allow-Credentials", "value": "true" },
-        { "key": "Access-Control-Allow-Origin", "value": "*" },
-        { "key": "Access-Control-Allow-Methods", "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT" }
-      ]
-    }
-  ]
-}
+    "devCommand": "npm run dev",
+    "builds": [
+      {
+        "src": "src/Start.ts",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/src/Start.ts"
+      }
+    ]
+  }
