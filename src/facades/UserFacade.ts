@@ -10,8 +10,8 @@ import {
 const storage = new MySQLDBStorage()
 
 export class UserFacade {
-  async countUsers(): Promise<number> {
-    return await storage.count(UserListModel)
+  async countUsers(filter?: any): Promise<number> {
+    return await storage.count(UserListModel, filter)
   }
 
   async getAllUsers(data?: any, get?: boolean): Promise<User[]> {
