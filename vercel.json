@@ -1,5 +1,5 @@
 {
-    "devCommand": "npm run dev",
+
     "builds": [
       {
         "src": "src/Start.ts",
