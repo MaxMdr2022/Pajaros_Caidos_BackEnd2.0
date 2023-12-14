@@ -45,7 +45,7 @@ export class UserHelper {
     }
 
     if (userPerPage) {
-      const quantity = await facade.countUsers({ isVoluntary: true })
+      const quantity = await facade.countUsers({ where: { isVoluntary: true } })
 
       const totalPages = Math.ceil(quantity / userPerPage)
 
