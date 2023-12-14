@@ -4,7 +4,6 @@
   "description": "The back-end of this project is the backbone of a multifunctional and versatile social media platform. It provides the capabilities necessary to create, search, update and delete users, manage posts that may include images, comments and reactions, as well as manage an online store for the sale of products. Additionally, the back-end offers functionality to publish news related to your activities. This server is based on technologies such as Express.js and Sequelize and uses PostgreSQL databases to securely store critical user, post, product, and news data. It also includes security features such as user authentication, session management, and JWT token authentication to ensure data privacy and integrity. With this back-end, users can register, share content, interact with other publications, purchase products and stay up to date with the latest news from around the web, providing a comprehensive experience on the platform.",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --config \"./nodemon.json\"/",
     "start":"tsc && node dist/Start.js"
   },
   "keywords": [],
