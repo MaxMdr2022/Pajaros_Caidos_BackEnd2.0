@@ -226,7 +226,8 @@ export class UserHelper {
       {
         name: "Marketing",
         formUrl: "https://forms.gle/rFPDPTedLudMebWR6",
-        image: "",
+        image:
+          "https://res.cloudinary.com/de5xjegp3/image/upload/v1707074307/STATIC%20IMAGE/WhatsApp_Image_2024-01-04_at_19.37.29_1_cnqqeh.jpg ",
       },
       {
         name: "Redes",
